@@ -65,15 +65,6 @@ export default function CCInput({
                 <h2 className="text-xl font-bold">Critical Chance Sources</h2>
             </header>
 
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl text-center">
-                <span className="text-sm uppercase tracking-wider font-semibold text-blue-600">
-                    Total Crit Chance
-                </span>
-                <div className="text-4xl font-black text-blue-900">
-                    {totalCrit.toFixed(2)}%
-                </div>
-            </div>
-
             {/* Workshop menu */}
             <section className="space-y-4">
                 <div className="flex justify-between">
@@ -100,9 +91,6 @@ export default function CCInput({
                         <Switch
                             checked={hasMastery}
                             onCheckedChange={setHasMastery}
-                            style={{
-                                backgroundColor: hasMastery ? "blue" : "gray",
-                            }}
                         />
                     </div>
 
@@ -142,9 +130,6 @@ export default function CCInput({
                         <Switch
                             checked={hasAssist}
                             onCheckedChange={setHasAssist}
-                            style={{
-                                backgroundColor: hasAssist ? "blue" : "gray",
-                            }}
                         />
                     </div>
                     <div>
@@ -155,13 +140,13 @@ export default function CCInput({
                                 </Label>
                                 <div className="flex justify-between py-2">
                                     <Slider
-                                        defaultValue={[0]}
+                                        defaultValue={[assistSubstatEfficiency]}
                                         max={100}
                                         min={0}
                                         onValueChange={(value) => {
                                             setAssistSubstatEfficiency(value[0]);
                                         }}
-                                        className="w-1/2 bg-gray-300"
+                                        className="w-1/2"
                                     />
                                     <span>{assistSubstatEfficiency}</span>
                                 </div>
@@ -195,7 +180,7 @@ export default function CCInput({
                         onValueChange={(value) => {
                             setRelicValue(value[0]);
                         }}
-                        className="w-1/2 bg-gray-300"
+                        className="w-1/2"
                     />
                     <span>{relicValue}</span>
                 </div>

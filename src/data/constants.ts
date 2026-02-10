@@ -8,3 +8,6 @@ export const SUPER_CRIT_VAULT = [0, 2, 4, 6]
 
 export const CRIT_FACTOR_SUBS = [0, 2, 4, 6, 8, 12, 15]
 export const CRIT_FACTOR_VAULT = [0, 5, 10, 15];
+
+export const SUPER_CRIT_MULTI_SUBS = [0, 0, 0, 2, 3, 5, 7]
+export const SUPER_CRIT_MULTI_VAULT = [0, 5, 10, 15]

@@ -28,7 +28,7 @@ export default function OverviewCard({ name, value, onClick, active }: Props) {
             <span>Progress to Max</span>
             <span>100%</span>
           </div>
-          <Progress value={5} className="h-2" />
+          <Progress value={100} className="h-2" />
         </div>
       </CardContent>
     </Card>

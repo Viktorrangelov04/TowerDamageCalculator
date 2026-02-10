@@ -29,22 +29,22 @@ export default function CFInput({
     const [vaultValue, setVaultValue] = useState(0);
 
     const totalCritFactor = calculateTotalCritFactor({
-            substatValue: CRIT_FACTOR_SUBS[substatValue],
-            hasAssist: hasAssist,
-            efficiency: assistSubstatEfficiency,
-            assistValue: CRIT_FACTOR_SUBS[assistSubstatValue],
-            relicValue: relicValue,
-            labValue: labValue,
-            vaultValue: CRIT_FACTOR_VAULT[vaultValue],
-            workshopEnhancementValue: workshopEnhancementValue
-        });
+        substatValue: CRIT_FACTOR_SUBS[substatValue],
+        hasAssist: hasAssist,
+        efficiency: assistSubstatEfficiency,
+        assistValue: CRIT_FACTOR_SUBS[assistSubstatValue],
+        relicValue: relicValue,
+        labValue: labValue,
+        vaultValue: CRIT_FACTOR_VAULT[vaultValue],
+        workshopEnhancementValue: workshopEnhancementValue,
+    });
     useEffect(() => {
-            onUpdate(totalCritFactor);
-        }, [totalCritFactor]);
+        onUpdate(totalCritFactor);
+    }, [totalCritFactor]);
     return (
         <div className="space-y-10">
             <header className="border-b pb-4">
-                <h2 className="text-xl font-bold">Critical Chance Sources</h2>
+                <h2 className="text-xl font-bold">Critical Factor Sources</h2>
             </header>
 
             {/* Workshop menu */}
@@ -55,25 +55,7 @@ export default function CFInput({
                 </div>
             </section>
 
-            <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                    Workshop Enhancement
-                </Label>
-                <div className="flex justify-between py-2">
-                    <Slider
-                        defaultValue={[1]}
-                        max={5}
-                        step={0.01}
-                        min={1}
-                        onValueChange={(value) => {
-                            setWorkshopEnhancementValue(value[0]);
-                        }}
-                        className="w-1/2 bg-gray-300"
-                    />
-                    <span>{workshopEnhancementValue}</span>
-                </div>
-            </section>
-
+            {/* Lab Menu */}
             <section>
                 <Label className="text-sm font-semibold text-gray-700 pr-2">
                     Lab
@@ -87,9 +69,29 @@ export default function CFInput({
                         onValueChange={(value) => {
                             setLabValue(value[0]);
                         }}
-                        className="w-1/2 bg-gray-300"
+                        className="w-1/2"
                     />
                     <span>{labValue}</span>
+                </div>
+            </section>
+
+            {/* Workshop+ Menu */}
+            <section>
+                <Label className="text-sm font-semibold text-gray-700 pr-2">
+                    Workshop Enhancement
+                </Label>
+                <div className="flex justify-between py-2">
+                    <Slider
+                        defaultValue={[1]}
+                        max={5}
+                        step={0.01}
+                        min={1}
+                        onValueChange={(value) => {
+                            setWorkshopEnhancementValue(value[0]);
+                        }}
+                        className="w-1/2"
+                    />
+                    <span>{workshopEnhancementValue}</span>
                 </div>
             </section>
 
@@ -111,9 +113,6 @@ export default function CFInput({
                         <Switch
                             checked={hasAssist}
                             onCheckedChange={setHasAssist}
-                            style={{
-                                backgroundColor: hasAssist ? "blue" : "gray",
-                            }}
                         />
                     </div>
                     <div>
@@ -124,7 +123,7 @@ export default function CFInput({
                                 </Label>
                                 <div className="flex justify-between py-2">
                                     <Slider
-                                        defaultValue={[0]}
+                                        defaultValue={[assistSubstatEfficiency]}
                                         max={100}
                                         min={0}
                                         onValueChange={(value) => {
@@ -132,7 +131,7 @@ export default function CFInput({
                                                 value[0]
                                             );
                                         }}
-                                        className="w-1/2 bg-gray-300"
+                                        className="w-1/2"
                                     />
                                     <span>{assistSubstatEfficiency}</span>
                                 </div>
@@ -166,7 +165,7 @@ export default function CFInput({
                         onValueChange={(value) => {
                             setRelicValue(value[0]);
                         }}
-                        className="w-1/2 bg-gray-300"
+                        className="w-1/2"
                     />
                     <span>{relicValue}</span>
                 </div>

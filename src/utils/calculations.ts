@@ -33,6 +33,19 @@ export interface CritFactorInputs{
     vaultValue: number;
 }
 
+export interface SuperCritMultiInputs{
+    hasMastery: boolean;
+    masteryValue: number;
+    substatValue: number;
+    hasAssist: boolean;
+    efficiency: number;
+    assistValue: number;
+    relicValue: number;
+    labValue: number;
+    workshopEnhancementValue: number;
+    vaultValue: number;
+}
+
 export const calculateTotalCrit = (inputs: CritInputs): number => {
     const {
         cardValue,
@@ -93,6 +106,29 @@ export const calculateTotalCritFactor = (inputs: CritFactorInputs): number=>{
     const effectiveAssist = hasAssist ? assistValue * (efficiency / 100) : 0;
 
     const total = (16.2*labValue+ substatValue+ effectiveAssist)*(1+relicValue/100)*(1+vaultValue/100)*workshopEnhancementValue;
+
+    return total;
+}
+
+export const calculateTotalSuperCritMulti = (inputs:SuperCritMultiInputs): number =>{
+    const{
+        hasMastery,
+        masteryValue,
+        substatValue,
+        hasAssist,
+        efficiency,
+        assistValue,
+        relicValue,
+        vaultValue,
+        labValue,
+        workshopEnhancementValue
+    } = inputs;
+
+    const effectiveMastery = hasMastery ? masteryValue : 0;
+
+    const effectiveAssist = hasAssist ? assistValue * (efficiency / 100) : 0;
+
+    const total = (13.2*labValue + substatValue + effectiveAssist)*(1+relicValue/100)*(1+vaultValue/100)*(1+effectiveMastery/100)*workshopEnhancementValue
 
     return total;
 }

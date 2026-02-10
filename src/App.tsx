@@ -8,7 +8,7 @@ import UWMenu from "./components/UWMenu.tsx";
 
 function App() {
   const [activeTab, setActiveTab] = useState<string | null>(null);
-  
+  const [totalCritMultiplier, setTotalCritMultiplier] = useState(1);
 
   return (
     <div className="max-w-6xl mx-auto p-8">
@@ -22,7 +22,7 @@ function App() {
       />
       <OverviewCard 
         name="Crit bonus" 
-        value={"1"}
+        value={`${totalCritMultiplier.toFixed(2)}x`}
         onClick={() => setActiveTab('crit')} 
         active={activeTab === 'crit'} 
       />
@@ -41,7 +41,7 @@ function App() {
         )}
         
         {activeTab === 'damage' && <DamageMenu />}
-        {activeTab === 'crit' && <CritMenu />}
+        {activeTab === 'crit' && <CritMenu onUpdate={(val) => setTotalCritMultiplier(val)} />}
         {activeTab === 'uw' && <UWMenu />}
       </div>
     </div>
