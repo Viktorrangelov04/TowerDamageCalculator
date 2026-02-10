@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import LevelPicker from "../LevelPicker";
-import { CRIT_MASTERY_STATS, SUPER_CRIT_SUBS, SUPER_CRIT_VAULT } from "@/data/constants";
+import {
+    CRIT_MASTERY_STATS,
+    SUPER_CRIT_SUBS,
+    SUPER_CRIT_VAULT,
+} from "@/data/constants";
 import { Switch } from "../ui/switch";
 import { calculateTotalSuperCrit } from "@/utils/calculations";
 import { Slider } from "../ui/slider";
@@ -46,7 +50,6 @@ export default function SCCInput({
         relicValue: relicValue,
         labValue: labValue,
         vaultValue: SUPER_CRIT_VAULT[vaultValue],
-
     });
 
     useEffect(() => {
@@ -54,7 +57,10 @@ export default function SCCInput({
     }, [totalSuperCrit]);
 
     return (
-        <>
+        <div className="space-y-10">
+            <header className="border-b pb-4">
+                <h2 className="text-xl font-bold">Super Crit Chance Sources</h2>
+            </header>
             <section className="py-4">
                 <div className="flex justify-between">
                     <h3>Workshop</h3>
@@ -70,9 +76,6 @@ export default function SCCInput({
                     <Switch
                         checked={hasMastery}
                         onCheckedChange={setHasMastery}
-                        style={{
-                            backgroundColor: hasMastery ? "blue" : "gray",
-                        }}
                     />
                 </div>
 
@@ -109,9 +112,6 @@ export default function SCCInput({
                         <Switch
                             checked={hasAssist}
                             onCheckedChange={setHasAssist}
-                            style={{
-                                backgroundColor: hasAssist ? "blue" : "gray",
-                            }}
                         />
                     </div>
                     <div>
@@ -122,7 +122,7 @@ export default function SCCInput({
                                 </Label>
                                 <div className="flex justify-between py-2">
                                     <Slider
-                                        defaultValue={[0]}
+                                        defaultValue={[assistSubstatEfficiency]}
                                         max={100}
                                         min={0}
                                         onValueChange={(value) => {
@@ -130,7 +130,7 @@ export default function SCCInput({
                                                 value[0]
                                             );
                                         }}
-                                        className="w-1/2 bg-gray-300"
+                                        className="w-1/2"
                                     />
                                     <span>{assistSubstatEfficiency}</span>
                                 </div>
@@ -164,7 +164,7 @@ export default function SCCInput({
                         onValueChange={(value) => {
                             setRelicValue(value[0]);
                         }}
-                        className="w-1/2 bg-gray-300"
+                        className="w-1/2"
                     />
                     <span>{relicValue}</span>
                 </div>
@@ -178,12 +178,12 @@ export default function SCCInput({
                     <Slider
                         defaultValue={[0]}
                         max={5}
-                        step = {0.1}
+                        step={0.1}
                         min={0}
                         onValueChange={(value) => {
                             setLabValue(value[0]);
                         }}
-                        className="w-1/2 bg-gray-300"
+                        className="w-1/2"
                     />
                     <span>{labValue}</span>
                 </div>
@@ -199,6 +199,6 @@ export default function SCCInput({
                     />
                 </div>
             </section>
-        </>
+        </div>
     );
 }
