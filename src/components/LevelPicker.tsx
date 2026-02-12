@@ -21,7 +21,7 @@ export default function CardLevelPicker({ label, levels, currentLevel, onChange,
 
       <ToggleGroup
         type="single"
-        value={currentLevel.toString()}
+        value={(currentLevel ?? 0).toString()}
         onValueChange={(val) => val && onChange(parseInt(val))}
         className="flex flex-wrap gap-1 justify-start"
       >

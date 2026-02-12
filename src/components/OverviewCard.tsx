@@ -8,7 +8,7 @@ interface Props{
     active: boolean;
 }
 
-export default function OverviewCard({ name, value, onClick, active }: Props) {
+export default function OverviewCard({ name, value, onClick, active}: Props) {
   return (
     <Card 
       onClick={onClick} 

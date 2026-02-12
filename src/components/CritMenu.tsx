@@ -1,35 +1,47 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import OverviewCard from "./OverviewCard";
 import CCInput from "./crit/CCInput";
 import CFInput from "./crit/CFInput";
 import SCCInput from "./crit/SCCInput";
 import SCMInput from "./crit/SCMInput";
+import { 
+    calculateTotalCrit, 
+    calculateTotalCritFactor, 
+    calculateTotalSuperCrit, 
+    calculateTotalSuperCritMulti 
+} from "@/utils/calculations";
+import type { PlayerBuild } from "@/types";
 
 interface CritMenuProps {
-    onUpdate: (value: number) => void;
+    build: any; 
+    setBuild: React.Dispatch<React.SetStateAction<PlayerBuild>>;
 }
 
-export default function CritMenu({ onUpdate }: CritMenuProps) {
-    const [selectedSubStat, setSelectedSubStat] = useState("CC");
-    const [hasMastery, setHasMastery] = useState(false);
-    const [mastLvl, setMastLvl] = useState(0);
-    const [hasAssist, setHasAssist] = useState(false);
-    const [assistSubstatEfficiency, setAssistSubstatEfficiency] = useState(0);
-    const [totals, setTotals] = useState({
-        cc: 0,
-        cf: 0,
-        scc: 0,
-        scm: 0,
-    });
+export default function CritMenu({ build, setBuild }: CritMenuProps) {
+    const [selectedSubStat, setSelectedSubStat] = useState("Critical Chance");
 
-    const critMultiplier =
-        (1 + (totals.cc / 100) * totals.cf) *
-        (1 + (totals.scc / 100) * (totals.cc / 100) * totals.scm);
+    const updateField = (category: keyof PlayerBuild, field: string, value: any) => {
+        setBuild((prev) => ({
+            ...prev,
+            [category]: { 
+                ...(prev[category] as object), 
+                [field]: value 
+            }
+        }));
+    };
 
-    useEffect(() => {
-            onUpdate(critMultiplier);
-        }, [critMultiplier]);
-            
+    const setHasMastery = (val: boolean) => setBuild((p: any) => ({ ...p, hasMastery: val }));
+    const setMasteryValue = (val: number) => setBuild((p: any) => ({ ...p, masteryValue: val }));
+    const setHasAssist = (val: boolean) => setBuild((p: any) => ({ ...p, hasAssist: val }));
+    const setAssistSubstatEfficiency = (val: number) => setBuild((p: any) => ({ ...p, assistSubstatEfficiency: val }));
+
+    const totals = {
+        cc: calculateTotalCrit({ ...build.cc, hasMastery: build.hasMastery, masteryValue: build.masteryValue, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency }),
+        cf: calculateTotalCritFactor({ ...build.cf, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency }),
+        scc: calculateTotalSuperCrit({ ...build.scc, hasMastery: build.hasMastery, masteryValue: build.masteryValue, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency }),
+        scm: calculateTotalSuperCritMulti({ ...build.scm, hasMastery: build.hasMastery,masteryValue: build.masteryValue,  hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency }),
+    };
+
     return (
         <div className="space-y-6">
             <h2 className="text-xl font-bold">Crit Configuration</h2>
@@ -62,59 +74,59 @@ export default function CritMenu({ onUpdate }: CritMenuProps) {
             </div>
 
             <div className="bg-white rounded-xl border p-6 shadow-sm min-h-[300px]">
-                {!selectedSubStat && (
-                    <p className="text-center text-muted-foreground pt-10">
-                        Select a category above to start calculating.
-                    </p>
-                )}
-
                 {selectedSubStat === "Critical Chance" && (
                     <CCInput
-                        hasMastery={hasMastery}
+                        data={build.cc}
+                        onUpdateField={(f, v) => updateField("cc", f, v)}
+                        hasMastery={build.hasMastery}
                         setHasMastery={setHasMastery}
-                        mastLvl={mastLvl}
-                        setMastLvl={setMastLvl}
-                        hasAssist={hasAssist}
+                        masteryValue={build.masteryValue}
+                        setMasteryValue={setMasteryValue}
+                        hasAssist={build.hasAssist}
                         setHasAssist={setHasAssist}
-                        assistSubstatEfficiency={assistSubstatEfficiency}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
-                        onUpdate={(val) => setTotals({ ...totals, cc: val })}
                     />
                 )}
 
                 {selectedSubStat === "Critical Factor" && (
                     <CFInput
-                        hasAssist={hasAssist}
+                        data={build.cf}
+                        onUpdateField={(f, v) => updateField("cf", f, v)}
+                        hasAssist={build.hasAssist}
                         setHasAssist={setHasAssist}
-                        assistSubstatEfficiency={assistSubstatEfficiency}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
-                        onUpdate={(val) => setTotals({ ...totals, cf: val })}
                     />
                 )}
+
                 {selectedSubStat === "Super Crit Chance" && (
                     <SCCInput
-                        hasMastery={hasMastery}
+                        data={build.scc}
+                        onUpdateField={(f, v) => updateField("scc", f, v)}
+                        hasMastery={build.hasMastery}
                         setHasMastery={setHasMastery}
-                        mastLvl={mastLvl}
-                        setMastLvl={setMastLvl}
-                        hasAssist={hasAssist}
+                        masteryValue={build.masteryValue}
+                        setMasteryValue={setMasteryValue}
+                        hasAssist={build.hasAssist}
                         setHasAssist={setHasAssist}
-                        assistSubstatEfficiency={assistSubstatEfficiency}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
-                        onUpdate={(val) => setTotals({ ...totals, scc: val })}
                     />
                 )}
+
                 {selectedSubStat === "Super Crit Mult" && (
                     <SCMInput
-                        hasMastery={hasMastery}
+                        data={build.scm}
+                        onUpdateField={(f, v) => updateField("scm", f, v)}
+                        hasMastery={build.hasMastery}
                         setHasMastery={setHasMastery}
-                        mastLvl={mastLvl}
-                        setMastLvl={setMastLvl}
-                        hasAssist={hasAssist}
+                        masteryValue={build.masteryValue}
+                        setMasteryValue={setMasteryValue}
+                        hasAssist={build.hasAssist}
                         setHasAssist={setHasAssist}
-                        assistSubstatEfficiency={assistSubstatEfficiency}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
-                        onUpdate={(val) => setTotals({ ...totals, scm: val })}
                     />
                 )}
             </div>

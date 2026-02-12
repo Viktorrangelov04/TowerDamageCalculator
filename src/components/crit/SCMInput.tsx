@@ -3,56 +3,34 @@ import LevelPicker from "../LevelPicker";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import SubstatPicker from "../SubstatPicker";
-import { useEffect, useState } from "react";
 import { Slider } from "../ui/slider";
-import { calculateTotalSuperCritMulti } from "@/utils/calculations";
+import type { SCMBuild } from "@/types";
 
-interface SCMInputProps{
-    onUpdate: (value: number) => void;
+interface SCMInputProps {
+    data: SCMBuild; 
+    onUpdateField: (field: keyof SCMBuild, value: any) => void;
     hasMastery: boolean;
     setHasMastery: (val: boolean) => void;
-    mastLvl: number;
-    setMastLvl: (val: number) => void;
+    masteryValue: number;
+    setMasteryValue: (val: number) => void;
     hasAssist: boolean;
     setHasAssist: (val: boolean) => void;
     assistSubstatEfficiency: number;
     setAssistSubstatEfficiency: (val: number) => void;
 }
+
 export default function SCMInput({
+    data,
+    onUpdateField,
     hasMastery,
     setHasMastery,
-    mastLvl,
-    setMastLvl,
+    masteryValue,
+    setMasteryValue,
     hasAssist,
     setHasAssist,
     assistSubstatEfficiency,
     setAssistSubstatEfficiency,
-    onUpdate,
-}: SCMInputProps){
-    const [labValue, setLabValue] = useState(0);
-    const [workshopEnhancementValue, setWorkshopEnhancementValue] = useState(0);
-    const [substatValue, setSubstatValue] = useState(0);
-    const [assistSubstatValue, setAssistSubstatValue] = useState(0);
-    const [relicValue, setRelicValue] = useState(0);
-    const [vaultValue, setVaultValue] = useState(0);
-
-    const totalSuperCritMulti = calculateTotalSuperCritMulti({
-            masteryValue: CRIT_MASTERY_STATS[mastLvl],
-            hasMastery: hasMastery,
-            hasAssist: hasAssist,
-            substatValue: SUPER_CRIT_MULTI_SUBS[substatValue],
-            efficiency: assistSubstatEfficiency,
-            assistValue: SUPER_CRIT_MULTI_SUBS[assistSubstatValue],
-            relicValue: relicValue,
-            labValue: labValue,
-            vaultValue: SUPER_CRIT_MULTI_VAULT[vaultValue],
-            workshopEnhancementValue: workshopEnhancementValue
-        });
-
-        useEffect(() => {
-                onUpdate(totalSuperCritMulti);
-            }, [totalSuperCritMulti]);
-
+}: SCMInputProps) {
     return (
         <div className="space-y-10">
             <header className="border-b pb-4">
@@ -61,70 +39,57 @@ export default function SCMInput({
 
             <section className="py-4">
                 <div className="flex justify-between">
-                    <h3>Workshop</h3>
+                    <h3>Workshop Base</h3>
                     <span className="text-sm font-bold text-primary">13.2x</span>
                 </div>
             </section>
 
+            {/* Lab Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                    Lab
-                </Label>
+                <Label className="text-sm font-semibold text-gray-700 pr-2">Lab</Label>
                 <div className="flex justify-between py-2">
                     <Slider
-                        defaultValue={[0]}
+                        value={[data.labValue || 1]}
                         max={1.8}
-                        step = {0.02}
+                        step={0.02}
                         min={1}
-                        onValueChange={(value) => {
-                            setLabValue(value[0]);
-                        }}
+                        onValueChange={(v) => onUpdateField("labValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{labValue}</span>
+                    <span>{data.labValue}</span>
                 </div>
             </section>
 
+            {/* Workshop Enhancement Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                    Workshop Enhancement
-                </Label>
+                <Label className="text-sm font-semibold text-gray-700 pr-2">Workshop Enhancement</Label>
                 <div className="flex justify-between py-2">
                     <Slider
-                        defaultValue={[1]}
+                        value={[data.workshopEnhancementValue || 1]}
                         max={5}
                         step={0.01}
                         min={1}
-                        onValueChange={(value) => {
-                            setWorkshopEnhancementValue(value[0]);
-                        }}
+                        onValueChange={(v) => onUpdateField("workshopEnhancementValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{workshopEnhancementValue}</span>
+                    <span>{data.workshopEnhancementValue}</span>
                 </div>
             </section>
 
+            {/* Mastery Toggle & Picker */}
             <div className="space-y-4">
-                <div className="flex items-center">
-                    <Label className="text-sm font-semibold text-gray-700 pr-2">
-                        Mastery Unlocked?
-                    </Label>
-
-                    <Switch
-                        checked={hasMastery}
-                        onCheckedChange={setHasMastery}
-                    />
+                <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold text-gray-700">Mastery Unlocked?</Label>
+                    <Switch checked={hasMastery} onCheckedChange={setHasMastery} />
                 </div>
 
                 {hasMastery ? (
-                    <div className="">
-                        <LevelPicker
-                            label="Crit Mastery Level"
-                            levels={CRIT_MASTERY_STATS}
-                            currentLevel={mastLvl}
-                            onChange={setMastLvl}
-                        />
-                    </div>
+                    <LevelPicker
+                        label="Crit Mastery Level"
+                        levels={CRIT_MASTERY_STATS}
+                        currentLevel={masteryValue}
+                        onChange={setMasteryValue}
+                    />
                 ) : (
                     <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
                         Enable Mastery to configure levels
@@ -132,95 +97,65 @@ export default function SCMInput({
                 )}
             </div>
 
-            {/* Subs */}
-            <section className="py-4">
+            {/* Substats Section */}
+            <section className="py-4 space-y-4">
                 <SubstatPicker
                     label="Main sub"
                     levels={SUPER_CRIT_MULTI_SUBS}
-                    currentLevel={substatValue}
+                    currentLevel={data.substatValue}
                     efficiency={100}
-                    onChange={setSubstatValue}
+                    onChange={(val) => onUpdateField("substatValue", val)}
                 />
 
-                <div className="py-4">
-                    <div className="flex items-center">
-                        <Label className="text-sm font-semibold text-gray-700 pr-2">
-                            Cannon Assist Unlocked?
-                        </Label>
-
-                        <Switch
-                            checked={hasAssist}
-                            onCheckedChange={setHasAssist}
-                        />
+                <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                        <Label className="text-sm font-semibold text-gray-700">Cannon Assist Unlocked?</Label>
+                        <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
                     </div>
-                    <div>
-                        {hasAssist ? (
-                            <div>
-                                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                                    Substat efficiency
-                                </Label>
-                                <div className="flex justify-between py-2">
-                                    <Slider
-                                        defaultValue={[assistSubstatEfficiency]}
-                                        max={100}
-                                        min={0}
-                                        onValueChange={(value) => {
-                                            setAssistSubstatEfficiency(
-                                                value[0]
-                                            );
-                                        }}
-                                        className="w-1/2"
-                                    />
-                                    <span>{assistSubstatEfficiency}</span>
-                                </div>
-
-                                <SubstatPicker
-                                    label="Assist sub"
-                                    levels={SUPER_CRIT_MULTI_SUBS}
-                                    currentLevel={assistSubstatValue}
-                                    efficiency={assistSubstatEfficiency}
-                                    onChange={setAssistSubstatValue}
-                                />
-                            </div>
-                        ) : (
-                            <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
-                                Enable Cannon Assist to configure levels
-                            </div>
-                        )}
-                    </div>
+                    {hasAssist && (
+                        <div className="space-y-4 border-l-2 pl-4">
+                            <Label className="text-sm font-semibold">Substat efficiency ({assistSubstatEfficiency}%)</Label>
+                            <Slider
+                                value={[assistSubstatEfficiency]}
+                                max={100}
+                                onValueChange={(v) => setAssistSubstatEfficiency(v[0])}
+                                className="w-1/2"
+                            />
+                            <SubstatPicker
+                                label="Assist sub"
+                                levels={SUPER_CRIT_MULTI_SUBS}
+                                currentLevel={data.assistSubstatValue}
+                                efficiency={assistSubstatEfficiency}
+                                onChange={(val) => onUpdateField("assistSubstatValue", val)}
+                            />
+                        </div>
+                    )}
                 </div>
             </section>
 
-            {/* Relics                 */}
-                        <section>
-                            <Label className="text-sm font-semibold text-gray-700 pr-2">
-                                Relics
-                            </Label>
-                            <div className="flex justify-between py-2">
-                                <Slider
-                                    defaultValue={[0]}
-                                    max={5}
-                                    min={0}
-                                    onValueChange={(value) => {
-                                        setRelicValue(value[0]);
-                                    }}
-                                    className="w-1/2"
-                                />
-                                <span>{relicValue}</span>
-                            </div>
-                        </section>
+            {/* Relics Slider */}
+            <section>
+                <Label className="text-sm font-semibold text-gray-700 pr-2">Relics</Label>
+                <div className="flex justify-between py-2">
+                    <Slider
+                        value={[data.relicValue || 0]}
+                        max={5}
+                        onValueChange={(v) => onUpdateField("relicValue", v[0])}
+                        className="w-1/2"
+                    />
+                    <span>{data.relicValue}</span>
+                </div>
+            </section>
             
-                        {/* Vault */}
-                        <section>
-                            <div className="space-y-4">
-                                <LevelPicker
-                                    label="Vault"
-                                    levels={SUPER_CRIT_MULTI_VAULT}
-                                    currentLevel={vaultValue}
-                                    onChange={setVaultValue}
-                                />
-                            </div>
-                        </section>
+            {/* Vault LevelPicker */}
+            <section>
+                <LevelPicker
+                    label="Vault"
+                    levels={SUPER_CRIT_MULTI_VAULT}
+                    currentLevel={data.vaultValue}
+                    onChange={(val) => onUpdateField("vaultValue", val)}
+                />
+            </section>
         </div>
     )
 }

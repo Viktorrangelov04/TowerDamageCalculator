@@ -11,3 +11,7 @@ export const CRIT_FACTOR_VAULT = [0, 5, 10, 15];
 
 export const SUPER_CRIT_MULTI_SUBS = [0, 0, 0, 2, 3, 5, 7]
 export const SUPER_CRIT_MULTI_VAULT = [0, 5, 10, 15]
+
+export const UW_VAULT = [0, 5, 10, 15, 20]
+
+export const CL_SUBS = [0, 8, 15, 25, 50, 100, 250]

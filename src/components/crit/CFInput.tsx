@@ -1,186 +1,134 @@
-import { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Slider } from "../ui/slider";
 import { CRIT_FACTOR_SUBS, CRIT_FACTOR_VAULT } from "@/data/constants";
 import SubstatPicker from "../SubstatPicker";
 import { Switch } from "../ui/switch";
 import LevelPicker from "../LevelPicker";
-import { calculateTotalCritFactor } from "@/utils/calculations";
+import type { CFBuild } from "@/types";
 
 interface CFInputProps {
-    onUpdate: (value: number) => void;
+    data: CFBuild; 
+    onUpdateField: (field: keyof CFBuild, value: any) => void; 
     hasAssist: boolean;
     setHasAssist: (val: boolean) => void;
     assistSubstatEfficiency: number;
     setAssistSubstatEfficiency: (val: number) => void;
 }
+
 export default function CFInput({
+    data,
+    onUpdateField,
     hasAssist,
     setHasAssist,
     assistSubstatEfficiency,
     setAssistSubstatEfficiency,
-    onUpdate,
 }: CFInputProps) {
-    const [workshopEnhancementValue, setWorkshopEnhancementValue] = useState(1);
-    const [labValue, setLabValue] = useState(1);
-    const [substatValue, setSubstatValue] = useState(0);
-    const [assistSubstatValue, setAssistSubstatValue] = useState(0);
-    const [relicValue, setRelicValue] = useState(0);
-    const [vaultValue, setVaultValue] = useState(0);
 
-    const totalCritFactor = calculateTotalCritFactor({
-        substatValue: CRIT_FACTOR_SUBS[substatValue],
-        hasAssist: hasAssist,
-        efficiency: assistSubstatEfficiency,
-        assistValue: CRIT_FACTOR_SUBS[assistSubstatValue],
-        relicValue: relicValue,
-        labValue: labValue,
-        vaultValue: CRIT_FACTOR_VAULT[vaultValue],
-        workshopEnhancementValue: workshopEnhancementValue,
-    });
-    useEffect(() => {
-        onUpdate(totalCritFactor);
-    }, [totalCritFactor]);
     return (
         <div className="space-y-10">
             <header className="border-b pb-4">
                 <h2 className="text-xl font-bold">Critical Factor Sources</h2>
             </header>
 
-            {/* Workshop menu */}
+            {/* Workshop menu (Hardcoded display) */}
             <section className="space-y-4">
                 <div className="flex justify-between">
-                    <h3>Workshop</h3>
+                    <h3>Workshop Base</h3>
                     <span className="text-sm font-bold text-primary">16.2</span>
                 </div>
             </section>
 
             {/* Lab Menu */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                    Lab
-                </Label>
+                <Label className="text-sm font-semibold text-gray-700 pr-2">Lab</Label>
                 <div className="flex justify-between py-2">
                     <Slider
-                        defaultValue={[0]}
+                        value={[data.labValue || 1]}
                         max={3.97}
                         step={0.03}
                         min={1}
-                        onValueChange={(value) => {
-                            setLabValue(value[0]);
-                        }}
+                        onValueChange={(v) => onUpdateField("labValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{labValue}</span>
+                    <span>{data.labValue}</span>
                 </div>
             </section>
 
-            {/* Workshop+ Menu */}
+            {/* Workshop Enhancement Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                    Workshop Enhancement
-                </Label>
+                <Label className="text-sm font-semibold text-gray-700 pr-2">Workshop Enhancement</Label>
                 <div className="flex justify-between py-2">
                     <Slider
-                        defaultValue={[1]}
+                        value={[data.workshopEnhancementValue || 1]}
                         max={5}
                         step={0.01}
                         min={1}
-                        onValueChange={(value) => {
-                            setWorkshopEnhancementValue(value[0]);
-                        }}
+                        onValueChange={(v) => onUpdateField("workshopEnhancementValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{workshopEnhancementValue}</span>
+                    <span>{data.workshopEnhancementValue}</span>
                 </div>
             </section>
 
+            {/* Substats Section */}
             <section className="space-y-4">
                 <SubstatPicker
                     label="Main sub"
                     levels={CRIT_FACTOR_SUBS}
-                    currentLevel={substatValue}
+                    currentLevel={data.substatValue}
                     efficiency={100}
-                    onChange={setSubstatValue}
+                    onChange={(val) => onUpdateField("substatValue", val)}
                 />
 
                 <div className="space-y-4">
-                    <div className="flex items-center">
-                        <Label className="text-sm font-semibold text-gray-700 pr-2">
-                            Cannon Assist Unlocked?
-                        </Label>
-
-                        <Switch
-                            checked={hasAssist}
-                            onCheckedChange={setHasAssist}
-                        />
+                    <div className="flex items-center gap-2">
+                        <Label className="text-sm font-semibold text-gray-700">Cannon Assist Unlocked?</Label>
+                        <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
                     </div>
-                    <div>
-                        {hasAssist ? (
-                            <div>
-                                <Label className="space-y-4 text-sm font-semibold text-gray-700 pr-2">
-                                    Substat efficiency
-                                </Label>
-                                <div className="flex justify-between py-2">
-                                    <Slider
-                                        defaultValue={[assistSubstatEfficiency]}
-                                        max={100}
-                                        min={0}
-                                        onValueChange={(value) => {
-                                            setAssistSubstatEfficiency(
-                                                value[0]
-                                            );
-                                        }}
-                                        className="w-1/2"
-                                    />
-                                    <span>{assistSubstatEfficiency}</span>
-                                </div>
 
-                                <SubstatPicker
-                                    label="Assist sub"
-                                    levels={CRIT_FACTOR_SUBS}
-                                    currentLevel={assistSubstatValue}
-                                    efficiency={assistSubstatEfficiency}
-                                    onChange={setAssistSubstatValue}
-                                />
-                            </div>
-                        ) : (
-                            <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
-                                Enable Cannon Assist to configure levels
-                            </div>
-                        )}
-                    </div>
+                    {hasAssist && (
+                        <div className="space-y-4 border-l-2 pl-4">
+                            <Label className="text-sm font-semibold">Substat efficiency ({assistSubstatEfficiency}%)</Label>
+                            <Slider
+                                value={[assistSubstatEfficiency]}
+                                max={100}
+                                onValueChange={(v) => setAssistSubstatEfficiency(v[0])}
+                                className="w-1/2"
+                            />
+                            <SubstatPicker
+                                label="Assist sub"
+                                levels={CRIT_FACTOR_SUBS}
+                                currentLevel={data.assistSubstatValue}
+                                efficiency={assistSubstatEfficiency}
+                                onChange={(val) => onUpdateField("assistSubstatValue", val)}
+                            />
+                        </div>
+                    )}
                 </div>
             </section>
 
+            {/* Relics */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
-                    Relic crit
-                </Label>
+                <Label className="text-sm font-semibold text-gray-700">Relic Crit Factor</Label>
                 <div className="flex justify-between py-2">
                     <Slider
-                        defaultValue={[0]}
+                        value={[data.relicValue || 0]}
                         max={98}
-                        min={0}
-                        onValueChange={(value) => {
-                            setRelicValue(value[0]);
-                        }}
+                        onValueChange={(v) => onUpdateField("relicValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{relicValue}</span>
+                    <span>{data.relicValue}</span>
                 </div>
             </section>
 
             {/* Vault */}
             <section>
-                <div className="space-y-4">
-                    <LevelPicker
-                        label="Vault"
-                        levels={CRIT_FACTOR_VAULT}
-                        currentLevel={vaultValue}
-                        onChange={setVaultValue}
-                    />
-                </div>
+                <LevelPicker
+                    label="Vault"
+                    levels={CRIT_FACTOR_VAULT}
+                    currentLevel={data.vaultValue}
+                    onChange={(val) => onUpdateField("vaultValue", val)}
+                />
             </section>
         </div>
     );
