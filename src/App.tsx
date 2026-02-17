@@ -125,7 +125,7 @@ function App() {
         ...build.uw
     })
 
-    const grandCritMulti =
+    const CritMulti =
         (1 + (totalCC / 100) * totalCF) *
         (1 + (totalSCC / 100) * (totalCC / 100) * totalSCM);
 
@@ -141,7 +141,7 @@ function App() {
                 />
                 <OverviewCard
                     name="Crit Bonus"
-                    value={grandCritMulti.toFixed(2)}
+                    value={CritMulti.toFixed(2)}
                     onClick={() => setActiveTab("crit")}
                     active={activeTab === "crit"}
                 />
@@ -153,7 +153,7 @@ function App() {
                     active={activeTab === "uw"}
                 />
             </div>
-            <div className="bg-white rounded-xl border p-6 shadow-sm min-h-[300px]">
+            <div className="rounded-xl border p-6 shadow-sm min-h-[300px]">
                 {!activeTab && (
                     <p className="text-center text-muted-foreground pt-10">
                         Select a category above to start calculating.

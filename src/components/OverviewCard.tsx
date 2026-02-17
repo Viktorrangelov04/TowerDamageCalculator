@@ -14,8 +14,8 @@ export default function OverviewCard({ name, value, onClick, active}: Props) {
       onClick={onClick} 
       className={`cursor-pointer transition-all ${
         active 
-          ? "ring-2 ring-primary shadow-md bg-primary/5" 
-          : "hover:bg-gray-50 border-transparent"
+          ? "ring-2 ring-primary shadow-md border-white" 
+          : "hover:border-white"
       }`}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">

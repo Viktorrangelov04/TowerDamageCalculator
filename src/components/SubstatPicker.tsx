@@ -24,7 +24,7 @@ export default function SubstatPicker({
     return (
         <div className="space-y-3">
             <div className="flex justify-between items-center">
-                <Label className="text-sm font-semibold text-gray-700">
+                <Label className="text-sm font-semibold">
                     {label}
                 </Label>
                 <span className="text-sm font-bold text-primary">

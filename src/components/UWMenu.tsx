@@ -64,7 +64,7 @@ export default function UWMenu({ data, setBuild }: UWMenuProps) {
                 />
             </section>
 
-            <section className="space-y-6 bg-gray-50 p-6 rounded-xl border border-dashed">
+            <section className="space-y-6 p-6 rounded-xl border border-dashed">
                 <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                         <Label className="text-base font-semibold">

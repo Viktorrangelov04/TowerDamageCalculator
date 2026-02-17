@@ -40,7 +40,7 @@ export default function CFInput({
 
             {/* Lab Menu */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">Lab</Label>
+                <Label className="text-sm font-semibold pr-2">Lab</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.labValue || 1]}
@@ -56,7 +56,7 @@ export default function CFInput({
 
             {/* Workshop Enhancement Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">Workshop Enhancement</Label>
+                <Label className="text-sm font-semibold pr-2">Workshop Enhancement</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.workshopEnhancementValue || 1]}
@@ -82,7 +82,7 @@ export default function CFInput({
 
                 <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                        <Label className="text-sm font-semibold text-gray-700">Cannon Assist Unlocked?</Label>
+                        <Label className="text-sm font-semibold">Cannon Assist Unlocked?</Label>
                         <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
                     </div>
 
@@ -109,7 +109,7 @@ export default function CFInput({
 
             {/* Relics */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700">Relic Crit Factor</Label>
+                <Label className="text-sm font-semibold">Relic Crit Factor</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.relicValue || 0]}

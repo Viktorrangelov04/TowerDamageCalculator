@@ -22,7 +22,7 @@ export function StatInput({
 }: StatInputProps) {
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label className="text-sm font-semibold text-gray-700 pl-1">
+      <Label className="text-sm font-semibold pl-1">
         {label}
       </Label>
       <div className="relative">

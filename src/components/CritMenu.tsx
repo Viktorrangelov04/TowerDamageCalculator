@@ -73,7 +73,7 @@ export default function CritMenu({ build, setBuild }: CritMenuProps) {
                 />
             </div>
 
-            <div className="bg-white rounded-xl border p-6 shadow-sm min-h-[300px]">
+            <div className="rounded-xl border p-6 shadow-sm min-h-[300px]">
                 {selectedSubStat === "Critical Chance" && (
                     <CCInput
                         data={build.cc}

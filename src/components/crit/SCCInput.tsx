@@ -50,7 +50,7 @@ export default function SCCInput({
             </section>
             <div className="space-y-4">
                 <div className="flex items-center">
-                    <Label className="text-sm font-semibold text-gray-700 pr-2">Mastery Unlocked?</Label>
+                    <Label className="text-sm font-semibold pr-2">Mastery Unlocked?</Label>
                     <Switch checked={hasMastery} onCheckedChange={setHasMastery} />
                 </div>
 
@@ -79,12 +79,12 @@ export default function SCCInput({
 
                 <div className="py-4">
                     <div className="flex items-center">
-                        <Label className="text-sm font-semibold text-gray-700 pr-2">Cannon Assist Unlocked?</Label>
+                        <Label className="text-sm font-semibold pr-2">Cannon Assist Unlocked?</Label>
                         <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
                     </div>
                     {hasAssist && (
                         <div className="mt-4 space-y-4">
-                            <Label className="text-sm font-semibold text-gray-700">Substat efficiency ({assistSubstatEfficiency}%)</Label>
+                            <Label className="text-sm font-semibold">Substat efficiency ({assistSubstatEfficiency}%)</Label>
                             <Slider
                                 value={[assistSubstatEfficiency]}
                                 max={100}
@@ -104,7 +104,7 @@ export default function SCCInput({
             </section>
 
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
+                <Label className="text-sm font-semibold pr-2">
                     Relics
                 </Label>
                 <div className="flex justify-between py-2">
@@ -121,7 +121,7 @@ export default function SCCInput({
             </section>
 
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">
+                <Label className="text-sm font-semibold pr-2">
                     Lab
                 </Label>
                 <div className="flex justify-between py-2">

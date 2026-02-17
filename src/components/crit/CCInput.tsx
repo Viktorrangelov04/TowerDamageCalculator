@@ -64,7 +64,7 @@ export default function CCInput({
                 />
                 
                 <div className="flex items-center gap-2">
-                    <Label className="text-sm font-semibold text-gray-700">Mastery Unlocked?</Label>
+                    <Label className="text-sm font-semibold">Mastery Unlocked?</Label>
                     <Switch checked={hasMastery} onCheckedChange={setHasMastery} />
                 </div>
 
@@ -89,15 +89,14 @@ export default function CCInput({
                 />
 
                 <div className="flex items-center gap-2">
-                    <Label className="text-sm font-semibold text-gray-700">Cannon Assist?</Label>
-                    {/* FIXED: Using setHasAssist prop instead of onUpdateField */}
+                    <Label className="text-sm font-semibold">Cannon Assist?</Label>
+                   
                     <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
                 </div>
 
                 {hasAssist && (
                     <div className="space-y-4 border-l-2 pl-4">
                         <Label>Substat efficiency ({assistSubstatEfficiency}%)</Label>
-                        {/* FIXED: Using setAssistSubstatEfficiency prop instead of onUpdateField */}
                         <Slider
                             value={[assistSubstatEfficiency]}
                             max={100}

@@ -46,7 +46,7 @@ export default function SCMInput({
 
             {/* Lab Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">Lab</Label>
+                <Label className="text-sm font-semibold pr-2">Lab</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.labValue || 1]}
@@ -62,7 +62,7 @@ export default function SCMInput({
 
             {/* Workshop Enhancement Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">Workshop Enhancement</Label>
+                <Label className="text-sm font-semibold pr-2">Workshop Enhancement</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.workshopEnhancementValue || 1]}
@@ -79,7 +79,7 @@ export default function SCMInput({
             {/* Mastery Toggle & Picker */}
             <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                    <Label className="text-sm font-semibold text-gray-700">Mastery Unlocked?</Label>
+                    <Label className="text-sm font-semibold">Mastery Unlocked?</Label>
                     <Switch checked={hasMastery} onCheckedChange={setHasMastery} />
                 </div>
 
@@ -109,7 +109,7 @@ export default function SCMInput({
 
                 <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                        <Label className="text-sm font-semibold text-gray-700">Cannon Assist Unlocked?</Label>
+                        <Label className="text-sm font-semibold">Cannon Assist Unlocked?</Label>
                         <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
                     </div>
                     {hasAssist && (
@@ -135,7 +135,7 @@ export default function SCMInput({
 
             {/* Relics Slider */}
             <section>
-                <Label className="text-sm font-semibold text-gray-700 pr-2">Relics</Label>
+                <Label className="text-sm font-semibold pr-2">Relics</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.relicValue || 0]}
