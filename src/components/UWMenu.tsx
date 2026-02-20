@@ -3,7 +3,7 @@ import { StatInput } from "./StatInput";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import LevelPicker from "./LevelPicker";
-import { CL_SUBS, UW_VAULT } from "@/data/constants";
+import { CL_SUBS, SUBSTAT_RARITIES, UW_VAULT } from "@/data/constants";
 import { Slider } from "./ui/slider";
 import SubstatPicker from "./SubstatPicker";
 
@@ -13,7 +13,6 @@ interface UWMenuProps {
 }
 
 export default function UWMenu({ data, setBuild }: UWMenuProps) {
-    // One helper to rule them all
     const updateField = (field: keyof UWBuild, value: any) => {
         setBuild((prev) => ({
             ...prev,
@@ -43,6 +42,7 @@ export default function UWMenu({ data, setBuild }: UWMenuProps) {
                     efficiency={100}
                     onChange={(val) => updateField("substatValue", val)}
                     unit="x"
+                    rarities={SUBSTAT_RARITIES}
                 />
             </section>
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">

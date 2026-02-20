@@ -7,19 +7,23 @@ interface Props {
     levels: number[];
     currentLevel: number;
     efficiency: number;
+    rarities: string[];
     onChange: (level: number) => void;
     unit?: string;
+    prefix?: string;
 }
 
-const rarities = ["None", "Common", "Rare", "Epic", "Legendary", "Mythic", "Ancestral"];
+// const rarities = ["None", "Common", "Rare", "Epic", "Legendary", "Mythic", "Ancestral"];
 
 export default function SubstatPicker({
     label,
     levels,
     currentLevel,
     efficiency,
+    rarities,
     onChange,
     unit = "%",
+    prefix="+",
 }: Props) {
     return (
         <div className="space-y-3">
@@ -28,7 +32,7 @@ export default function SubstatPicker({
                     {label}
                 </Label>
                 <span className="text-sm font-bold text-primary">
-                    +{levels[currentLevel]*(efficiency/100)}
+                    {prefix}{levels[currentLevel]*(efficiency/100)}
                     {unit}
                 </span>
             </div>

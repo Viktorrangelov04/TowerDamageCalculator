@@ -61,6 +61,23 @@ const DEFAULT_BUILD = {
         hasSL: false,
         relicValue: 0,
         vaultValue: 0,
+    },
+    dmg:{
+        labValue: 1,
+        workshopEnhancementValue: 1,
+        relicValue: 0,
+        dmgCardValue: 0,
+        hasBerserker: false,
+        hasMastery: false,
+        masteryValue: 0,
+        hasAS: false,
+
+        PFValue: 0,
+        endingCash: 0,
+        endingCashSuffix: "",
+        ACPValue: 0,
+        amplifyBotValue: 0,
+        
     }
 };
 
@@ -160,7 +177,7 @@ function App() {
                     </p>
                 )}
 
-                {activeTab === "damage" && <DamageMenu />}
+                {activeTab === "damage" && <DamageMenu data={build.dmg} setBuild={setBuild}/>}
                 {activeTab === "crit" && (
                     <CritMenu build={build} setBuild={setBuild} />
                 )}

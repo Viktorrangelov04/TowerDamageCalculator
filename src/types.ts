@@ -44,6 +44,22 @@ export interface UWBuild {
     vaultValue: number;
 }
 
+export interface DMGBuild{
+    labValue: number;
+    workshopEnhancementValue: number;
+    dmgCardValue: number;
+    hasMastery: boolean;
+    masteryValue: number;
+    hasBerserker: boolean;
+    relicValue: number;
+    hasAS: boolean;
+    PFValue: number;
+    endingCash: number;
+    endingCashSuffix: string;
+    ACPValue: number;
+    amplifyBotValue: number;
+}
+
 export interface PlayerBuild {
     version: number;
     hasMastery: boolean;
@@ -56,4 +72,5 @@ export interface PlayerBuild {
     cf: CFBuild; 
     scm: SCMBuild; 
     uw: UWBuild;
+    dmg: DMGBuild;
 }

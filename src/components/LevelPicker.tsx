@@ -7,15 +7,16 @@ interface LevelPickerProps {
   currentLevel: number;
   onChange: (level: number) => void;
   unit?: string;
+  prefix?: string;
 }
 
-export default function CardLevelPicker({ label, levels, currentLevel, onChange, unit = "%" }: LevelPickerProps) {
+export default function CardLevelPicker({ label, levels, currentLevel, onChange, unit = "%", prefix = "+" }: LevelPickerProps) {
   return (
     <div className="space-y-3">
       <div className="flex justify-between items-center">
         <Label className="text-sm font-semibold">{label}</Label>
         <span className="text-sm font-bold text-primary">
-          +{levels[currentLevel]}{unit}
+          {prefix}{levels[currentLevel]}{unit}
         </span>
       </div>
 

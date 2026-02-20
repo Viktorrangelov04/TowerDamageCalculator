@@ -39,7 +39,7 @@ export function StatInput({
 
             onChange(num);
           }}
-          className="pr-12 font-mono"
+          className="pr-12 font-mono [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-muted-foreground text-[10px] font-bold uppercase">
           {unit}
