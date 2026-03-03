@@ -26,16 +26,8 @@ export default function DamageMenu({
     setHasAssist,
     setAssistSubstatEfficiency,
 }: DamageProps) {
-    const [activeTab, setActiveTab] = useState<string | null>(null);
-    // const [damageMeter, setDamageMeter] = useState(1);
-
-    // const updateField = (field: keyof DMGBuild, value: any) => {
-    //     setBuild((prev) => ({
-    //         ...prev,
-    //         dmg: { ...prev.dmg, [field]: value },
-    //     }));
-    // };
-
+    const [activeTab, setActiveTab] = useState("damage");
+    
     const baseDamage = calculateBaseDamage({
         ...build.dmg,
     });
@@ -55,7 +47,8 @@ export default function DamageMenu({
 
     return (
         <div className="space-y-6">
-            <div className="w-4/5 mx-auto my-8 grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <h2 className="text-xl font-bold">Damage Configuration</h2>
+            <div className="mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                 <OverviewCard
                     name="BaseDamage"
                     value={formatCompactNumber(baseDamage)}

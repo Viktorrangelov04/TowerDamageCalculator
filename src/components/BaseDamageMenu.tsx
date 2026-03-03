@@ -36,16 +36,16 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
     };
     return (
         <div className="space-y-6">
-            <h1>Base damage sources</h1>
-            <div className="h-1 bg-gray-500"></div>
-            <section className="space-y-4">
+            <h1 className="border-b pb-4">Base damage sources</h1>
+           
+            <section className="space-y-4 border-b py-4">
                 <div className="flex justify-between">
                     <p>Workshop Damage</p>
                     <p>71.11M</p>
                 </div>
                 <div className="flex justify-between">
-                    <p>Workshop Enhancement</p>
-                    <span>x{data.workshopEnhancementValue}</span>
+                    <p >Workshop Enhancement</p>
+                    <span >x{data.workshopEnhancementValue}</span>
                 </div>
 
                 <Slider
@@ -60,8 +60,8 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 />
             </section>
 
-            <div className="h-1 bg-gray-500"></div>
-            <section>
+            
+            <section className="border-b pb-4">
                 <p>Lab Bonus</p>
                 <div className="flex justify-between">
                     <Slider
@@ -75,8 +75,8 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                     <span>x{data.labValue}</span>
                 </div>
             </section>
-            <div className="h-1 bg-gray-500"></div>
-            <section className="space-y-4">
+
+            <section className="space-y-4 border-b pb-4">
                 <p>Cards</p>
                 <LevelPicker
                     label="Damage Card lvl"
@@ -86,20 +86,29 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                     unit=""
                     prefix="x"
                 />
-                <p>Berserker equipped</p>
+
                 <div className="flex justify-between">
-                    <Switch
-                        checked={data.hasBerserker}
-                        onCheckedChange={(v) => updateField("hasBerserker", v)}
-                    />
+                    <div className="flex gap-2 items-center">
+                        <p>Berserker equipped</p>
+
+                        <Switch
+                            checked={data.hasBerserker}
+                            onCheckedChange={(v) =>
+                                updateField("hasBerserker", v)
+                            }
+                        />
+                    </div>
                     {data.hasBerserker && <p>x8</p>}
                 </div>
-                <p>Damage Mastery Unlocked?</p>
 
-                <Switch
-                    checked={data.hasMastery}
-                    onCheckedChange={(v) => updateField("hasMastery", v)}
-                />
+                <div className="flex gap-2 items-center">
+                    <p>Damage Mastery Unlocked?</p>
+                    <Switch
+                        checked={data.hasMastery}
+                        onCheckedChange={(v) => updateField("hasMastery", v)}
+                    />
+                </div>
+
                 {data.hasMastery ? (
                     <LevelPicker
                         label="Damage Mastery Level"
@@ -115,12 +124,14 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                     </div>
                 )}
 
-                <p>Demon Mode Mastery Unlocked?</p>
+                <div className="flex gap-2 items-center">
+                    <p>Demon Mode Mastery Unlocked?</p>
+                    <Switch
+                        checked={data.hasDMMastery}
+                        onCheckedChange={(v) => updateField("hasDMMastery", v)}
+                    />
+                </div>
 
-                <Switch
-                    checked={data.hasDMMastery}
-                    onCheckedChange={(v) => updateField("hasDMMastery", v)}
-                />
                 {data.hasDMMastery ? (
                     <LevelPicker
                         label="Demon Mode Mastery Level"
@@ -137,8 +148,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 )}
             </section>
 
-            <div className="h-1 bg-gray-500"></div>
-            <section className="space-y-4">
+            <section className="space-y-4 border-b pb-4">
                 <p> Modules </p>
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <StatInput
@@ -159,12 +169,15 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                     />
                 </section>
 
-                <p>AS procc</p>
                 <div className="flex justify-between">
-                    <Switch
-                        checked={data.hasAS}
-                        onCheckedChange={(v) => updateField("hasAS", v)}
-                    />
+                    <div className="flex gap-2 items-center">
+                        <p>AS procc</p>
+
+                        <Switch
+                            checked={data.hasAS}
+                            onCheckedChange={(v) => updateField("hasAS", v)}
+                        />
+                    </div>
                     {data.hasAS && <span>x5</span>}
                 </div>
 
@@ -232,8 +245,8 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 </div>
             </section>
 
-            <section className="space-y-2 ">
-                <Label>Relic </Label>
+            <section className="space-y-4 border-b pb-4 ">
+                <Label>Relics </Label>
                 <div className="flex justify-between">
                     <Slider
                         value={[data.relicValue]}

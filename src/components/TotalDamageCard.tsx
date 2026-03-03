@@ -20,13 +20,13 @@ export default function TotalDamageCard({ name, value, value2 = 1 }: Props) {
                 ) : (
                     <div className="text-3xl font-bold">{formatCompactNumber(value)}</div>
                 )}
-                    {/* classNam={`text-lg ${value1>value2 ? "text-green-300" : "text-red-300"}`} */}
+                   
                 {value2 ? (
                     <div>
                         <div className="text-xl font-bold">
                             Old: {formatCompactNumber(value2)}
                         </div>
-                        <div className={`text-lg ${value>value2 ? "text-green-300" : "text-red-300"}`}>
+                        <div className={`text-lg ${value>value2 ? "text-green-500" : "text-red-300"}`}>
                             Diff: {((value/value2)*100-100).toFixed()}%
                         </div>
                     </div>

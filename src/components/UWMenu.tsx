@@ -28,7 +28,7 @@ export default function UWMenu({ data, setBuild, hasSL, setHasSL }: UWMenuProps)
                 <h2 className="text-xl font-bold">UW Damage Sources</h2>
             </header>
 
-            <section>
+            <section className="space-y-2">
                 <StatInput
                     label="CL Multiplier"
                     unit="x"
