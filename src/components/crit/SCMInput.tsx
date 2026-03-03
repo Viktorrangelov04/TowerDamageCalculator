@@ -1,4 +1,4 @@
-import { CRIT_MASTERY_STATS, SUPER_CRIT_MULTI_SUBS, SUPER_CRIT_MULTI_VAULT } from "@/data/constants";
+import { CRIT_MASTERY_STATS, SUBSTAT_RARITIES, SUPER_CRIT_MULTI_SUBS, SUPER_CRIT_MULTI_VAULT } from "@/data/constants";
 import LevelPicker from "../LevelPicker";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
@@ -104,6 +104,7 @@ export default function SCMInput({
                     levels={SUPER_CRIT_MULTI_SUBS}
                     currentLevel={data.substatValue}
                     efficiency={100}
+                    rarities={SUBSTAT_RARITIES}
                     onChange={(val) => onUpdateField("substatValue", val)}
                 />
 
@@ -126,6 +127,7 @@ export default function SCMInput({
                                 levels={SUPER_CRIT_MULTI_SUBS}
                                 currentLevel={data.assistSubstatValue}
                                 efficiency={assistSubstatEfficiency}
+                                rarities={SUBSTAT_RARITIES}
                                 onChange={(val) => onUpdateField("assistSubstatValue", val)}
                             />
                         </div>

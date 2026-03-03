@@ -1,6 +1,6 @@
 import { Label } from "../ui/label";
 import { Slider } from "../ui/slider";
-import { CRIT_FACTOR_SUBS, CRIT_FACTOR_VAULT } from "@/data/constants";
+import { CRIT_FACTOR_SUBS, CRIT_FACTOR_VAULT, SUBSTAT_RARITIES } from "@/data/constants";
 import SubstatPicker from "../SubstatPicker";
 import { Switch } from "../ui/switch";
 import LevelPicker from "../LevelPicker";
@@ -77,6 +77,7 @@ export default function CFInput({
                     levels={CRIT_FACTOR_SUBS}
                     currentLevel={data.substatValue}
                     efficiency={100}
+                    rarities={SUBSTAT_RARITIES}
                     onChange={(val) => onUpdateField("substatValue", val)}
                 />
 
@@ -100,6 +101,7 @@ export default function CFInput({
                                 levels={CRIT_FACTOR_SUBS}
                                 currentLevel={data.assistSubstatValue}
                                 efficiency={assistSubstatEfficiency}
+                                rarities={SUBSTAT_RARITIES}
                                 onChange={(val) => onUpdateField("assistSubstatValue", val)}
                             />
                         </div>

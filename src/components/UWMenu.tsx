@@ -3,17 +3,18 @@ import { StatInput } from "./StatInput";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import LevelPicker from "./LevelPicker";
-import { CL_SUBS, UW_VAULT } from "@/data/constants";
+import { CL_SUBS, SUBSTAT_RARITIES, UW_VAULT } from "@/data/constants";
 import { Slider } from "./ui/slider";
 import SubstatPicker from "./SubstatPicker";
 
 interface UWMenuProps {
     data: UWBuild;
     setBuild: React.Dispatch<React.SetStateAction<PlayerBuild>>;
+    hasSL: boolean;
+    setHasSL: (val:boolean)=>void;
 }
 
-export default function UWMenu({ data, setBuild }: UWMenuProps) {
-    // One helper to rule them all
+export default function UWMenu({ data, setBuild, hasSL, setHasSL }: UWMenuProps) {
     const updateField = (field: keyof UWBuild, value: any) => {
         setBuild((prev) => ({
             ...prev,
@@ -43,6 +44,7 @@ export default function UWMenu({ data, setBuild }: UWMenuProps) {
                     efficiency={100}
                     onChange={(val) => updateField("substatValue", val)}
                     unit="x"
+                    rarities={SUBSTAT_RARITIES}
                 />
             </section>
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -52,7 +54,7 @@ export default function UWMenu({ data, setBuild }: UWMenuProps) {
                     value={data.moduleMain}
                     onChange={(val) => updateField("moduleMain", val)}
                     min={1}
-                    max={55}
+                    max={55.06}
                 />
                 <StatInput
                     label="Assist Module Multiplier"
@@ -60,7 +62,7 @@ export default function UWMenu({ data, setBuild }: UWMenuProps) {
                     value={data.moduleAssist}
                     onChange={(val) => updateField("moduleAssist", val)}
                     min={1}
-                    max={55}
+                    max={55.06}
                 />
             </section>
 
@@ -105,8 +107,8 @@ export default function UWMenu({ data, setBuild }: UWMenuProps) {
                         </Label>
                     </div>
                     <Switch
-                        checked={data.hasSL}
-                        onCheckedChange={(val) => updateField("hasSL", val)}
+                        checked={hasSL}
+                        onCheckedChange={setHasSL}
                     />
                 </div>
             </section>

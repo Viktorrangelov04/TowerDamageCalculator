@@ -2,6 +2,7 @@ import { Label } from "@/components/ui/label";
 import LevelPicker from "../LevelPicker";
 import {
     CRIT_MASTERY_STATS,
+    SUBSTAT_RARITIES,
     SUPER_CRIT_SUBS,
     SUPER_CRIT_VAULT,
 } from "@/data/constants";
@@ -74,6 +75,7 @@ export default function SCCInput({
                     levels={SUPER_CRIT_SUBS}
                     currentLevel={data.substatValue}
                     efficiency={100}
+                    rarities={SUBSTAT_RARITIES}
                     onChange={(val) => onUpdateField("substatValue", val)}
                 />
 
@@ -96,6 +98,7 @@ export default function SCCInput({
                                 levels={SUPER_CRIT_SUBS}
                                 currentLevel={data.assistSubstatValue}
                                 efficiency={assistSubstatEfficiency}
+                                rarities={SUBSTAT_RARITIES}
                                 onChange={(val) => onUpdateField("assistSubstatValue", val)}
                             />
                         </div>

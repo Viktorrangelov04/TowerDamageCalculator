@@ -8,6 +8,7 @@ import {
     CRIT_MASTERY_STATS,
     CRIT_CHANCE_SUBS,
     CRIT_VAULT,
+    SUBSTAT_RARITIES,
 } from "@/data/constants";
 
 import type { CCBuild } from "@/types";
@@ -68,13 +69,17 @@ export default function CCInput({
                     <Switch checked={hasMastery} onCheckedChange={setHasMastery} />
                 </div>
 
-                {hasMastery && (
+                {hasMastery ? (
                     <LevelPicker
                         label="Mastery Level"
                         levels={CRIT_MASTERY_STATS}
                         currentLevel={masteryValue}
                         onChange={setMasteryValue}
                     />
+                ) : (
+                    <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                        Enable Mastery to configure levels
+                    </div>
                 )}
             </section>
 
@@ -86,6 +91,7 @@ export default function CCInput({
                     currentLevel={data.substatValue}
                     efficiency={100}
                     onChange={(val) => onUpdateField("substatValue", val)}
+                    rarities={SUBSTAT_RARITIES}
                 />
 
                 <div className="flex items-center gap-2">
@@ -109,6 +115,7 @@ export default function CCInput({
                             currentLevel={data.assistSubstatValue}
                             efficiency={assistSubstatEfficiency}
                             onChange={(val) => onUpdateField("assistSubstatValue", val)}
+                            rarities={SUBSTAT_RARITIES}
                         />
                     </div>
                 )}
