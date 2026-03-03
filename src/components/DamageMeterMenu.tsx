@@ -1,7 +1,12 @@
 import type { DMGBuild, PlayerBuild } from "@/types";
 import { Slider } from "./ui/slider";
 import SubstatPicker from "./SubstatPicker";
-import { DPM_SUBS, DPM_VAULT, RANGE_MASTERY_STATS, SUBSTAT_RARITIES } from "@/data/constants";
+import {
+    DPM_SUBS,
+    DPM_VAULT,
+    RANGE_MASTERY_STATS,
+    SUBSTAT_RARITIES,
+} from "@/data/constants";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 import LevelPicker from "./LevelPicker";
@@ -30,14 +35,10 @@ export default function damageMeterMenu({
             dmg: { ...prev.dmg, [field]: value },
         }));
     };
-    
-    return (
-        <div className ="space-y-6">
-            <div className="flex justify-between py-4 text-3xl">
-                <span>Damage/Meter</span>
-                {/* <span>{damageMeter.toFixed(4)}</span> */}
-            </div>
 
+    return (
+        <div className="space-y-6">
+            <h1 className="border-b pb-4">Damage/Meter sources</h1>
             <p>Lab Bonus</p>
             <div className="flex justify-between">
                 <Slider
@@ -127,11 +128,13 @@ export default function damageMeterMenu({
                 onChange={(val) => updateField("damageMeterVault", val)}
             />
 
-            <Label>Range Mastery Unlocked?</Label>
-            <Switch
-                checked={data.hasRangeMastery}
-                onCheckedChange={(v) => updateField("hasRangeMastery", v)}
-            />
+            <div className="flex gap-2 items-center">
+                <Label>Range Mastery Unlocked?</Label>
+                <Switch
+                    checked={data.hasRangeMastery}
+                    onCheckedChange={(v) => updateField("hasRangeMastery", v)}
+                />
+            </div>
 
             {data.hasRangeMastery ? (
                 <LevelPicker

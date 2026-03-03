@@ -32,9 +32,10 @@ export default function AdditinalDamageMenu({
     }
     return (
         <div className="space-y-6">
-            <div className="h-1 bg-gray-500"></div>
+            <h1 className="border-b pb-4">Damage multipliers</h1>
+ 
             <section className="space-y-4">
-                <p> Modules </p>
+                <p className="border-b pb-4"> Modules </p>
 
                 <SubstatPicker
                     label="ACP Rarity"
@@ -77,12 +78,10 @@ export default function AdditinalDamageMenu({
                 </div>        
             </section>
 
-            <div className="h-1 bg-gray-500"></div>
-
             <section className="space-y-4">
-                <Label>Ultimate Weapons</Label>
+                <p className="border-y py-4">Ultimate Weapons</p>
 
-                <div className="flex items-center justify-between border-t pt-4">
+                <div className="flex items-center gap-2 pt-4">
                     <div className="space-y-0.5">
                         <Label className="text-base font-semibold">
                             Spotlight Unlocked
@@ -109,7 +108,7 @@ export default function AdditinalDamageMenu({
                     </div>
                 )}
 
-                <div className="flex items-center justify-between border-t pt-4">
+                <div className="flex items-center gap-2 pt-4">
                     <div className="space-y-0.5">
                         <Label className="text-base font-semibold">
                             Spotlight+ Unlocked
@@ -142,10 +141,11 @@ export default function AdditinalDamageMenu({
                 )}
             </section>
 
-            <div className="h-1 bg-gray-500"></div>
+            
 
             <section className="space-y-4">
-                <div className="flex items-center justify-between border-t pt-4">
+                <p className="border-y py-4">Bots</p>
+                <div className="flex items-center gap-2 pt-4">
                     <div className="space-y-0.5">
                         <Label className="text-base font-semibold">
                             Amplify Bot Unlocked
