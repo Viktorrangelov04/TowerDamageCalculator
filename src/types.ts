@@ -39,7 +39,7 @@ export interface UWBuild {
     moduleAssist: number;
     hasMastery: boolean;
     STLabValue: number;
-    hasSL: boolean;
+    
     relicValue: number;
     vaultValue: number;
 }
@@ -50,14 +50,38 @@ export interface DMGBuild{
     dmgCardValue: number;
     hasMastery: boolean;
     masteryValue: number;
+    hasDMMastery: boolean;
+    DMMasteryValue: number;
     hasBerserker: boolean;
     relicValue: number;
+
+    moduleMain:number;
+    moduleAssist:number;
     hasAS: boolean;
     PFValue: number;
     endingCash: number;
     endingCashSuffix: string;
     ACPValue: number;
-    amplifyBotValue: number;
+    DCValue: number;
+    shockLabValue: number;
+
+    vaultValue: number;
+    SLValue: number;
+    hasSLPlus: boolean;
+    SLPlusValue: number;
+
+    damageMeterLab: number;
+    damageMeterEnhancement: number;
+    substatValue: number;
+    assistSubstatValue: number;
+    damageMeterRelics: number;
+    damageMeterVault: number;
+    hasRangeMastery: boolean;
+    RangeMasteryValue: number;
+    range: number;
+
+    hasAmpBot: boolean;
+    ampBotValue: number;
 }
 
 export interface PlayerBuild {
@@ -67,6 +91,7 @@ export interface PlayerBuild {
     hasAssist: boolean;
     assistSubstatEfficiency: number;
 
+    hasSL: boolean;
     cc: CCBuild;
     scc: SCCBuild;
     cf: CFBuild; 

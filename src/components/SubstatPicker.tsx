@@ -13,8 +13,6 @@ interface Props {
     prefix?: string;
 }
 
-// const rarities = ["None", "Common", "Rare", "Epic", "Legendary", "Mythic", "Ancestral"];
-
 export default function SubstatPicker({
     label,
     levels,

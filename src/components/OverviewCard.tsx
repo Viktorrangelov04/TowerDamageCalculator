@@ -1,14 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress"; 
 
 interface Props{
     name: string;
     value: string;
-    onClick: () => void; 
-    active: boolean;
+    onClick?: () => void; 
+    active?: boolean;
+    prefix?: string;
 }
 
-export default function OverviewCard({ name, value, onClick, active}: Props) {
+export default function OverviewCard({ name, value, onClick, active, prefix}: Props) {
   return (
     <Card 
       onClick={onClick} 
@@ -22,14 +22,9 @@ export default function OverviewCard({ name, value, onClick, active}: Props) {
         <CardTitle className="text-sm font-medium">{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold">{value}</div>
-        <div className="mt-4 space-y-2">
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <span>Progress to Max</span>
-            <span>100%</span>
-          </div>
-          <Progress value={100} className="h-2" />
-        </div>
+        <div className="text-3xl font-bold my-auto">{prefix}{value}</div>
+        
+
       </CardContent>
     </Card>
   );

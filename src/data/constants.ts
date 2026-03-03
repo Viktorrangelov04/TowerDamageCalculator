@@ -18,9 +18,17 @@ export const CL_SUBS = [0, 8, 15, 25, 50, 100, 250]
 
 export const DAMAGE_CARD_STATS = [1, 1.5, 2, 2.4, 2.8, 3.2, 3.6, 4]
 export const DAMAGE_MASTERY_STATS = [1.4, 1.8, 2.2, 2.6, 3, 3.4, 3.8, 4.2, 4.6, 5]
+export const DEMON_MODE_MASTERY_STATS = [1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6]
+export const DMG_VAULT = [0, 5, 10, 15]
 
 export const ACP_STATS = [1, 10, 15, 20, 25]
+export const DC_STATS = [1, 5, 10, 15, 20]
 export const PF_STATS = [0, 0.125, 0.25, 0.5, 1]
 
 export const SUBSTAT_RARITIES = ["None", "Common", "Rare", "Epic", "Legendary", "Mythic", "Ancestral"]
 export const MAINSTAT_RARITIES = ["Uneqipped", "Epic", "Legendary", "Mythic", "Ancestral"]
+
+export const DPM_SUBS = [0, 0.005, 0.010, 0.025, 0.04, 0.075, 0.15]
+export const DPM_VAULT = [0, 5, 10, 15]
+
+export const RANGE_MASTERY_STATS = [1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3]
