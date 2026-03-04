@@ -1,6 +1,6 @@
 import { Label } from "../ui/label";
 import { Slider } from "../ui/slider";
-import { CRIT_FACTOR_SUBS, CRIT_FACTOR_VAULT, SUBSTAT_RARITIES } from "@/data/constants";
+import { CF_RELICS_MAX, CRIT_FACTOR_SUBS, CRIT_FACTOR_VAULT, SUBSTAT_RARITIES } from "@/data/constants";
 import SubstatPicker from "../SubstatPicker";
 import { Switch } from "../ui/switch";
 import LevelPicker from "../LevelPicker";
@@ -115,7 +115,7 @@ export default function CFInput({
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.relicValue || 0]}
-                        max={98}
+                        max={CF_RELICS_MAX}
                         onValueChange={(v) => onUpdateField("relicValue", v[0])}
                         className="w-1/2"
                     />

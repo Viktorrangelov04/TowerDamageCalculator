@@ -31,6 +31,10 @@ import {
     DC_STATS,
 } from "@/data/constants";
 
+// import * as Stats from "@/data/moduleMainStats";
+import { RARITY_DATA_MAP } from "@/components/UWMenu";
+import { CANNON_RARITY_DATA_MAP } from "@/components/BaseDamageMenu";
+
 export interface CritInputs extends CCBuild {
     hasMastery: boolean;
     masteryValue: number;
@@ -163,10 +167,20 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
         relic = relic * relic;
     }
 
+    const currentRarityArray = RARITY_DATA_MAP[inputs.coreRarityMain] || [];
+    const moduleMain = currentRarityArray[inputs.coreLvlMain] ?? 0;
+
+    const currentRarityAssistArray = RARITY_DATA_MAP[inputs.coreRarityAssist];
+
+    const moduleAssist = Math.max(
+        currentRarityAssistArray[inputs.coreLvlAssist] *
+            (inputs.mainstatEfficiency / 100),
+        1
+    );
     const total =
         (inputs.baseUWDamage + substatValue) *
-        inputs.moduleMain *
-        inputs.moduleAssist *
+        moduleMain *
+        moduleAssist *
         relic *
         vaultValue *
         superTowerBonus;
@@ -187,6 +201,17 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
 
     let cashValue = inputs.endingCash;
 
+    const currentRarityArray = CANNON_RARITY_DATA_MAP[inputs.cannonRarityMain] || [];
+    const moduleMain = currentRarityArray[inputs.cannonLvlMain] ?? 0;
+
+    const currentRarityAssistArray = CANNON_RARITY_DATA_MAP[inputs.cannonRarityAssist];
+
+    const moduleAssist = Math.max(
+        currentRarityAssistArray[inputs.cannonLvlAssist] *
+            (inputs.mainstatEfficiency / 100),
+        1
+    );
+
     if (inputs.endingCashSuffix == "M") {
         cashValue = inputs.endingCash * 1000000;
     } else if (inputs.endingCashSuffix == "B") {
@@ -203,7 +228,8 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
         71100000 *
         inputs.workshopEnhancementValue *
         inputs.labValue *
-        inputs.moduleMain *
+        moduleMain *
+        moduleAssist *
         cardValue *
         relicValue *
         vaultValue *
@@ -251,17 +277,19 @@ export interface damageMultiInputs extends DMGBuild {
     assistSubstatEfficiency: number;
 }
 
-export const calculateTotalDamageMulti = (inputs:damageMultiInputs):number =>{
-    const ACPValue = ACP_STATS[inputs.ACPValue]
+export const calculateTotalDamageMulti = (
+    inputs: damageMultiInputs
+): number => {
+    const ACPValue = ACP_STATS[inputs.ACPValue];
     const effectiveSL = inputs.hasSL ? inputs.SLValue : 1;
     const effectiveAmp = inputs.hasAmpBot ? inputs.ampBotValue : 1;
-    const shockProccs = DC_STATS[inputs.DCValue]
+    const shockProccs = DC_STATS[inputs.DCValue];
 
     let shockValue = 1;
-    if(inputs.DCValue == 0){
-        shockValue = 1+1*inputs.shockLabValue
-    }else{
-        shockValue = 1+shockProccs*inputs.shockLabValue*2
+    if (inputs.DCValue == 0) {
+        shockValue = 1 + 1 * inputs.shockLabValue;
+    } else {
+        shockValue = 1 + shockProccs * inputs.shockLabValue * 2;
     }
 
     const effectiveAssist = inputs.hasAssist
@@ -287,11 +315,15 @@ export const calculateTotalDamageMulti = (inputs:damageMultiInputs):number =>{
         ? 1 + (DPM - 1) * inputs.range * inputs.SLPlusValue
         : 1;
 
-
-    const total = 1* ACPValue *effectiveSL *effectiveSLPlus * effectiveAmp * shockValue;
+    const total =
+        1 *
+        ACPValue *
+        effectiveSL *
+        effectiveSLPlus *
+        effectiveAmp *
+        shockValue;
     return total;
-}
-
+};
 
 // export interface DamageInputs extends DMGBuild {
 //     hasSL: boolean;

@@ -1,4 +1,4 @@
-import { CRIT_MASTERY_STATS, SUBSTAT_RARITIES, SUPER_CRIT_MULTI_SUBS, SUPER_CRIT_MULTI_VAULT } from "@/data/constants";
+import { CRIT_MASTERY_STATS, SCM_RELICS_MAX, SUBSTAT_RARITIES, SUPER_CRIT_MULTI_SUBS, SUPER_CRIT_MULTI_VAULT } from "@/data/constants";
 import LevelPicker from "../LevelPicker";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
@@ -135,13 +135,13 @@ export default function SCMInput({
                 </div>
             </section>
 
-            {/* Relics Slider */}
+            {/* Relics */}
             <section>
                 <Label className="text-sm font-semibold pr-2">Relics</Label>
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.relicValue || 0]}
-                        max={5}
+                        max={SCM_RELICS_MAX}
                         onValueChange={(v) => onUpdateField("relicValue", v[0])}
                         className="w-1/2"
                     />

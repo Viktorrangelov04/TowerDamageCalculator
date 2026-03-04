@@ -30,6 +30,9 @@ export default function AdditinalDamageMenu({
     }else{
         shockValue = 1+DC_STATS[data.DCValue]*(data.shockLabValue*2)
     }
+
+
+
     return (
         <div className="space-y-6">
             <h1 className="border-b pb-4">Damage multipliers</h1>

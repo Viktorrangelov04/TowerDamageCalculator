@@ -9,6 +9,7 @@ import {
     CRIT_CHANCE_SUBS,
     CRIT_VAULT,
     SUBSTAT_RARITIES,
+    CC_RELICS_MAX,
 } from "@/data/constants";
 
 import type { CCBuild } from "@/types";
@@ -126,7 +127,7 @@ export default function CCInput({
                 <Label>Relic Crit ({data.relicValue})</Label>
                 <Slider
                     value={[data.relicValue]}
-                    max={9}
+                    max={CC_RELICS_MAX}
                     onValueChange={(val) => onUpdateField("relicValue", val[0])}
                     className="w-1/2"
                 />
