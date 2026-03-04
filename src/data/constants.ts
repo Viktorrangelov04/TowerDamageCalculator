@@ -56,7 +56,7 @@ export const MAINSTAT_RARITIES2 = [
     "4* Ancestral",
     "5* Ancestral",
 ];
-export const MAX_LVL_VALUES = [60, 80, 160, 200, 220, 220, 240, 260, 280, 300];
+export const MAX_LVL_VALUES = [60, 100, 160, 200, 220, 220, 240, 260, 280, 300];
 export const DPM_SUBS = [0, 0.005, 0.01, 0.025, 0.04, 0.075, 0.15];
 export const DPM_VAULT = [0, 5, 10, 15];
 
