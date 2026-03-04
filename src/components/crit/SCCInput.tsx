@@ -2,6 +2,7 @@ import { Label } from "@/components/ui/label";
 import LevelPicker from "../LevelPicker";
 import {
     CRIT_MASTERY_STATS,
+    SCC_RELICS_MAX,
     SUBSTAT_RARITIES,
     SUPER_CRIT_SUBS,
     SUPER_CRIT_VAULT,
@@ -130,7 +131,7 @@ export default function SCCInput({
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.labValue || 0]}
-                        max={5}
+                        max={SCC_RELICS_MAX}
                         step={0.1}
                         onValueChange={(value) =>
                             onUpdateField("labValue", value[0])

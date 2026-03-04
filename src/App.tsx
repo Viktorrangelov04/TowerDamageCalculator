@@ -18,10 +18,10 @@ import { formatCompactNumber } from "./utils/numberFormatter.ts";
 import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
 
-const CURRENT_VERSION = 1.0;
+const CURRENT_VERSION = 1.1;
 
 const DEFAULT_BUILD = {
-    version: 1.0,
+    version: CURRENT_VERSION,
     hasMastery: false,
     masteryValue: 0,
     hasAssist: false,
@@ -60,10 +60,15 @@ const DEFAULT_BUILD = {
     uw: {
         baseUWDamage: 1,
         substatValue: 0,
-        moduleMain: 1,
-        moduleAssist: 1,
+
         hasMastery: false,
         STLabValue: 1,
+
+        coreLvlMain: 0,
+        coreLvlAssist: 0,
+        coreRarityMain: 0,
+        coreRarityAssist: 0,
+        mainstatEfficiency: 0,
 
         relicValue: 0,
         vaultValue: 0,
@@ -82,6 +87,14 @@ const DEFAULT_BUILD = {
 
         moduleMain: 1,
         moduleAssist: 1,
+
+        cannonLvlMain: 0,
+        cannonRarityMain: 0,
+        cannonLvlAssist: 0,
+        cannonRarityAssist: 0,
+
+        mainstatEfficiency: 0,
+
         PFValue: 0,
         endingCash: 1,
         endingCashSuffix: "M",
@@ -235,59 +248,79 @@ function App() {
 
     //////////////////////////////////////////////////////////////
 
-    const totalCC2 = comparisonBuild ? calculateTotalCrit({
-        ...comparisonBuild.cc,
-        hasMastery: comparisonBuild.hasMastery,
-        masteryValue: comparisonBuild.masteryValue,
-        hasAssist: comparisonBuild.hasAssist,
-        efficiency: comparisonBuild.assistSubstatEfficiency,
-    }): null;
+    const totalCC2 = comparisonBuild
+        ? calculateTotalCrit({
+              ...comparisonBuild.cc,
+              hasMastery: comparisonBuild.hasMastery,
+              masteryValue: comparisonBuild.masteryValue,
+              hasAssist: comparisonBuild.hasAssist,
+              efficiency: comparisonBuild.assistSubstatEfficiency,
+          })
+        : null;
 
-    const totalCF2 = comparisonBuild ? calculateTotalCritFactor({
-        ...comparisonBuild.cf,
-        hasAssist: comparisonBuild.hasAssist,
-        efficiency: comparisonBuild.assistSubstatEfficiency,
-    }): null;
+    const totalCF2 = comparisonBuild
+        ? calculateTotalCritFactor({
+              ...comparisonBuild.cf,
+              hasAssist: comparisonBuild.hasAssist,
+              efficiency: comparisonBuild.assistSubstatEfficiency,
+          })
+        : null;
 
-    const totalSCC2 = comparisonBuild ? calculateTotalSuperCrit({
-        ...comparisonBuild.scc,
-        hasMastery: comparisonBuild.hasMastery,
-        masteryValue: comparisonBuild.masteryValue,
-        hasAssist: comparisonBuild.hasAssist,
-        efficiency: comparisonBuild.assistSubstatEfficiency,
-    }): null;
+    const totalSCC2 = comparisonBuild
+        ? calculateTotalSuperCrit({
+              ...comparisonBuild.scc,
+              hasMastery: comparisonBuild.hasMastery,
+              masteryValue: comparisonBuild.masteryValue,
+              hasAssist: comparisonBuild.hasAssist,
+              efficiency: comparisonBuild.assistSubstatEfficiency,
+          })
+        : null;
 
-    const totalSCM2 = comparisonBuild ? calculateTotalSuperCritMulti({
-        ...comparisonBuild.scm,
-        hasMastery: comparisonBuild.hasMastery,
-        masteryValue: comparisonBuild.masteryValue,
-        hasAssist: comparisonBuild.hasAssist,
-        efficiency: comparisonBuild.assistSubstatEfficiency,
-    }): null;
+    const totalSCM2 = comparisonBuild
+        ? calculateTotalSuperCritMulti({
+              ...comparisonBuild.scm,
+              hasMastery: comparisonBuild.hasMastery,
+              masteryValue: comparisonBuild.masteryValue,
+              hasAssist: comparisonBuild.hasAssist,
+              efficiency: comparisonBuild.assistSubstatEfficiency,
+          })
+        : null;
 
-    const totalUWDamage2 = comparisonBuild ? calculateTotalUWDamage({
-        ...comparisonBuild.uw,
-        hasSL: comparisonBuild.hasSL,
-    }): null;
+    const totalUWDamage2 = comparisonBuild
+        ? calculateTotalUWDamage({
+              ...comparisonBuild.uw,
+              hasSL: comparisonBuild.hasSL,
+          })
+        : null;
 
-    const baseDamage2 =comparisonBuild ? calculateBaseDamage({
-        ...comparisonBuild.dmg,
-    }): null;
+    const baseDamage2 = comparisonBuild
+        ? calculateBaseDamage({
+              ...comparisonBuild.dmg,
+          })
+        : null;
 
-    const damageMulti2 = comparisonBuild ? calculateTotalDamageMulti({
-        ...comparisonBuild.dmg,
-        hasAssist: comparisonBuild.hasAssist,
-        hasSL: comparisonBuild.hasSL,
-        assistSubstatEfficiency: comparisonBuild.assistSubstatEfficiency,
-    }): null;
+    const damageMulti2 = comparisonBuild
+        ? calculateTotalDamageMulti({
+              ...comparisonBuild.dmg,
+              hasAssist: comparisonBuild.hasAssist,
+              hasSL: comparisonBuild.hasSL,
+              assistSubstatEfficiency: comparisonBuild.assistSubstatEfficiency,
+          })
+        : null;
 
-    const totalDamage2 = baseDamage2 && damageMulti2 ? baseDamage2 * damageMulti2: null;
+    const totalDamage2 =
+        baseDamage2 && damageMulti2 ? baseDamage2 * damageMulti2 : null;
 
-    const critMulti2 = totalCC2 && totalCF2 && totalSCC2 && totalSCM2 ? 
-        (1 + (totalCC2 / 100) * totalCF2) *
-        (1 + (totalCC2 / 100) * (totalSCC2 / 100) * totalSCM2): null;
+    const critMulti2 =
+        totalCC2 && totalCF2 && totalSCC2 && totalSCM2
+            ? (1 + (totalCC2 / 100) * totalCF2) *
+              (1 + (totalCC2 / 100) * (totalSCC2 / 100) * totalSCM2)
+            : null;
 
-    const finalDamage2 = critMulti2 && totalUWDamage2 && totalDamage2 ? critMulti2 * totalUWDamage2 * totalDamage2: null;
+    const finalDamage2 =
+        critMulti2 && totalUWDamage2 && totalDamage2
+            ? critMulti2 * totalUWDamage2 * totalDamage2
+            : null;
 
     return (
         <div className="max-w-6xl mx-auto p-8">
@@ -301,7 +334,7 @@ function App() {
                 />
                 <OverviewCard
                     name="Crit Bonus"
-                    value={formatCompactNumber(critMulti)}
+                    value={formatCompactNumber(critMulti, 0)}
                     onClick={() => setActiveTab("crit")}
                     active={activeTab === "crit"}
                     prefix="x"

@@ -5,8 +5,10 @@ import {
     DAMAGE_CARD_STATS,
     DAMAGE_MASTERY_STATS,
     DEMON_MODE_MASTERY_STATS,
+    DMG_RELICS_MAX,
     DMG_VAULT,
     MAINSTAT_RARITIES,
+    MAX_LVL_VALUES,
     PF_STATS,
 } from "@/data/constants";
 import { Switch } from "./ui/switch";
@@ -22,11 +24,26 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
+import * as Stats from "@/data/cannonModuleMainStat";
+import MainstatRarityPicker from "./mainstatRarityPicker";
 
 interface BaseDamageProps {
     data: DMGBuild;
     setBuild: React.Dispatch<React.SetStateAction<PlayerBuild>>;
 }
+
+export const CANNON_RARITY_DATA_MAP: Record<number, number[]> = {
+    0: Stats.CANNON_EPIC_LVLS,
+    1: Stats.CANNON_LEGENDARY_LVLS,
+    2: Stats.CANNON_MYTHICPLUS_LVLS,
+    3: Stats.CANNON_ANC_LVLS,
+    4: Stats.CANNON_1STAR_LVLS,
+    5: Stats.CANNON_2STAR_LVLS,
+    6: Stats.CANNON_3STAR_LVLS,
+    7: Stats.CANNON_4STAR_LVLS,
+    8: Stats.CANNON_5STAR_LVLS,
+};
+
 export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
     const updateField = (field: keyof DMGBuild, value: any) => {
         setBuild((prev) => ({
@@ -34,18 +51,29 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
             dmg: { ...prev.dmg, [field]: value },
         }));
     };
+
+    const moduleMax = MAX_LVL_VALUES[data.cannonRarityMain] ?? 60;
+
+    const currentRarityArray = CANNON_RARITY_DATA_MAP[data.cannonRarityMain] || [];
+    const moduleMain = currentRarityArray[data.cannonLvlMain] ?? 0;
+
+    const moduleMaxAssist = MAX_LVL_VALUES[data.cannonRarityAssist] ?? 60;
+
+    const currentRarityAssistArray =
+        CANNON_RARITY_DATA_MAP[data.cannonRarityAssist] || [];
+    const moduleAssist = currentRarityAssistArray[data.cannonLvlAssist] ?? 0;
     return (
         <div className="space-y-6">
             <h1 className="border-b pb-4">Base damage sources</h1>
-           
+
             <section className="space-y-4 border-b py-4">
                 <div className="flex justify-between">
                     <p>Workshop Damage</p>
                     <p>71.11M</p>
                 </div>
                 <div className="flex justify-between">
-                    <p >Workshop Enhancement</p>
-                    <span >x{data.workshopEnhancementValue}</span>
+                    <p>Workshop Enhancement</p>
+                    <span>x{data.workshopEnhancementValue}</span>
                 </div>
 
                 <Slider
@@ -60,7 +88,6 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 />
             </section>
 
-            
             <section className="border-b pb-4">
                 <p>Lab Bonus</p>
                 <div className="flex justify-between">
@@ -150,24 +177,64 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
 
             <section className="space-y-4 border-b pb-4">
                 <p> Modules </p>
-                <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <StatInput
-                        label="Main Module Multiplier"
-                        unit="x"
-                        value={data.moduleMain}
-                        onChange={(val) => updateField("moduleMain", val)}
-                        min={1}
-                        max={43.288}
-                    />
-                    <StatInput
-                        label="Assist Module Multiplier"
-                        unit="x"
-                        value={data.moduleAssist}
-                        onChange={(val) => updateField("moduleAssist", val)}
-                        min={1}
-                        max={43.288}
-                    />
-                </section>
+                <section className="flex gap-2">
+                                <MainstatRarityPicker
+                                    label="Main Cannon Rarity"
+                                    currentLevel={data.cannonRarityMain}
+                                    onChange={(newRarityIndex) => {
+                                        const newMax = MAX_LVL_VALUES[newRarityIndex] ?? 60;
+                                        const cappedLevel = Math.min(data.cannonLvlMain, newMax);
+                                        updateField("cannonRarityMain", newRarityIndex);
+                                        updateField("cannonLvlMain", cappedLevel);
+                                    }}
+                                />
+                                <div className="flex gap-2 items-end ">
+                                    <StatInput
+                                        label="Main Cannon Level"
+                                        unit="x"
+                                        value={data.cannonLvlMain}
+                                        onChange={(val) => updateField("cannonLvlMain", val)}
+                                        min={0}
+                                        max={moduleMax}
+                                    />
+                                    <span className="text-lg">x{moduleMain}</span>
+                                </div>
+                            </section>
+                
+                            <Label>Cannon Assist Main Stat Efficiency ({data.mainstatEfficiency}%)</Label>
+                            <Slider
+                                value={[data.mainstatEfficiency]}
+                                max={100}
+                                onValueChange={(val) => updateField("mainstatEfficiency", val)}
+                                className="w-1/2"
+                            />
+                
+                            <section className="flex gap-2">
+                                <MainstatRarityPicker
+                                    label="Assist Cannon Rarity"
+                                    currentLevel={data.cannonRarityAssist}
+                                    onChange={(newRarityIndex) => {
+                                        const newMax = MAX_LVL_VALUES[newRarityIndex] ?? 60;
+                                        const cappedLevel = Math.min(
+                                            data.cannonLvlAssist,
+                                            newMax
+                                        );
+                                        updateField("cannonRarityAssist", newRarityIndex);
+                                        updateField("cannonLvlAssist", cappedLevel);
+                                    }}
+                                />
+                                <div className="flex gap-2 items-end ">
+                                    <StatInput
+                                        label="Assist Cannon Level"
+                                        unit="x"
+                                        value={data.cannonLvlAssist}
+                                        onChange={(val) => updateField("cannonLvlAssist", val)}
+                                        min={0}
+                                        max={moduleMaxAssist}
+                                    />
+                                    <span className="text-lg">x{(Math.max(moduleAssist*(data.mainstatEfficiency/100), 1)).toFixed(2)}</span>
+                                </div>
+                            </section>
 
                 <div className="flex justify-between">
                     <div className="flex gap-2 items-center">
@@ -250,7 +317,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 <div className="flex justify-between">
                     <Slider
                         value={[data.relicValue]}
-                        max={97}
+                        max={DMG_RELICS_MAX}
                         min={0}
                         onValueChange={(val) =>
                             updateField("relicValue", val[0])

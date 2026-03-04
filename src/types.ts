@@ -7,8 +7,8 @@ export interface CCBuild {
 }
 
 export interface CFBuild {
-    labValue: number,
-    substatValue: number,
+    labValue: number;
+    substatValue: number;
     assistSubstatValue: number;
     workshopEnhancementValue: number;
     relicValue: number;
@@ -35,16 +35,21 @@ export interface SCMBuild {
 export interface UWBuild {
     baseUWDamage: number;
     substatValue: number;
-    moduleMain: number;
-    moduleAssist: number;
     hasMastery: boolean;
     STLabValue: number;
-    
+
+    coreLvlMain: number;
+    coreRarityMain: number;
+    coreLvlAssist: number;
+    coreRarityAssist: number;
+
+    mainstatEfficiency: number;
+
     relicValue: number;
     vaultValue: number;
 }
 
-export interface DMGBuild{
+export interface DMGBuild {
     labValue: number;
     workshopEnhancementValue: number;
     dmgCardValue: number;
@@ -55,8 +60,13 @@ export interface DMGBuild{
     hasBerserker: boolean;
     relicValue: number;
 
-    moduleMain:number;
-    moduleAssist:number;
+    cannonLvlMain: number;
+    cannonRarityMain: number;
+    cannonLvlAssist: number;
+    cannonRarityAssist: number;
+
+    mainstatEfficiency: number;
+
     hasAS: boolean;
     PFValue: number;
     endingCash: number;
@@ -94,8 +104,8 @@ export interface PlayerBuild {
     hasSL: boolean;
     cc: CCBuild;
     scc: SCCBuild;
-    cf: CFBuild; 
-    scm: SCMBuild; 
+    cf: CFBuild;
+    scm: SCMBuild;
     uw: UWBuild;
     dmg: DMGBuild;
 }

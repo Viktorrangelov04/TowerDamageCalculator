@@ -27,7 +27,7 @@ export default function TotalDamageCard({ name, value, value2 = 1 }: Props) {
                             Old: {formatCompactNumber(value2)}
                         </div>
                         <div className={`text-lg ${value>value2 ? "text-green-500" : "text-red-300"}`}>
-                            Diff: {((value/value2)*100-100).toFixed()}%
+                            Diff: {formatCompactNumber((value/value2)*100-100)}%
                         </div>
                     </div>
                 ) : (

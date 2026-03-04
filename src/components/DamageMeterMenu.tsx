@@ -2,6 +2,7 @@ import type { DMGBuild, PlayerBuild } from "@/types";
 import { Slider } from "./ui/slider";
 import SubstatPicker from "./SubstatPicker";
 import {
+    DPM_RELICS_MAX,
     DPM_SUBS,
     DPM_VAULT,
     RANGE_MASTERY_STATS,
@@ -111,7 +112,7 @@ export default function damageMeterMenu({
             <div className="flex justify-between">
                 <Slider
                     value={[data.damageMeterRelics]}
-                    max={71}
+                    max={DPM_RELICS_MAX}
                     min={0}
                     onValueChange={(val) =>
                         updateField("damageMeterRelics", val[0])
