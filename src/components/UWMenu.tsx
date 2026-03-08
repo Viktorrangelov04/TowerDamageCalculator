@@ -4,6 +4,7 @@ import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import LevelPicker from "./LevelPicker";
 import {
+    CL_DAMAGE,
     CL_SUBS,
     MAX_LVL_VALUES,
     SUBSTAT_RARITIES,
@@ -65,14 +66,19 @@ export default function UWMenu({
             </header>
 
             <section className="space-y-2">
-                <StatInput
-                    label="CL Multiplier"
-                    unit="x"
-                    value={data.baseUWDamage}
-                    onChange={(val) => updateField("baseUWDamage", val)}
-                    min={1}
-                    max={7961}
-                />
+                <div className="flex justify-between items-end">
+                    <StatInput
+                        label="CL Level"
+                        unit="x"
+                        value={data.CLLvl}
+                        onChange={(val) => updateField("CLLvl", val)}
+                        min={0}
+                        max={31}
+                    />
+                    <span>x{CL_DAMAGE[data.CLLvl]}</span>
+                </div>
+
+                
                 <SubstatPicker
                     label="CL Sub"
                     levels={CL_SUBS}
@@ -108,7 +114,9 @@ export default function UWMenu({
                 </div>
             </section>
 
-            <Label>Assist Main Stat Efficiency ({data.mainstatEfficiency}%)</Label>
+            <Label>
+                Assist Main Stat Efficiency ({data.mainstatEfficiency}%)
+            </Label>
             <Slider
                 value={[data.mainstatEfficiency]}
                 max={100}
@@ -139,7 +147,13 @@ export default function UWMenu({
                         min={0}
                         max={moduleMaxAssist}
                     />
-                    <span className="text-lg">x{(Math.max(moduleAssist*(data.mainstatEfficiency/100), 1)).toFixed(2)}</span>
+                    <span className="text-lg">
+                        x
+                        {Math.max(
+                            moduleAssist * (data.mainstatEfficiency / 100),
+                            1
+                        ).toFixed(2)}
+                    </span>
                 </div>
             </section>
 

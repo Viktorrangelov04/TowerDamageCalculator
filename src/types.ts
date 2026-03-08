@@ -33,6 +33,7 @@ export interface SCMBuild {
 }
 
 export interface UWBuild {
+    CLLvl: number;
     baseUWDamage: number;
     substatValue: number;
     hasMastery: boolean;
@@ -79,6 +80,9 @@ export interface DMGBuild {
     SLValue: number;
     hasSLPlus: boolean;
     SLPlusValue: number;
+    UWCritValue: number;
+    hasUWCritMastery: boolean;
+    UWCritMasteryValue: number;
 
     damageMeterLab: number;
     damageMeterEnhancement: number;
@@ -89,6 +93,8 @@ export interface DMGBuild {
     hasRangeMastery: boolean;
     RangeMasteryValue: number;
     range: number;
+    hasScout: boolean;
+    scoutValue: number;
 
     hasAmpBot: boolean;
     ampBotValue: number;

@@ -29,6 +29,7 @@ import {
     DPM_SUBS,
     DPM_VAULT,
     DC_STATS,
+    CL_DAMAGE,
 } from "@/data/constants";
 
 // import * as Stats from "@/data/moduleMainStats";
@@ -152,6 +153,7 @@ export interface UWDamageInputs extends UWBuild {
 }
 
 export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
+    const baseUWDamage = CL_DAMAGE[inputs.CLLvl]
     const substatValue = CL_SUBS[inputs.substatValue];
     let superTowerBonus = 0.35 * 5 * inputs.STLabValue;
     let vaultValue = 1 + UW_VAULT[inputs.vaultValue] / 100;
@@ -178,7 +180,7 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
         1
     );
     const total =
-        (inputs.baseUWDamage + substatValue) *
+        (baseUWDamage + substatValue) *
         moduleMain *
         moduleAssist *
         relic *
@@ -302,7 +304,7 @@ export const calculateTotalDamageMulti = (
     const effectiveVault = 1 + DPM_VAULT[inputs.damageMeterVault] / 100;
     const effectiveRelic = 1 + inputs.damageMeterRelics / 100;
     const effectiveSub = DPM_SUBS[inputs.substatValue];
-
+    const effectiveScout = inputs.hasScout ? inputs.scoutValue : 1;
     const DPM =
         1 +
         (0.059 * inputs.damageMeterLab + effectiveSub + effectiveAssist) *
@@ -312,7 +314,7 @@ export const calculateTotalDamageMulti = (
             effectiveMastery;
 
     const effectiveSLPlus = inputs.hasSLPlus
-        ? 1 + (DPM - 1) * inputs.range * inputs.SLPlusValue
+        ? 1 + (DPM - 1) * inputs.range * effectiveScout * inputs.SLPlusValue
         : 1;
 
     const total =
