@@ -1,9 +1,10 @@
 import type { DMGBuild, PlayerBuild } from "@/types";
 import SubstatPicker from "./SubstatPicker";
-import { ACP_STATS, DC_STATS, MAINSTAT_RARITIES } from "@/data/constants";
+import { ACP_STATS, DC_STATS, MAINSTAT_RARITIES, UW_CRIT_MASTERY_STATS, UW_CRIT_STATS } from "@/data/constants";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 import { Slider } from "./ui/slider";
+import LevelPicker from "./LevelPicker";
 
 interface AdditionalDamageMenuProps {
     data: DMGBuild;
@@ -144,7 +145,32 @@ export default function AdditinalDamageMenu({
                 )}
             </section>
 
+             <section className="space-y-4">
+                            <LevelPicker
+                                label="Ultimate Crit Card Level"
+                                levels={UW_CRIT_STATS}
+                                currentLevel={data.UWCritValue} 
+                                onChange={(val) => updateField("UWCritValue", val)}
+                            />
+                            
+                            <div className="flex items-center gap-2">
+                                <Label className="text-sm font-semibold">Ultimate Crit Mastery Unlocked?</Label>
+                                <Switch checked={data.hasUWCritMastery} onCheckedChange={(val) => updateField("hasUWCritMastery", val)} />
+                            </div>
             
+                            {data.hasUWCritMastery ? (
+                                <LevelPicker
+                                    label="Ultimate Crit Mastery Level"
+                                    levels={UW_CRIT_MASTERY_STATS}
+                                    currentLevel={data.UWCritMasteryValue}
+                                    onChange={(val) => updateField("UWCritMasteryValue", val)}
+                                />
+                            ) : (
+                                <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                                    Enable Mastery to configure levels
+                                </div>
+                            )}
+                        </section>
 
             <section className="space-y-4">
                 <p className="border-y py-4">Bots</p>

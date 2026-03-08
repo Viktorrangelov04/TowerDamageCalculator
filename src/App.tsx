@@ -58,6 +58,7 @@ const DEFAULT_BUILD = {
         vaultValue: 0,
     },
     uw: {
+        CLLvl: 0,
         baseUWDamage: 1,
         substatValue: 0,
 
@@ -109,6 +110,7 @@ const DEFAULT_BUILD = {
         SLValue: 8,
         hasSLPlus: false,
         SLPlusValue: 0,
+
         damageMeterEnhancement: 1,
         damageMeterLab: 1,
         substatValue: 0,
@@ -118,6 +120,8 @@ const DEFAULT_BUILD = {
         hasRangeMastery: false,
         RangeMasteryValue: 0,
         range: 69.5,
+        hasScout: false,
+        scoutValue: 2,
 
         hasAmpBot: false,
         ampBotValue: 1,

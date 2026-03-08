@@ -157,6 +157,37 @@ export default function damageMeterMenu({
                 max={250}
                 unit=""
             />
+
+            <div className="flex gap-2 items-center">
+                <Label>Scout Unlocked?</Label>
+                <Switch
+                    checked={data.hasScout}
+                    onCheckedChange={(v) => updateField("hasScout", v)}
+                />
+            </div>
+
+            {data.hasScout ? (
+                <div>
+                    <Label>Scout bonus</Label>
+                    <div className="flex justify-between py-5">
+                        <Slider
+                            value={[data.scoutValue]}
+                            max={6}
+                            step={0.1}
+                            min={2}
+                            onValueChange={(val) =>
+                                updateField("scoutValue", val[0])
+                            }
+                            className="w-1/2"
+                        />
+                        <span>x{data.scoutValue}</span>
+                    </div>
+                </div>
+            ) : (
+                <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                    Unlock scout to configure levels
+                </div>
+            )}
         </div>
     );
 }
