@@ -18,7 +18,7 @@ import { formatCompactNumber } from "./utils/numberFormatter.ts";
 import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
 
-const CURRENT_VERSION = 1.1;
+const CURRENT_VERSION = 1.2;
 
 const DEFAULT_BUILD = {
     version: CURRENT_VERSION,
@@ -59,7 +59,6 @@ const DEFAULT_BUILD = {
     },
     uw: {
         CLLvl: 0,
-        baseUWDamage: 1,
         substatValue: 0,
 
         hasMastery: false,
@@ -240,6 +239,7 @@ function App() {
         hasAssist: build.hasAssist,
         hasSL: build.hasSL,
         assistSubstatEfficiency: build.assistSubstatEfficiency,
+        totalCF: totalCF,
     });
 
     const totalDamage = baseDamage * damageMulti;
@@ -309,6 +309,7 @@ function App() {
               hasAssist: comparisonBuild.hasAssist,
               hasSL: comparisonBuild.hasSL,
               assistSubstatEfficiency: comparisonBuild.assistSubstatEfficiency,
+              totalCF: totalCF2
           })
         : null;
 
@@ -380,10 +381,12 @@ function App() {
                 {activeTab === "damage" && (
                     <DamageMenu
                         build={build}
+                        totalCF ={totalCF}
                         setBuild={setBuild}
                         setHasSL={setHasSL}
                         setHasAssist={setHasAssist}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
+
                     />
                 )}
                 {activeTab === "crit" && (

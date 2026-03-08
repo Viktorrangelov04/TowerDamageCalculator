@@ -34,7 +34,6 @@ export interface SCMBuild {
 
 export interface UWBuild {
     CLLvl: number;
-    baseUWDamage: number;
     substatValue: number;
     hasMastery: boolean;
     STLabValue: number;

@@ -17,7 +17,7 @@ interface mainstatRarityPicerProps {
 export default function MainstatRarityPicker({
     label,
     currentLevel,
-    onChange, // This is your updateField function passed down
+    onChange, 
 }: mainstatRarityPicerProps) {
     return (
         <div>
@@ -26,8 +26,6 @@ export default function MainstatRarityPicker({
                
             </div>
 
-            {/* 1. Use onValueChange to capture the new value */}
-            {/* 2. Use value to make the component controlled */}
             <Select
                 value={currentLevel.toString()}
                 onValueChange={(value) => onChange(parseInt(value))}

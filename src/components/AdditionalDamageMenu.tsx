@@ -147,7 +147,7 @@ export default function AdditinalDamageMenu({
 
              <section className="space-y-4">
                             <LevelPicker
-                                label="Ultimate Crit Card Level"
+                                label="Ultimate Crit Card Level(Bonus displayed as effective value over 100 hits because of the inability to make it permanent)"
                                 levels={UW_CRIT_STATS}
                                 currentLevel={data.UWCritValue} 
                                 onChange={(val) => updateField("UWCritValue", val)}
