@@ -239,6 +239,7 @@ function App() {
         hasAssist: build.hasAssist,
         hasSL: build.hasSL,
         assistSubstatEfficiency: build.assistSubstatEfficiency,
+        totalCF: totalCF,
     });
 
     const totalDamage = baseDamage * damageMulti;
@@ -308,6 +309,7 @@ function App() {
               hasAssist: comparisonBuild.hasAssist,
               hasSL: comparisonBuild.hasSL,
               assistSubstatEfficiency: comparisonBuild.assistSubstatEfficiency,
+              totalCF: totalCF2
           })
         : null;
 
@@ -379,10 +381,12 @@ function App() {
                 {activeTab === "damage" && (
                     <DamageMenu
                         build={build}
+                        totalCF ={totalCF}
                         setBuild={setBuild}
                         setHasSL={setHasSL}
                         setHasAssist={setHasAssist}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
+
                     />
                 )}
                 {activeTab === "crit" && (

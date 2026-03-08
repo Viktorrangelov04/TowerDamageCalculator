@@ -13,6 +13,7 @@ import { formatCompactNumber } from "@/utils/numberFormatter";
 
 interface DamageProps {
     build: any;
+    totalCF: number;
     setBuild: React.Dispatch<React.SetStateAction<PlayerBuild>>;
     setHasSL: (val: boolean) => void;
     setHasAssist: (val: boolean) => void;
@@ -21,6 +22,7 @@ interface DamageProps {
 
 export default function DamageMenu({
     build,
+    totalCF,
     setBuild,
     setHasSL,
     setHasAssist,
@@ -42,7 +44,8 @@ export default function DamageMenu({
         ...build.dmg,
         hasAssist: build.hasAssist,
         hasSL: build.hasSL,
-        assistSubstatEfficiency: build.assistSubstatEfficiency
+        assistSubstatEfficiency: build.assistSubstatEfficiency,
+        totalCF: totalCF
     })
 
     return (

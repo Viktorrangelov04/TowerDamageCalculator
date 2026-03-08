@@ -30,6 +30,8 @@ import {
     DPM_VAULT,
     DC_STATS,
     CL_DAMAGE,
+    UW_CRIT_STATS,
+    UW_CRIT_MASTERY_STATS,
 } from "@/data/constants";
 
 // import * as Stats from "@/data/moduleMainStats";
@@ -277,6 +279,7 @@ export interface damageMultiInputs extends DMGBuild {
     hasSL: boolean;
     hasAssist: boolean;
     assistSubstatEfficiency: number;
+    totalCF: any;
 }
 
 export const calculateTotalDamageMulti = (
@@ -286,6 +289,14 @@ export const calculateTotalDamageMulti = (
     const effectiveSL = inputs.hasSL ? inputs.SLValue : 1;
     const effectiveAmp = inputs.hasAmpBot ? inputs.ampBotValue : 1;
     const shockProccs = DC_STATS[inputs.DCValue];
+
+    console.log(inputs.totalCF)
+    let totalUWCrit = 1;
+    if(inputs.UWCritValue!=0 && inputs.hasUWCritMastery){
+        totalUWCrit = 1+(UW_CRIT_STATS[inputs.UWCritValue]/100+ UW_CRIT_MASTERY_STATS[inputs.UWCritMasteryValue]/100)*inputs.totalCF
+    }else if(inputs.UWCritValue!=0){
+        totalUWCrit = 1+(UW_CRIT_STATS[inputs.UWCritValue]/100)*inputs.totalCF
+    }
 
     let shockValue = 1;
     if (inputs.DCValue == 0) {
@@ -323,7 +334,8 @@ export const calculateTotalDamageMulti = (
         effectiveSL *
         effectiveSLPlus *
         effectiveAmp *
-        shockValue;
+        shockValue *
+        totalUWCrit;
     return total;
 };
 
