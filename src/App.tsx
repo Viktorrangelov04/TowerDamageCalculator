@@ -18,7 +18,7 @@ import { formatCompactNumber } from "./utils/numberFormatter.ts";
 import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
 
-const CURRENT_VERSION = 1.1;
+const CURRENT_VERSION = 1.2;
 
 const DEFAULT_BUILD = {
     version: CURRENT_VERSION,
@@ -59,7 +59,6 @@ const DEFAULT_BUILD = {
     },
     uw: {
         CLLvl: 0,
-        baseUWDamage: 1,
         substatValue: 0,
 
         hasMastery: false,
