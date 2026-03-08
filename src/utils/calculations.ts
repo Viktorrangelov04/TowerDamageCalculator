@@ -155,7 +155,7 @@ export interface UWDamageInputs extends UWBuild {
 }
 
 export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
-    const baseUWDamage = CL_DAMAGE[inputs.CLLvl]
+    const baseUWDamage = CL_DAMAGE[inputs.CLLvl];
     const substatValue = CL_SUBS[inputs.substatValue];
     let superTowerBonus = 0.35 * 5 * inputs.STLabValue;
     let vaultValue = 1 + UW_VAULT[inputs.vaultValue] / 100;
@@ -205,10 +205,12 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
 
     let cashValue = inputs.endingCash;
 
-    const currentRarityArray = CANNON_RARITY_DATA_MAP[inputs.cannonRarityMain] || [];
+    const currentRarityArray =
+        CANNON_RARITY_DATA_MAP[inputs.cannonRarityMain] || [];
     const moduleMain = currentRarityArray[inputs.cannonLvlMain] ?? 0;
 
-    const currentRarityAssistArray = CANNON_RARITY_DATA_MAP[inputs.cannonRarityAssist];
+    const currentRarityAssistArray =
+        CANNON_RARITY_DATA_MAP[inputs.cannonRarityAssist];
 
     const moduleAssist = Math.max(
         currentRarityAssistArray[inputs.cannonLvlAssist] *
@@ -290,12 +292,20 @@ export const calculateTotalDamageMulti = (
     const effectiveAmp = inputs.hasAmpBot ? inputs.ampBotValue : 1;
     const shockProccs = DC_STATS[inputs.DCValue];
 
-    console.log(inputs.totalCF)
+    const totalCF = Number(inputs.totalCF) || 0;
+
     let totalUWCrit = 1;
-    if(inputs.UWCritValue!=0 && inputs.hasUWCritMastery){
-        totalUWCrit = 1+(UW_CRIT_STATS[inputs.UWCritValue]/100+ UW_CRIT_MASTERY_STATS[inputs.UWCritMasteryValue]/100)*inputs.totalCF
-    }else if(inputs.UWCritValue!=0){
-        totalUWCrit = 1+(UW_CRIT_STATS[inputs.UWCritValue]/100)*inputs.totalCF
+
+    if (inputs.UWCritValue != 0) {
+        const critStat = (UW_CRIT_STATS[inputs.UWCritValue] || 0) / 100;
+
+        if (inputs.hasUWCritMastery) {
+            const masteryStat =
+                (UW_CRIT_MASTERY_STATS[inputs.UWCritMasteryValue] || 0) / 100;
+            totalUWCrit = 1 + (critStat + masteryStat) * totalCF;
+        } else {
+            totalUWCrit = 1 + critStat * totalCF;
+        }
     }
 
     let shockValue = 1;
