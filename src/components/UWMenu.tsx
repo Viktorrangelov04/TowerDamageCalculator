@@ -68,7 +68,7 @@ export default function UWMenu({
             <section className="space-y-2">
                 <div className="flex justify-between items-end">
                     <StatInput
-                        label="CL Level"
+                        label="Chain Lightning Level"
                         unit="x"
                         value={data.CLLvl}
                         onChange={(val) => updateField("CLLvl", val)}
@@ -80,7 +80,7 @@ export default function UWMenu({
 
                 
                 <SubstatPicker
-                    label="CL Sub"
+                    label="Chain Lightning Damage Sub"
                     levels={CL_SUBS}
                     currentLevel={data.substatValue}
                     efficiency={100}

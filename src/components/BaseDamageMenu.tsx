@@ -238,7 +238,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
 
                 <div className="flex justify-between">
                     <div className="flex gap-2 items-center">
-                        <p>AS procc</p>
+                        <p>Amplifying Strike Activation</p>
 
                         <Switch
                             checked={data.hasAS}
@@ -249,7 +249,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 </div>
 
                 <SubstatPicker
-                    label="PF Rarity"
+                    label="Project Funding Rarity"
                     levels={PF_STATS}
                     currentLevel={data.PFValue}
                     efficiency={100}
