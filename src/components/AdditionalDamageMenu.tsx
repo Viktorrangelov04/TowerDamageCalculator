@@ -42,7 +42,7 @@ export default function AdditinalDamageMenu({
                 <p className="border-b pb-4"> Modules </p>
 
                 <SubstatPicker
-                    label="ACP Rarity"
+                    label="Anti-Cube Portal Rarity"
                     levels={ACP_STATS}
                     currentLevel={data.ACPValue}
                     efficiency={100}
@@ -53,7 +53,7 @@ export default function AdditinalDamageMenu({
                 />
 
                 <SubstatPicker
-                    label="DC Rarity"
+                    label="Dimension Core Rarity"
                     levels={DC_STATS}
                     currentLevel={data.DCValue}
                     efficiency={100}
@@ -147,7 +147,7 @@ export default function AdditinalDamageMenu({
 
              <section className="space-y-4">
                             <LevelPicker
-                                label="Ultimate Crit Card Level(Bonus displayed as effective value over 100 hits because of the inability to make it permanent)"
+                                label="Ultimate Crit Card Level"
                                 levels={UW_CRIT_STATS}
                                 currentLevel={data.UWCritValue} 
                                 onChange={(val) => updateField("UWCritValue", val)}

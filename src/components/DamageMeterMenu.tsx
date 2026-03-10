@@ -154,7 +154,7 @@ export default function damageMeterMenu({
                 value={data.range}
                 onChange={(v) => updateField("range", v)}
                 min={1}
-                max={250}
+                max={270}
                 unit=""
             />
 

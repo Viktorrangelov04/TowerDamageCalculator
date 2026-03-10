@@ -17,6 +17,7 @@ import type { PlayerBuild } from "./types.ts";
 import { formatCompactNumber } from "./utils/numberFormatter.ts";
 import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
+import DisclaimerBanner from "./components/DisclaimerBanner.tsx";
 
 const CURRENT_VERSION = 1.2;
 
@@ -108,7 +109,7 @@ const DEFAULT_BUILD = {
 
         SLValue: 8,
         hasSLPlus: false,
-        SLPlusValue: 0,
+        SLPlusValue: 0.01,
 
         damageMeterEnhancement: 1,
         damageMeterLab: 1,
@@ -330,6 +331,7 @@ function App() {
     return (
         <div className="max-w-6xl mx-auto p-8">
             <Header />
+            <DisclaimerBanner/>
             <div className="w-4/5 mx-auto my-8 grid grid-cols-1 md:grid-cols-4 gap-6">
                 <OverviewCard
                     name="Damage"
@@ -374,7 +376,7 @@ function App() {
             <div className="rounded-xl border p-6 shadow-sm min-h-[300px] mt-8">
                 {!activeTab && (
                     <p className="text-center text-muted-foreground pt-10">
-                        Select a category above to start calculating.
+                        Select a category above to input your data.
                     </p>
                 )}
 
