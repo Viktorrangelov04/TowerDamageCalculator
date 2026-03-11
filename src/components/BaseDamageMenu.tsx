@@ -205,7 +205,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                             <Slider
                                 value={[data.mainstatEfficiency]}
                                 max={100}
-                                onValueChange={(val) => updateField("mainstatEfficiency", val)}
+                                onValueChange={(val) => updateField("mainstatEfficiency", val[0])}
                                 className="w-1/2"
                             />
                 
@@ -232,7 +232,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                                         min={0}
                                         max={moduleMaxAssist}
                                     />
-                                    <span className="text-lg">x{(Math.max(moduleAssist*(data.mainstatEfficiency/100), 1)).toFixed(2)}</span>
+                                    <span className="text-lg">x{(1+(moduleAssist-1)*(data.mainstatEfficiency/100)).toFixed(3)}</span>
                                 </div>
                             </section>
 
