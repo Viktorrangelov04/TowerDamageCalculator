@@ -176,11 +176,10 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
 
     const currentRarityAssistArray = RARITY_DATA_MAP[inputs.coreRarityAssist];
 
-    const moduleAssist = Math.max(
-        currentRarityAssistArray[inputs.coreLvlAssist] *
-            (inputs.mainstatEfficiency / 100),
-        1
-    );
+    const moduleAssist =
+        1 +
+        (currentRarityAssistArray[inputs.coreLvlAssist] - 1) *
+            (inputs.mainstatEfficiency / 100);
     const total =
         (baseUWDamage + substatValue) *
         moduleMain *
@@ -212,11 +211,10 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
     const currentRarityAssistArray =
         CANNON_RARITY_DATA_MAP[inputs.cannonRarityAssist];
 
-    const moduleAssist = Math.max(
-        currentRarityAssistArray[inputs.cannonLvlAssist] *
-            (inputs.mainstatEfficiency / 100),
-        1
-    );
+    const moduleAssist =
+        1 +
+        (currentRarityAssistArray[inputs.cannonLvlAssist] - 1) *
+            (inputs.mainstatEfficiency / 100);
 
     if (inputs.endingCashSuffix == "M") {
         cashValue = inputs.endingCash * 1000000;

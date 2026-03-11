@@ -78,7 +78,6 @@ export default function UWMenu({
                     <span>x{CL_DAMAGE[data.CLLvl]}</span>
                 </div>
 
-                
                 <SubstatPicker
                     label="Chain Lightning Damage Sub"
                     levels={CL_SUBS}
@@ -120,7 +119,8 @@ export default function UWMenu({
             <Slider
                 value={[data.mainstatEfficiency]}
                 max={100}
-                onValueChange={(val) => updateField("mainstatEfficiency", val)}
+                min={0}
+                onValueChange={(val) => updateField("mainstatEfficiency", val[0])}
                 className="w-1/2"
             />
 
@@ -149,10 +149,7 @@ export default function UWMenu({
                     />
                     <span className="text-lg">
                         x
-                        {Math.max(
-                            moduleAssist * (data.mainstatEfficiency / 100),
-                            1
-                        ).toFixed(2)}
+                        {(1 + (moduleAssist-1) * (data.mainstatEfficiency / 100)).toFixed(3)}
                     </span>
                 </div>
             </section>
