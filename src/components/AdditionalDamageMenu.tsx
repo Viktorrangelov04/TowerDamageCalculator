@@ -26,6 +26,7 @@ interface AdditionalDamageMenuProps {
     hasST: boolean;
     STLabValue: number;
     UWVaultValue: number;
+    damageMeter: number;
 }
 
 export default function AdditinalDamageMenu({
@@ -39,6 +40,7 @@ export default function AdditinalDamageMenu({
     hasST,
     STLabValue,
     UWVaultValue,
+    damageMeter,
 }: AdditionalDamageMenuProps) {
     const updateField = (field: keyof DMGBuild, value: any) => {
         setBuild((prev) => ({
@@ -52,6 +54,11 @@ export default function AdditinalDamageMenu({
     } else {
         shockValue = 1 + DC_STATS[data.DCValue] * (data.shockLabValue * 2);
     }
+
+    const SLPlusValue = data.hasScout
+        ? 1 +
+          (damageMeter - 1) * data.SLPlusValue * data.range * data.scoutValue
+        : 1 + (damageMeter - 1) * data.SLPlusValue * data.range;
 
     const SLValue =
         hasST && data.hasSLPerk
@@ -246,7 +253,7 @@ export default function AdditinalDamageMenu({
                             }
                             className="w-1/2"
                         />
-                        <Label>{data.SLPlusValue}</Label>
+                        <Label>x{data.SLPlusValue}/x{SLPlusValue.toFixed(2)}</Label>
                     </div>
                 ) : (
                     <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">

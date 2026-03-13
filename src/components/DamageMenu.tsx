@@ -96,6 +96,7 @@ export default function DamageMenu({
                     hasST={build.uw.hasMastery}
                     STLabValue={build.uw.STLabValue}
                     UWVaultValue={build.uw.vaultValue}
+                    damageMeter = {damageMeter}
                 />
             )}
             {activeTab === "damage/meter" && (

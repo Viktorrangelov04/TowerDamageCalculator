@@ -65,7 +65,7 @@ export default function UWMenu({
         data.hasPerk && data.hasMastery
             ? (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
-                  CL_SUBS[data.assistSubstatValue]) *
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100) *
               (0.35 * 5 * data.STLabValue) *
@@ -73,20 +73,20 @@ export default function UWMenu({
             : data.hasMastery
             ? (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
-                  CL_SUBS[data.assistSubstatValue]) *
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100) *
               (0.35 * 5 * data.STLabValue)
             : data.hasPerk
             ? (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
-                  CL_SUBS[data.assistSubstatValue]) *
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100) *
               2
             : (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
-                  CL_SUBS[data.assistSubstatValue]) *
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100);
 
