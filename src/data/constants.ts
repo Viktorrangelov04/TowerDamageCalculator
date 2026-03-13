@@ -21,6 +21,7 @@ export const SUPER_CRIT_MULTI_VAULT = [0, 5, 10, 15];
 export const UW_VAULT = [0, 5, 10, 15, 20];
 
 export const CL_SUBS = [0, 8, 15, 25, 50, 100, 250];
+export const SL_SUBS = [0, 1.2, 2.5, 3.5, 10, 15, 20]
 
 export const DAMAGE_CARD_STATS = [1, 1.5, 2, 2.4, 2.8, 3.2, 3.6, 4];
 export const DAMAGE_MASTERY_STATS = [

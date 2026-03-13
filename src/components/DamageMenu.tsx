@@ -18,6 +18,7 @@ interface DamageProps {
     setHasSL: (val: boolean) => void;
     setHasAssist: (val: boolean) => void;
     setAssistSubstatEfficiency: (val: number) => void;
+    setCoreSubstatEfficiency: (val: number)=>void;
 }
 
 export default function DamageMenu({
@@ -27,6 +28,7 @@ export default function DamageMenu({
     setHasSL,
     setHasAssist,
     setAssistSubstatEfficiency,
+    setCoreSubstatEfficiency
 }: DamageProps) {
     const [activeTab, setActiveTab] = useState("damage");
     
@@ -45,7 +47,12 @@ export default function DamageMenu({
         hasAssist: build.hasAssist,
         hasSL: build.hasSL,
         assistSubstatEfficiency: build.assistSubstatEfficiency,
-        totalCF: totalCF
+        totalCF: totalCF,
+        coreSubstatEfficiency: build.coreSubstatEfficiency,
+        UWRelicValue: build.uw.relicValue,
+        hasST: build.uw.hasMastery,
+        STLabValue: build.uw.STLabValue,
+        UWVaultValue: build.uw.vaultValue,
     })
 
     return (
@@ -83,6 +90,13 @@ export default function DamageMenu({
                     setBuild={setBuild}
                     hasSL={build.hasSL}
                     setHasSL={setHasSL}
+                    coreSubstatEfficiency={build.coreSubstatEfficiency}
+                    setCoreSubstatEfficiency={setCoreSubstatEfficiency}
+                    UWRelicValue={build.uw.relicValue}
+                    hasST={build.uw.hasMastery}
+                    STLabValue={build.uw.STLabValue}
+                    UWVaultValue={build.uw.vaultValue}
+                    damageMeter = {damageMeter}
                 />
             )}
             {activeTab === "damage/meter" && (

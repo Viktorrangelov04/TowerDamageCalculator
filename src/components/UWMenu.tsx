@@ -21,6 +21,8 @@ interface UWMenuProps {
     setBuild: React.Dispatch<React.SetStateAction<PlayerBuild>>;
     hasSL: boolean;
     setHasSL: (val: boolean) => void;
+    coreSubstatEfficiency: number;
+    setCoreSubstatEfficiency: (val: number) => void;
 }
 
 export const RARITY_DATA_MAP: Record<number, number[]> = {
@@ -38,8 +40,8 @@ export const RARITY_DATA_MAP: Record<number, number[]> = {
 export default function UWMenu({
     data,
     setBuild,
-    hasSL,
-    setHasSL,
+    coreSubstatEfficiency,
+    setCoreSubstatEfficiency,
 }: UWMenuProps) {
     const updateField = (field: keyof UWBuild, value: any) => {
         setBuild((prev) => ({
@@ -59,6 +61,35 @@ export default function UWMenu({
         RARITY_DATA_MAP[data.coreRarityAssist] || [];
     const moduleAssist = currentRarityAssistArray[data.coreLvlAssist] ?? 0;
 
+    const CLValue =
+        data.hasPerk && data.hasMastery
+            ? (CL_DAMAGE[data.CLLvl] +
+                  CL_SUBS[data.substatValue] +
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
+              (1 + data.relicValue / 100) *
+              (1 + UW_VAULT[data.vaultValue] / 100) *
+              (0.35 * 5 * data.STLabValue) *
+              2
+            : data.hasMastery
+            ? (CL_DAMAGE[data.CLLvl] +
+                  CL_SUBS[data.substatValue] +
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
+              (1 + data.relicValue / 100) *
+              (1 + UW_VAULT[data.vaultValue] / 100) *
+              (0.35 * 5 * data.STLabValue)
+            : data.hasPerk
+            ? (CL_DAMAGE[data.CLLvl] +
+                  CL_SUBS[data.substatValue] +
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
+              (1 + data.relicValue / 100) *
+              (1 + UW_VAULT[data.vaultValue] / 100) *
+              2
+            : (CL_DAMAGE[data.CLLvl] +
+                  CL_SUBS[data.substatValue] +
+                  CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
+              (1 + data.relicValue / 100) *
+              (1 + UW_VAULT[data.vaultValue] / 100);
+
     return (
         <div className="space-y-10">
             <header className="border-b pb-4">
@@ -75,15 +106,45 @@ export default function UWMenu({
                         min={0}
                         max={31}
                     />
-                    <span>x{CL_DAMAGE[data.CLLvl]}</span>
+
+                    <span>
+                        x{CL_DAMAGE[data.CLLvl]}/x
+                        {CLValue.toFixed(2)}
+                    </span>
                 </div>
 
+                <Switch
+                    checked={data.hasPerk}
+                    onCheckedChange={(val) => updateField("hasPerk", val)}
+                />
+
                 <SubstatPicker
-                    label="Chain Lightning Damage Sub"
+                    label="Main Chain Lightning Damage Substat"
                     levels={CL_SUBS}
                     currentLevel={data.substatValue}
                     efficiency={100}
                     onChange={(val) => updateField("substatValue", val)}
+                    unit="x"
+                    rarities={SUBSTAT_RARITIES}
+                />
+
+                <Label>
+                    Core Assist Main Stat Efficiency ({coreSubstatEfficiency}
+                    %)
+                </Label>
+                <Slider
+                    value={[coreSubstatEfficiency]}
+                    max={100}
+                    onValueChange={(val) => setCoreSubstatEfficiency(val[0])}
+                    className="w-1/2"
+                />
+
+                <SubstatPicker
+                    label="Assist Chain Lightning Damage Substat"
+                    levels={CL_SUBS}
+                    currentLevel={data.assistSubstatValue}
+                    efficiency={coreSubstatEfficiency}
+                    onChange={(val) => updateField("assistSubstatValue", val)}
                     unit="x"
                     rarities={SUBSTAT_RARITIES}
                 />
@@ -120,7 +181,9 @@ export default function UWMenu({
                 value={[data.mainstatEfficiency]}
                 max={100}
                 min={0}
-                onValueChange={(val) => updateField("mainstatEfficiency", val[0])}
+                onValueChange={(val) =>
+                    updateField("mainstatEfficiency", val[0])
+                }
                 className="w-1/2"
             />
 
@@ -149,7 +212,10 @@ export default function UWMenu({
                     />
                     <span className="text-lg">
                         x
-                        {(1 + (moduleAssist-1) * (data.mainstatEfficiency / 100)).toFixed(3)}
+                        {(
+                            1 +
+                            (moduleAssist - 1) * (data.mainstatEfficiency / 100)
+                        ).toFixed(3)}
                     </span>
                 </div>
             </section>
@@ -186,15 +252,6 @@ export default function UWMenu({
                         className="w-1/2"
                     />
                     <span>x{data.STLabValue}</span>
-                </div>
-
-                <div className="flex items-center justify-between border-t pt-4">
-                    <div className="space-y-0.5">
-                        <Label className="text-base font-semibold">
-                            Spotlight Unlocked
-                        </Label>
-                    </div>
-                    <Switch checked={hasSL} onCheckedChange={setHasSL} />
                 </div>
             </section>
 
