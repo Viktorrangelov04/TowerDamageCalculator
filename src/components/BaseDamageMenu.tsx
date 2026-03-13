@@ -128,6 +128,20 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                     {data.hasBerserker && <p>x8</p>}
                 </div>
 
+                <div className="flex justify-between">
+                    <div className="flex gap-2 items-center">
+                        <p>Berserker Mastery Activated</p>
+
+                        <Switch
+                            checked={data.hasBerserkerMastery}
+                            onCheckedChange={(v) =>
+                                updateField("hasBerserkerMastery", v)
+                            }
+                        />
+                    </div>
+                    {data.hasBerserkerMastery && <p>x500</p>}
+                </div>
+
                 <div className="flex gap-2 items-center">
                     <p>Damage Mastery Unlocked?</p>
                     <Switch

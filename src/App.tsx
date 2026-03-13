@@ -27,6 +27,7 @@ const DEFAULT_BUILD = {
     masteryValue: 0,
     hasAssist: false,
     assistSubstatEfficiency: 0,
+    coreSubstatEfficiency: 0,
     hasSL: false,
     cc: {
         cardValue: 0,
@@ -61,6 +62,8 @@ const DEFAULT_BUILD = {
     uw: {
         CLLvl: 0,
         substatValue: 0,
+        assistSubstatValue: 0,
+        hasPerk: false,
 
         hasMastery: false,
         STLabValue: 1,
@@ -80,6 +83,7 @@ const DEFAULT_BUILD = {
 
         dmgCardValue: 0,
         hasBerserker: false,
+        hasBerserkerMastery: false,
         hasMastery: false,
         masteryValue: 0,
         hasDMMastery: false,
@@ -108,8 +112,11 @@ const DEFAULT_BUILD = {
         vaultValue: 0,
 
         SLValue: 8,
+        hasSLPerk: false,
         hasSLPlus: false,
         SLPlusValue: 0.01,
+        SLSubstatValue: 0,
+        SLAssistSubstatValue: 0,
 
         damageMeterEnhancement: 1,
         damageMeterLab: 1,
@@ -138,6 +145,9 @@ function App() {
 
     const setAssistSubstatEfficiency = (val: number) =>
         setBuild((p: any) => ({ ...p, assistSubstatEfficiency: val }));
+
+    const setCoreSubstatEfficiency = (val: number) =>
+        setBuild((p: any) => ({ ...p, coreSubstatEfficiency: val }));
 
     const [build, setBuild] = useState<PlayerBuild>(() => {
         const saved = localStorage.getItem("player_build");
@@ -228,7 +238,7 @@ function App() {
 
     const totalUWDamage = calculateTotalUWDamage({
         ...build.uw,
-        hasSL: build.hasSL,
+        coreSubstatEfficiency: build.coreSubstatEfficiency,
     });
 
     const baseDamage = calculateBaseDamage({
@@ -241,6 +251,11 @@ function App() {
         hasSL: build.hasSL,
         assistSubstatEfficiency: build.assistSubstatEfficiency,
         totalCF: totalCF,
+        coreSubstatEfficiency: build.coreSubstatEfficiency,
+        UWRelicValue: build.uw.relicValue,
+        hasST: build.uw.hasMastery,
+        STLabValue: build.uw.STLabValue,
+        UWVaultValue: build.uw.vaultValue,
     });
 
     const totalDamage = baseDamage * damageMulti;
@@ -250,6 +265,8 @@ function App() {
         (1 + (totalCC / 100) * (totalSCC / 100) * totalSCM);
 
     const finalDamage = critMulti * totalUWDamage * totalDamage;
+
+   
 
     //////////////////////////////////////////////////////////////
 
@@ -294,7 +311,7 @@ function App() {
     const totalUWDamage2 = comparisonBuild
         ? calculateTotalUWDamage({
               ...comparisonBuild.uw,
-              hasSL: comparisonBuild.hasSL,
+              coreSubstatEfficiency: comparisonBuild.coreSubstatEfficiency,
           })
         : null;
 
@@ -310,7 +327,12 @@ function App() {
               hasAssist: comparisonBuild.hasAssist,
               hasSL: comparisonBuild.hasSL,
               assistSubstatEfficiency: comparisonBuild.assistSubstatEfficiency,
-              totalCF: totalCF2
+              totalCF: totalCF2,
+              coreSubstatEfficiency: comparisonBuild.coreSubstatEfficiency,
+              UWRelicValue: comparisonBuild.uw.relicValue,
+              hasST: comparisonBuild.uw.hasMastery,
+              STLabValue: comparisonBuild.uw.STLabValue,
+              UWVaultValue: comparisonBuild.uw.vaultValue,
           })
         : null;
 
@@ -331,7 +353,7 @@ function App() {
     return (
         <div className="max-w-6xl mx-auto p-8">
             <Header />
-            <DisclaimerBanner/>
+            <DisclaimerBanner />
             <div className="w-4/5 mx-auto my-8 grid grid-cols-1 md:grid-cols-4 gap-6">
                 <OverviewCard
                     name="Damage"
@@ -383,12 +405,12 @@ function App() {
                 {activeTab === "damage" && (
                     <DamageMenu
                         build={build}
-                        totalCF ={totalCF}
+                        totalCF={totalCF}
                         setBuild={setBuild}
                         setHasSL={setHasSL}
                         setHasAssist={setHasAssist}
                         setAssistSubstatEfficiency={setAssistSubstatEfficiency}
-
+                        setCoreSubstatEfficiency={setCoreSubstatEfficiency}
                     />
                 )}
                 {activeTab === "crit" && (
@@ -400,6 +422,8 @@ function App() {
                         setBuild={setBuild}
                         hasSL={build.hasSL}
                         setHasSL={setHasSL}
+                        coreSubstatEfficiency={build.coreSubstatEfficiency}
+                        setCoreSubstatEfficiency={setCoreSubstatEfficiency}
                     />
                 )}
             </div>

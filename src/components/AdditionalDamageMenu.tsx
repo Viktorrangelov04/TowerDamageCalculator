@@ -1,6 +1,15 @@
 import type { DMGBuild, PlayerBuild } from "@/types";
 import SubstatPicker from "./SubstatPicker";
-import { ACP_STATS, DC_STATS, MAINSTAT_RARITIES, UW_CRIT_MASTERY_STATS, UW_CRIT_STATS } from "@/data/constants";
+import {
+    ACP_STATS,
+    DC_STATS,
+    MAINSTAT_RARITIES,
+    SL_SUBS,
+    SUBSTAT_RARITIES,
+    UW_CRIT_MASTERY_STATS,
+    UW_CRIT_STATS,
+    UW_VAULT,
+} from "@/data/constants";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 import { Slider } from "./ui/slider";
@@ -11,6 +20,12 @@ interface AdditionalDamageMenuProps {
     setBuild: React.Dispatch<React.SetStateAction<PlayerBuild>>;
     hasSL: boolean;
     setHasSL: (val: boolean) => void;
+    coreSubstatEfficiency: number;
+    setCoreSubstatEfficiency: (val: number) => void;
+    UWRelicValue: number;
+    hasST: boolean;
+    STLabValue: number;
+    UWVaultValue: number;
 }
 
 export default function AdditinalDamageMenu({
@@ -18,6 +33,12 @@ export default function AdditinalDamageMenu({
     setBuild,
     hasSL,
     setHasSL,
+    coreSubstatEfficiency,
+    setCoreSubstatEfficiency,
+    UWRelicValue,
+    hasST,
+    STLabValue,
+    UWVaultValue,
 }: AdditionalDamageMenuProps) {
     const updateField = (field: keyof DMGBuild, value: any) => {
         setBuild((prev) => ({
@@ -25,19 +46,54 @@ export default function AdditinalDamageMenu({
             dmg: { ...prev.dmg, [field]: value },
         }));
     };
-    let shockValue = 0.66
-    if(data.DCValue == 0){
-        shockValue = 1+DC_STATS[data.DCValue]*data.shockLabValue
-    }else{
-        shockValue = 1+DC_STATS[data.DCValue]*(data.shockLabValue*2)
+    let shockValue = 0.66;
+    if (data.DCValue == 0) {
+        shockValue = 1 + DC_STATS[data.DCValue] * data.shockLabValue;
+    } else {
+        shockValue = 1 + DC_STATS[data.DCValue] * (data.shockLabValue * 2);
     }
 
-
+    const SLValue =
+        hasST && data.hasSLPerk
+            ? (data.SLValue +
+                  SL_SUBS[data.SLSubstatValue] +
+                  (SL_SUBS[data.SLAssistSubstatValue] * coreSubstatEfficiency) /
+                      100) *
+              0.35 *
+              5 *
+              STLabValue *
+              (1 + UWRelicValue / 100) *
+              (1 + UW_VAULT[UWVaultValue] / 100) *
+              1.5
+            : hasST
+            ? (data.SLValue +
+                  SL_SUBS[data.SLSubstatValue] +
+                  (SL_SUBS[data.SLAssistSubstatValue] * coreSubstatEfficiency) /
+                      100) *
+              0.35 *
+              5 *
+              STLabValue *
+              (1 + UWRelicValue / 100) *
+              (1 + UW_VAULT[UWVaultValue] / 100)
+            : data.hasSLPerk
+            ? (data.SLValue +
+                  SL_SUBS[data.SLSubstatValue] +
+                  (SL_SUBS[data.SLAssistSubstatValue] * coreSubstatEfficiency) /
+                      100) *
+              (1 + UWRelicValue / 100) *
+              (1 + UW_VAULT[UWVaultValue] / 100) *
+              1.5
+            : (data.SLValue +
+                  SL_SUBS[data.SLSubstatValue] +
+                  (SL_SUBS[data.SLAssistSubstatValue] * coreSubstatEfficiency) /
+                      100) *
+              (1 + UWRelicValue / 100) *
+              (1 + UW_VAULT[UWVaultValue] / 100);
 
     return (
         <div className="space-y-6">
             <h1 className="border-b pb-4">Damage multipliers</h1>
- 
+
             <section className="space-y-4">
                 <p className="border-b pb-4"> Modules </p>
 
@@ -79,7 +135,7 @@ export default function AdditinalDamageMenu({
                 <div className="flex justify-between">
                     <Label>Shock damage boost</Label>
                     <span>{shockValue.toFixed(2)}</span>
-                </div>        
+                </div>
             </section>
 
             <section className="space-y-4">
@@ -95,16 +151,70 @@ export default function AdditinalDamageMenu({
                 </div>
 
                 {hasSL ? (
-                    <div className="flex justify-between py-6">
+                    <div className="space-y-4">
+                        <div className="flex justify-between py-6">
+                            <Slider
+                                value={[data.SLValue || 1]}
+                                max={43}
+                                step={1.4}
+                                min={8}
+                                onValueChange={(v) =>
+                                    updateField("SLValue", v[0])
+                                }
+                                className="w-1/2"
+                            />
+                            <Label>
+                                x{data.SLValue}/x
+                                {SLValue.toFixed()}
+                            </Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Label className="text-sm font-semibold">
+                                Spotlight Perk
+                            </Label>
+                            <Switch
+                                checked={data.hasSLPerk}
+                                onCheckedChange={(val) =>
+                                    updateField("hasSLPerk", val)
+                                }
+                            />
+                        </div>
+                        <SubstatPicker
+                            label="Main Spotlight Bonus Substat"
+                            levels={SL_SUBS}
+                            currentLevel={data.SLSubstatValue}
+                            efficiency={100}
+                            onChange={(val) =>
+                                updateField("SLSubstatValue", val)
+                            }
+                            unit="x"
+                            rarities={SUBSTAT_RARITIES}
+                        />
+                        <Label>
+                            Core Assist Substat Stat Efficiency (
+                            {coreSubstatEfficiency}
+                            %)
+                        </Label>
                         <Slider
-                            value={[data.SLValue || 1]}
-                            max={43}
-                            step={1.4}
-                            min={8}
-                            onValueChange={(v) => updateField("SLValue", v[0])}
+                            value={[coreSubstatEfficiency]}
+                            max={100}
+                            onValueChange={(val) =>
+                                setCoreSubstatEfficiency(val[0])
+                            }
                             className="w-1/2"
                         />
-                        <Label>{data.SLValue}</Label>
+
+                        <SubstatPicker
+                            label="Assist Spotlight Bonus Substat"
+                            levels={SL_SUBS}
+                            currentLevel={data.SLAssistSubstatValue}
+                            efficiency={coreSubstatEfficiency}
+                            onChange={(val) =>
+                                updateField("SLAssistSubstatValue", val)
+                            }
+                            unit="x"
+                            rarities={SUBSTAT_RARITIES}
+                        />
                     </div>
                 ) : (
                     <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
@@ -145,32 +255,41 @@ export default function AdditinalDamageMenu({
                 )}
             </section>
 
-             <section className="space-y-4">
-                            <LevelPicker
-                                label="Ultimate Crit Card Level"
-                                levels={UW_CRIT_STATS}
-                                currentLevel={data.UWCritValue} 
-                                onChange={(val) => updateField("UWCritValue", val)}
-                            />
-                            
-                            <div className="flex items-center gap-2">
-                                <Label className="text-sm font-semibold">Ultimate Crit Mastery Unlocked?</Label>
-                                <Switch checked={data.hasUWCritMastery} onCheckedChange={(val) => updateField("hasUWCritMastery", val)} />
-                            </div>
-            
-                            {data.hasUWCritMastery ? (
-                                <LevelPicker
-                                    label="Ultimate Crit Mastery Level"
-                                    levels={UW_CRIT_MASTERY_STATS}
-                                    currentLevel={data.UWCritMasteryValue}
-                                    onChange={(val) => updateField("UWCritMasteryValue", val)}
-                                />
-                            ) : (
-                                <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
-                                    Enable Mastery to configure levels
-                                </div>
-                            )}
-                        </section>
+            <section className="space-y-4">
+                <LevelPicker
+                    label="Ultimate Crit Card Level"
+                    levels={UW_CRIT_STATS}
+                    currentLevel={data.UWCritValue}
+                    onChange={(val) => updateField("UWCritValue", val)}
+                />
+
+                <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold">
+                        Ultimate Crit Mastery Unlocked?
+                    </Label>
+                    <Switch
+                        checked={data.hasUWCritMastery}
+                        onCheckedChange={(val) =>
+                            updateField("hasUWCritMastery", val)
+                        }
+                    />
+                </div>
+
+                {data.hasUWCritMastery ? (
+                    <LevelPicker
+                        label="Ultimate Crit Mastery Level"
+                        levels={UW_CRIT_MASTERY_STATS}
+                        currentLevel={data.UWCritMasteryValue}
+                        onChange={(val) =>
+                            updateField("UWCritMasteryValue", val)
+                        }
+                    />
+                ) : (
+                    <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                        Enable Mastery to configure levels
+                    </div>
+                )}
+            </section>
 
             <section className="space-y-4">
                 <p className="border-y py-4">Bots</p>

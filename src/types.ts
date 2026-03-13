@@ -35,6 +35,9 @@ export interface SCMBuild {
 export interface UWBuild {
     CLLvl: number;
     substatValue: number;
+    assistSubstatValue: number;
+    hasPerk: boolean;
+
     hasMastery: boolean;
     STLabValue: number;
 
@@ -58,6 +61,7 @@ export interface DMGBuild {
     hasDMMastery: boolean;
     DMMasteryValue: number;
     hasBerserker: boolean;
+    hasBerserkerMastery: boolean;
     relicValue: number;
 
     cannonLvlMain: number;
@@ -77,8 +81,12 @@ export interface DMGBuild {
 
     vaultValue: number;
     SLValue: number;
+    hasSLPerk: boolean;
     hasSLPlus: boolean;
     SLPlusValue: number;
+    SLSubstatValue: number;
+    SLAssistSubstatValue: number;
+
     UWCritValue: number;
     hasUWCritMastery: boolean;
     UWCritMasteryValue: number;
@@ -105,6 +113,7 @@ export interface PlayerBuild {
     masteryValue: number;
     hasAssist: boolean;
     assistSubstatEfficiency: number;
+    coreSubstatEfficiency: number;
 
     hasSL: boolean;
     cc: CCBuild;
