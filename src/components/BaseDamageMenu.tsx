@@ -93,7 +93,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 <div className="flex justify-between">
                     <Slider
                         value={[data.labValue || 1]}
-                        max={2.98}
+                        max={3}
                         step={0.02}
                         min={1}
                         onValueChange={(v) => updateField("labValue", v[0])}
