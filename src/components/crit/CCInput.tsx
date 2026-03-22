@@ -15,17 +15,17 @@ import {
 import type { CCBuild } from "@/types";
 
 interface CCInputProps {
-    data: CCBuild; 
+    data: CCBuild;
     hasMastery: boolean;
     masteryValue: number;
     hasAssist: boolean;
     assistSubstatEfficiency: number;
-   
+
     onUpdateField: (field: keyof CCBuild, value: any) => void;
     setHasMastery: (val: boolean) => void;
     setMasteryValue: (val: number) => void;
-    setHasAssist: (val: boolean) =>void;
-    setAssistSubstatEfficiency: (val:number) =>void;
+    setHasAssist: (val: boolean) => void;
+    setAssistSubstatEfficiency: (val: number) => void;
 }
 
 export default function CCInput({
@@ -40,10 +40,7 @@ export default function CCInput({
     setHasAssist,
     setAssistSubstatEfficiency,
 }: CCInputProps) {
-
     return (
-
-        
         <div className="space-y-10">
             <header className="border-b pb-4">
                 <h2 className="text-xl font-bold">Crit Chance sources</h2>
@@ -61,13 +58,18 @@ export default function CCInput({
                 <LevelPicker
                     label="Crit Card Level"
                     levels={CRIT_CARD_STATS}
-                    currentLevel={data.cardValue} 
+                    currentLevel={data.cardValue}
                     onChange={(val) => onUpdateField("cardValue", val)}
                 />
-                
+
                 <div className="flex items-center gap-2">
-                    <Label className="text-sm font-semibold">Mastery Unlocked?</Label>
-                    <Switch checked={hasMastery} onCheckedChange={setHasMastery} />
+                    <Label className="text-sm font-semibold">
+                        Mastery Unlocked?
+                    </Label>
+                    <Switch
+                        checked={hasMastery}
+                        onCheckedChange={setHasMastery}
+                    />
                 </div>
 
                 {hasMastery ? (
@@ -96,18 +98,27 @@ export default function CCInput({
                 />
 
                 <div className="flex items-center gap-2">
-                    <Label className="text-sm font-semibold">Cannon Assist?</Label>
-                   
-                    <Switch checked={hasAssist} onCheckedChange={setHasAssist} />
+                    <Label className="text-sm font-semibold">
+                        Cannon Assist?
+                    </Label>
+
+                    <Switch
+                        checked={hasAssist}
+                        onCheckedChange={setHasAssist}
+                    />
                 </div>
 
                 {hasAssist && (
                     <div className="space-y-4 border-l-2 pl-4">
-                        <Label>Substat efficiency ({assistSubstatEfficiency}%)</Label>
+                        <Label>
+                            Substat efficiency ({assistSubstatEfficiency}%)
+                        </Label>
                         <Slider
                             value={[assistSubstatEfficiency]}
                             max={100}
-                            onValueChange={(val) => setAssistSubstatEfficiency(val[0])}
+                            onValueChange={(val) =>
+                                setAssistSubstatEfficiency(val[0])
+                            }
                             className="w-1/2"
                         />
                         <SubstatPicker
@@ -115,7 +126,9 @@ export default function CCInput({
                             levels={CRIT_CHANCE_SUBS}
                             currentLevel={data.assistSubstatValue}
                             efficiency={assistSubstatEfficiency}
-                            onChange={(val) => onUpdateField("assistSubstatValue", val)}
+                            onChange={(val) =>
+                                onUpdateField("assistSubstatValue", val)
+                            }
                             rarities={SUBSTAT_RARITIES}
                         />
                     </div>
@@ -124,13 +137,18 @@ export default function CCInput({
 
             {/* Relics */}
             <section className="space-y-2">
-                <Label>Relic Crit ({data.relicValue})</Label>
-                <Slider
-                    value={[data.relicValue]}
-                    max={CC_RELICS_MAX}
-                    onValueChange={(val) => onUpdateField("relicValue", val[0])}
-                    className="w-1/2"
-                />
+                <Label>Relic Crit</Label>
+                <div className="flex justify-between">
+                    <Slider
+                        value={[data.relicValue]}
+                        max={CC_RELICS_MAX}
+                        onValueChange={(val) =>
+                            onUpdateField("relicValue", val[0])
+                        }
+                        className="w-1/2"
+                    />
+                    <span>+{data.relicValue}%</span>
+                </div>
             </section>
 
             {/* Vault */}

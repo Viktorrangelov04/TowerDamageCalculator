@@ -56,7 +56,7 @@ export default function SCMInput({
                         onValueChange={(v) => onUpdateField("labValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{data.labValue}</span>
+                    <span>x{data.labValue}</span>
                 </div>
             </section>
 
@@ -72,7 +72,7 @@ export default function SCMInput({
                         onValueChange={(v) => onUpdateField("workshopEnhancementValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{data.workshopEnhancementValue}</span>
+                    <span>x{data.workshopEnhancementValue}</span>
                 </div>
             </section>
 
@@ -89,6 +89,7 @@ export default function SCMInput({
                         levels={CRIT_MASTERY_STATS}
                         currentLevel={masteryValue}
                         onChange={setMasteryValue}
+                        prefix=""
                     />
                 ) : (
                     <div className="w-full text-center p-6 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
@@ -145,7 +146,7 @@ export default function SCMInput({
                         onValueChange={(v) => onUpdateField("relicValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{data.relicValue}</span>
+                    <span>{data.relicValue}%</span>
                 </div>
             </section>
             
@@ -156,6 +157,7 @@ export default function SCMInput({
                     levels={SUPER_CRIT_MULTI_VAULT}
                     currentLevel={data.vaultValue}
                     onChange={(val) => onUpdateField("vaultValue", val)}
+                    prefix=""
                 />
             </section>
         </div>

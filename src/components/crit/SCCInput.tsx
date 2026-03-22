@@ -120,7 +120,7 @@ export default function SCCInput({
                         }
                         className="w-1/2"
                     />
-                    <span>{data.relicValue || 0}</span>
+                    <span>+{data.relicValue || 0}%</span>
                 </div>
             </section>
 
@@ -138,7 +138,7 @@ export default function SCCInput({
                         }
                         className="w-1/2"
                     />
-                    <span>{data.labValue || 0}</span>
+                    <span>+{data.labValue || 0}%</span>
                 </div>
             </section>
 
