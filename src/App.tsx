@@ -205,6 +205,12 @@ function App() {
         setComparisonBuild(null);
         localStorage.removeItem("player_build_comparison");
     };
+
+    const handleReturn = () =>{
+        if(comparisonBuild != null){
+            setBuild({...comparisonBuild})
+        }
+    }
     /////////////////////////////////////////////////////////////
     const totalCC = calculateTotalCrit({
         ...build.cc,
@@ -389,9 +395,14 @@ function App() {
                         : "Save for Comparison"}
                 </Button>
                 {comparisonBuild && (
+                    <div>
                     <Button className="mx-3" onClick={handleClearComparison}>
-                        Clear Comparison
+                        Close Comparison
                     </Button>
+                    <Button className="mx-3" onClick={handleReturn}>
+                        Undo Changes
+                    </Button>
+                    </div>
                 )}
             </div>
 

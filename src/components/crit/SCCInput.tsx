@@ -114,7 +114,7 @@ export default function SCCInput({
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.relicValue || 0]}
-                        max={6}
+                        max={SCC_RELICS_MAX}
                         onValueChange={(value) =>
                             onUpdateField("relicValue", value[0])
                         }
@@ -131,7 +131,7 @@ export default function SCCInput({
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.labValue || 0]}
-                        max={SCC_RELICS_MAX}
+                        max={5}
                         step={0.1}
                         onValueChange={(value) =>
                             onUpdateField("labValue", value[0])
