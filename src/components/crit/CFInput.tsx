@@ -50,7 +50,7 @@ export default function CFInput({
                         onValueChange={(v) => onUpdateField("labValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{data.labValue}</span>
+                    <span>x{data.labValue}</span>
                 </div>
             </section>
 
@@ -66,7 +66,7 @@ export default function CFInput({
                         onValueChange={(v) => onUpdateField("workshopEnhancementValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{data.workshopEnhancementValue}</span>
+                    <span>x{data.workshopEnhancementValue}</span>
                 </div>
             </section>
 
@@ -119,7 +119,7 @@ export default function CFInput({
                         onValueChange={(v) => onUpdateField("relicValue", v[0])}
                         className="w-1/2"
                     />
-                    <span>{data.relicValue}</span>
+                    <span>{data.relicValue}%</span>
                 </div>
             </section>
 
@@ -130,6 +130,7 @@ export default function CFInput({
                     levels={CRIT_FACTOR_VAULT}
                     currentLevel={data.vaultValue}
                     onChange={(val) => onUpdateField("vaultValue", val)}
+                    prefix=""
                 />
             </section>
         </div>

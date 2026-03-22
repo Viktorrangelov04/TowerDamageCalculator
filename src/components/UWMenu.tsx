@@ -277,6 +277,7 @@ export default function UWMenu({
                     levels={UW_VAULT}
                     currentLevel={data.vaultValue}
                     onChange={(val) => updateField("vaultValue", val)}
+                    prefix=""
                 />
             </section>
         </div>

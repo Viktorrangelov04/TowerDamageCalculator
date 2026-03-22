@@ -127,6 +127,7 @@ export default function damageMeterMenu({
                 levels={DPM_VAULT}
                 currentLevel={data.damageMeterVault}
                 onChange={(val) => updateField("damageMeterVault", val)}
+                prefix=""
             />
 
             <div className="flex gap-2 items-center">

@@ -323,7 +323,7 @@ export default function AdditinalDamageMenu({
                             }
                             className="w-1/2"
                         />
-                        <Label>{data.ampBotValue}</Label>
+                        <Label>x{data.ampBotValue}</Label>
                     </div>
                 ) : (
                     <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">

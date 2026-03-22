@@ -348,6 +348,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                     levels={DMG_VAULT}
                     currentLevel={data.vaultValue}
                     onChange={(val) => updateField("vaultValue", val)}
+                    prefix=""
                 />
             </section>
         </div>
