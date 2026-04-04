@@ -79,6 +79,6 @@ export const CF_RELICS_MAX = 103;
 export const SCC_RELICS_MAX = 6;
 export const SCM_RELICS_MAX = 5;
 
-export const DMG_RELICS_MAX = 97;
+export const DMG_RELICS_MAX = 104;
 export const DPM_RELICS_MAX = 71;
 export const UW_RELICS_MAX = 40;
