@@ -74,6 +74,8 @@ const DEFAULT_BUILD = {
         coreRarityAssist: 0,
         mainstatEfficiency: 0,
 
+        UWDNBonus: 1,
+
         relicValue: 0,
         vaultValue: 0,
     },
@@ -99,6 +101,8 @@ const DEFAULT_BUILD = {
         cannonRarityAssist: 0,
 
         mainstatEfficiency: 0,
+
+        damageDNBonus: 1,
 
         PFValue: 0,
         endingCash: 1,
@@ -132,6 +136,16 @@ const DEFAULT_BUILD = {
 
         hasAmpBot: false,
         ampBotValue: 1,
+
+        hasFlameBot: false,
+        SHProcc: false,
+        flameBotPlusValue: 1,
+
+        hasBotBot: false,
+        hasBotBotPlus: false,
+        botBotValue: 1.05,
+        botBotPlusValue: 1.25,
+
     },
 };
 
@@ -262,6 +276,7 @@ function App() {
         hasST: build.uw.hasMastery,
         STLabValue: build.uw.STLabValue,
         UWVaultValue: build.uw.vaultValue,
+        UWDNBonus: build.uw.UWDNBonus,
     });
 
     const totalDamage = baseDamage * damageMulti;
@@ -339,6 +354,7 @@ function App() {
               hasST: comparisonBuild.uw.hasMastery,
               STLabValue: comparisonBuild.uw.STLabValue,
               UWVaultValue: comparisonBuild.uw.vaultValue,
+              UWDNBonus: comparisonBuild.uw.UWDNBonus,
           })
         : null;
 

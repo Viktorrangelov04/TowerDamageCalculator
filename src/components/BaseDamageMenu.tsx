@@ -327,6 +327,23 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
             </section>
 
             <section className="space-y-4 border-b pb-4 ">
+                <Label>Dissonance Damage Multi </Label>
+                <div className="flex justify-between">
+                    <Slider
+                        value={[data.damageDNBonus]}
+                        max={13.4}
+                        step={0.01}
+                        min={1}
+                        onValueChange={(val) =>
+                            updateField("damageDNBonus", val[0])
+                        }
+                        className="w-1/2"
+                    />
+                    <span>{data.damageDNBonus}x</span>
+                </div>
+            </section>
+
+            <section className="space-y-4 border-b pb-4 ">
                 <Label>Relics </Label>
                 <div className="flex justify-between">
                     <Slider

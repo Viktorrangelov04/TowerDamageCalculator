@@ -69,26 +69,26 @@ export default function UWMenu({
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100) *
               (0.35 * 5 * data.STLabValue) *
-              2
+              2 *data.UWDNBonus
             : data.hasMastery
             ? (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
                   CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100) *
-              (0.35 * 5 * data.STLabValue)
+              (0.35 * 5 * data.STLabValue) *data.UWDNBonus
             : data.hasPerk
             ? (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
                   CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
               (1 + UW_VAULT[data.vaultValue] / 100) *
-              2
+              2 *data.UWDNBonus
             : (CL_DAMAGE[data.CLLvl] +
                   CL_SUBS[data.substatValue] +
                   CL_SUBS[data.assistSubstatValue]*coreSubstatEfficiency/100) *
               (1 + data.relicValue / 100) *
-              (1 + UW_VAULT[data.vaultValue] / 100);
+              (1 + UW_VAULT[data.vaultValue] / 100)*data.UWDNBonus;
 
     return (
         <div className="space-y-10">
@@ -113,7 +113,7 @@ export default function UWMenu({
                     </span>
                 </div>
 
-                <Switch
+                CL Damage Perk Picked <Switch
                     checked={data.hasPerk}
                     onCheckedChange={(val) => updateField("hasPerk", val)}
                 />
@@ -252,6 +252,23 @@ export default function UWMenu({
                         className="w-1/2"
                     />
                     <span>x{data.STLabValue}</span>
+                </div>
+            </section>
+
+            <section className="space-y-2 ">
+                <Label>Ultimate Weapon Dissonance Bonus </Label>
+                <div className="flex justify-between">
+                    <Slider
+                        value={[data.UWDNBonus]}
+                        max={13.4}
+                        step={0.01}
+                        min={1}
+                        onValueChange={(val) =>
+                            updateField("UWDNBonus", val[0])
+                        }
+                        className="w-1/2"
+                    />
+                    <span>{data.UWDNBonus}x</span>
                 </div>
             </section>
 

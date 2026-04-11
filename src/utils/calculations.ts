@@ -161,7 +161,7 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
     const assistSubstatValue =
         (CL_SUBS[inputs.assistSubstatValue] * inputs.coreSubstatEfficiency) /
         100;
-    const hasPerk = inputs.hasPerk? 2 : 1;
+    const hasPerk = inputs.hasPerk ? 2 : 1;
     let superTowerBonus = 0.35 * 5 * inputs.STLabValue;
     let vaultValue = 1 + UW_VAULT[inputs.vaultValue] / 100;
     let relic = 1 + inputs.relicValue / 100;
@@ -192,7 +192,8 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
         relic *
         vaultValue *
         superTowerBonus *
-        hasPerk;
+        hasPerk *
+        inputs.UWDNBonus;
     return total;
 };
 
@@ -243,6 +244,7 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
         71100000 *
         inputs.workshopEnhancementValue *
         inputs.labValue *
+        inputs.damageDNBonus *
         moduleMain *
         moduleAssist *
         cardValue *
@@ -296,6 +298,7 @@ export interface damageMultiInputs extends DMGBuild {
     hasST: boolean;
     STLabValue: number;
     UWVaultValue: number;
+    UWDNBonus: number;
 }
 
 export const calculateTotalDamageMulti = (
@@ -303,43 +306,71 @@ export const calculateTotalDamageMulti = (
 ): number => {
     const ACPValue = ACP_STATS[inputs.ACPValue];
 
-    const effectiveSL =  inputs.hasSL? inputs.hasST && inputs.hasSLPerk
+    const effectiveSL = inputs.hasSL
+        ? inputs.hasST && inputs.hasSLPerk
             ? (inputs.SLValue +
                   SL_SUBS[inputs.SLSubstatValue] +
-                  (SL_SUBS[inputs.SLAssistSubstatValue] * inputs.coreSubstatEfficiency) /
+                  (SL_SUBS[inputs.SLAssistSubstatValue] *
+                      inputs.coreSubstatEfficiency) /
                       100) *
               0.35 *
               5 *
               inputs.STLabValue *
               (1 + inputs.UWRelicValue / 100) *
               (1 + UW_VAULT[inputs.UWVaultValue] / 100) *
-              1.5
+              1.5 *
+              inputs.UWDNBonus
             : inputs.hasST
             ? (inputs.SLValue +
                   SL_SUBS[inputs.SLSubstatValue] +
-                  (SL_SUBS[inputs.SLAssistSubstatValue] * inputs.coreSubstatEfficiency) /
+                  (SL_SUBS[inputs.SLAssistSubstatValue] *
+                      inputs.coreSubstatEfficiency) /
                       100) *
               0.35 *
               5 *
               inputs.STLabValue *
               (1 + inputs.UWRelicValue / 100) *
-              (1 + UW_VAULT[inputs.UWVaultValue] / 100)
+              (1 + UW_VAULT[inputs.UWVaultValue] / 100) *
+              inputs.UWDNBonus
             : inputs.hasSLPerk
             ? (inputs.SLValue +
                   SL_SUBS[inputs.SLSubstatValue] +
-                  (SL_SUBS[inputs.SLAssistSubstatValue] * inputs.coreSubstatEfficiency) /
+                  (SL_SUBS[inputs.SLAssistSubstatValue] *
+                      inputs.coreSubstatEfficiency) /
                       100) *
               (1 + inputs.UWRelicValue / 100) *
-              (1 + UW_VAULT[inputs.UWVaultValue] / 100)*1.5
+              (1 + UW_VAULT[inputs.UWVaultValue] / 100) *
+              1.5 *
+              inputs.UWDNBonus
             : (inputs.SLValue +
                   SL_SUBS[inputs.SLSubstatValue] +
-                  (SL_SUBS[inputs.SLAssistSubstatValue] * inputs.coreSubstatEfficiency) /
+                  (SL_SUBS[inputs.SLAssistSubstatValue] *
+                      inputs.coreSubstatEfficiency) /
                       100) *
               (1 + inputs.UWRelicValue / 100) *
-              (1 + UW_VAULT[inputs.UWVaultValue] / 100) : 1;
+              (1 + UW_VAULT[inputs.UWVaultValue] / 100) *
+              inputs.UWDNBonus
+        : 1;
 
+    const effectiveSH = inputs.SHProcc ? 2: 1;
+    const effectiveAmp = inputs.hasAmpBot
+        ? inputs.hasBotBot && inputs.hasBotBotPlus
+            ? inputs.ampBotValue * inputs.botBotValue * inputs.botBotPlusValue
+            : inputs.hasBotBot
+            ? inputs.ampBotValue * inputs.botBotValue
+            : inputs.ampBotValue
+        : 1;
 
-    const effectiveAmp = inputs.hasAmpBot ? inputs.ampBotValue : 1;
+    const effectiveFlame = inputs.hasFlameBot
+        ? inputs.hasBotBot && inputs.hasBotBotPlus
+            ? inputs.flameBotPlusValue *
+              inputs.botBotValue *
+              inputs.botBotPlusValue
+            : inputs.hasBotBot
+            ? inputs.flameBotPlusValue * inputs.botBotValue
+            : inputs.flameBotPlusValue
+        : 1;
+
     const shockProccs = DC_STATS[inputs.DCValue];
 
     const totalCF = Number(inputs.totalCF) || 0;
@@ -394,6 +425,8 @@ export const calculateTotalDamageMulti = (
         effectiveSL *
         effectiveSLPlus *
         effectiveAmp *
+        effectiveFlame *
+        effectiveSH *
         shockValue *
         totalUWCrit;
     return total;

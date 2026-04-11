@@ -27,6 +27,7 @@ interface AdditionalDamageMenuProps {
     STLabValue: number;
     UWVaultValue: number;
     damageMeter: number;
+    UWDNBonus: number;
 }
 
 export default function AdditinalDamageMenu({
@@ -41,6 +42,7 @@ export default function AdditinalDamageMenu({
     STLabValue,
     UWVaultValue,
     damageMeter,
+    UWDNBonus,
 }: AdditionalDamageMenuProps) {
     const updateField = (field: keyof DMGBuild, value: any) => {
         setBuild((prev) => ({
@@ -71,7 +73,8 @@ export default function AdditinalDamageMenu({
               STLabValue *
               (1 + UWRelicValue / 100) *
               (1 + UW_VAULT[UWVaultValue] / 100) *
-              1.5
+              1.5 *
+              UWDNBonus
             : hasST
             ? (data.SLValue +
                   SL_SUBS[data.SLSubstatValue] +
@@ -81,7 +84,8 @@ export default function AdditinalDamageMenu({
               5 *
               STLabValue *
               (1 + UWRelicValue / 100) *
-              (1 + UW_VAULT[UWVaultValue] / 100)
+              (1 + UW_VAULT[UWVaultValue] / 100) *
+              UWDNBonus
             : data.hasSLPerk
             ? (data.SLValue +
                   SL_SUBS[data.SLSubstatValue] +
@@ -89,13 +93,15 @@ export default function AdditinalDamageMenu({
                       100) *
               (1 + UWRelicValue / 100) *
               (1 + UW_VAULT[UWVaultValue] / 100) *
-              1.5
+              1.5 *
+              UWDNBonus
             : (data.SLValue +
                   SL_SUBS[data.SLSubstatValue] +
                   (SL_SUBS[data.SLAssistSubstatValue] * coreSubstatEfficiency) /
                       100) *
               (1 + UWRelicValue / 100) *
-              (1 + UW_VAULT[UWVaultValue] / 100);
+              (1 + UW_VAULT[UWVaultValue] / 100) *
+              UWDNBonus;
 
     return (
         <div className="space-y-6">
@@ -253,7 +259,9 @@ export default function AdditinalDamageMenu({
                             }
                             className="w-1/2"
                         />
-                        <Label>x{data.SLPlusValue}/x{SLPlusValue.toFixed(2)}</Label>
+                        <Label>
+                            x{data.SLPlusValue}/x{SLPlusValue.toFixed(2)}
+                        </Label>
                     </div>
                 ) : (
                     <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
@@ -328,6 +336,116 @@ export default function AdditinalDamageMenu({
                 ) : (
                     <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
                         Unlock Amplify Bot to configure
+                    </div>
+                )}
+
+                <div className="flex items-center gap-2 pt-4">
+                    <div className="space-y-0.5">
+                        <Label className="text-base font-semibold">
+                            Singularity Harness Flame Bot Hit
+                        </Label>
+                    </div>
+                    <Switch
+                        checked={data.SHProcc}
+                        onCheckedChange={(v) => updateField("SHProcc", v)}
+                    />
+                </div>
+
+                <div className="flex items-center gap-2 pt-4">
+                    <div className="space-y-0.5">
+                        <Label className="text-base font-semibold">
+                            Flame Bot Plus Unlocked
+                        </Label>
+                    </div>
+                    <Switch
+                        checked={data.hasFlameBot}
+                        onCheckedChange={(v) => updateField("hasFlameBot", v)}
+                    />
+                </div>
+                {data.hasFlameBot ? (
+                    <div className="flex justify-between py-4">
+                        <Slider
+                            value={[data.flameBotPlusValue]}
+                            max={3.5}
+                            step={0.1}
+                            min={1.5}
+                            onValueChange={(v) =>
+                                updateField("flameBotPlusValue", v[0])
+                            }
+                            className="w-1/2"
+                        />
+                        <Label>x{data.flameBotPlusValue}</Label>
+                    </div>
+                ) : (
+                    <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                        Unlock flame bot+ to configure
+                    </div>
+                )}
+
+                <div className="flex items-center gap-2 pt-4">
+                    <div className="space-y-0.5">
+                        <Label className="text-base font-semibold">
+                            Bot Bot unlocked
+                        </Label>
+                    </div>
+                    <Switch
+                        checked={data.hasBotBot}
+                        onCheckedChange={(v) => updateField("hasBotBot", v)}
+                    />
+                </div>
+                {data.hasBotBot ? (
+                    <div>
+                        <div className="flex justify-between py-4">
+                            <Slider
+                                value={[data.botBotValue]}
+                                max={2}
+                                step={0.05}
+                                min={1.05}
+                                onValueChange={(v) =>
+                                    updateField("botBotValue", v[0])
+                                }
+                                className="w-1/2"
+                            />
+                            <Label>x{data.botBotValue}</Label>
+                        </div>
+
+
+                        <div className="flex items-center gap-2 pt-4">
+                            <div className="space-y-0.5">
+                                <Label className="text-base font-semibold">
+                                    Bot Bot+ unlocked
+                                </Label>
+                            </div>
+                            <Switch
+                                checked={data.hasBotBotPlus}
+                                onCheckedChange={(v) =>
+                                    updateField("hasBotBotPlus", v)
+                                }
+                            />
+                        </div>
+                        {data.hasBotBotPlus ? (
+                            <div className="flex justify-between py-4">
+                                <Slider
+                                    value={[data.botBotPlusValue]}
+                                    max={2.25}
+                                    step={0.05}
+                                    min={1.25}
+                                    onValueChange={(v) =>
+                                        updateField("botBotPlusValue", v[0])
+                                    }
+                                    className="w-1/2"
+                                />
+                                <Label>x{data.botBotPlusValue}</Label>
+                            </div>
+                        ) : (
+                            <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                                Unlock Bot Bot Plus to configure
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                        Unlock Bot Bot to configure
                     </div>
                 )}
             </section>
