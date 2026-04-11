@@ -53,6 +53,7 @@ export default function DamageMenu({
         hasST: build.uw.hasMastery,
         STLabValue: build.uw.STLabValue,
         UWVaultValue: build.uw.vaultValue,
+        UWDNBonus: build.uw.UWDNBonus,
     })
 
     return (
@@ -67,7 +68,7 @@ export default function DamageMenu({
                 />
                 <OverviewCard
                     name="Damage Multi"
-                    value={damageMulti.toFixed()}
+                    value={formatCompactNumber(damageMulti)}
                     onClick={() => setActiveTab("damageMulti")}
                     active={activeTab === "damageMulti"}
                     prefix="x"
@@ -97,6 +98,7 @@ export default function DamageMenu({
                     STLabValue={build.uw.STLabValue}
                     UWVaultValue={build.uw.vaultValue}
                     damageMeter = {damageMeter}
+                    UWDNBonus = {build.uw.UWDNBonus}
                 />
             )}
             {activeTab === "damage/meter" && (

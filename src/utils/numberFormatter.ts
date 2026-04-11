@@ -11,7 +11,7 @@ export const formatCompactNumber = (
     }).format(numValue);
   }
 
-  const suffixes = ["", "", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "D", "aa", "ab", "ac", "ad"];
+  const suffixes = ["", "", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "D", "aa", "ab", "ac", "ad", "ae", "af", "ag", "ah", "ai"];
   
   const tier = Math.floor(Math.log10(absValue) / 3);
 

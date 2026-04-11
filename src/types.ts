@@ -47,6 +47,7 @@ export interface UWBuild {
     coreRarityAssist: number;
 
     mainstatEfficiency: number;
+    UWDNBonus: number;
 
     relicValue: number;
     vaultValue: number;
@@ -70,6 +71,8 @@ export interface DMGBuild {
     cannonRarityAssist: number;
 
     mainstatEfficiency: number;
+
+    damageDNBonus: number;
 
     hasAS: boolean;
     PFValue: number;
@@ -105,6 +108,15 @@ export interface DMGBuild {
 
     hasAmpBot: boolean;
     ampBotValue: number;
+
+    hasFlameBot: boolean;
+    SHProcc: boolean;
+    flameBotPlusValue: number;
+
+    hasBotBot: boolean;
+    hasBotBotPlus: boolean;
+    botBotValue: number;
+    botBotPlusValue: number
 }
 
 export interface PlayerBuild {
