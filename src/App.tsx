@@ -19,7 +19,7 @@ import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
 import DisclaimerBanner from "./components/DisclaimerBanner.tsx";
 
-const CURRENT_VERSION = 1.3;
+const CURRENT_VERSION = 1.4;
 
 const DEFAULT_BUILD = {
     version: CURRENT_VERSION,
