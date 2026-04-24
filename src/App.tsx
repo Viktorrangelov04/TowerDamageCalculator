@@ -136,6 +136,8 @@ const DEFAULT_BUILD = {
 
         hasAmpBot: false,
         ampBotValue: 1,
+        hasAmpBotPlus: false,
+        AmpBotPlusValue: 1,
 
         hasFlameBot: false,
         SHProcc: false,

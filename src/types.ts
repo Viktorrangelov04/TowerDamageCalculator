@@ -117,6 +117,9 @@ export interface DMGBuild {
     hasBotBotPlus: boolean;
     botBotValue: number;
     botBotPlusValue: number
+
+    hasAmpBotPlus: boolean;
+    AmpBotPlusValue: number;
 }
 
 export interface PlayerBuild {

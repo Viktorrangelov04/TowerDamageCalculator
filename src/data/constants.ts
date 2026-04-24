@@ -37,7 +37,7 @@ export const DC_STATS = [1, 5, 10, 15, 20];
 export const PF_STATS = [0, 0.125, 0.25, 0.5, 1];
 
 export const UW_CRIT_STATS = [0, 1, 1.33, 1.66, 2, 2.33, 2.66, 3]
-export const UW_CRIT_MASTERY_STATS = [0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4, 2.7, 3 ]
+export const UW_CRIT_MASTERY_STATS = [0.3, 0.7, 1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3 ]
 
 export const SUBSTAT_RARITIES = [
     "None",
@@ -74,7 +74,7 @@ export const RANGE_MASTERY_STATS = [
     1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3,
 ];
 
-export const CC_RELICS_MAX = 9;
+export const CC_RELICS_MAX = 11;
 export const CF_RELICS_MAX = 103;
 export const SCC_RELICS_MAX = 6;
 export const SCM_RELICS_MAX = 5;
