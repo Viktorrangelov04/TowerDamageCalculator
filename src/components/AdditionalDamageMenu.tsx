@@ -320,18 +320,52 @@ export default function AdditinalDamageMenu({
                     />
                 </div>
                 {data.hasAmpBot ? (
-                    <div className="flex justify-between py-4">
-                        <Slider
-                            value={[data.ampBotValue]}
-                            max={15.5}
-                            step={0.4}
-                            min={3.5}
-                            onValueChange={(v) =>
-                                updateField("ampBotValue", v[0])
-                            }
-                            className="w-1/2"
-                        />
-                        <Label>x{data.ampBotValue}</Label>
+                    <div>
+                        <div className="flex justify-between py-4">
+                            <Slider
+                                value={[data.ampBotValue]}
+                                max={15.5}
+                                step={0.4}
+                                min={3.5}
+                                onValueChange={(v) =>
+                                    updateField("ampBotValue", v[0])
+                                }
+                                className="w-1/2"
+                            />
+                            <Label>x{data.ampBotValue}</Label>
+                        </div>
+                        <div className="flex items-center gap-2 pt-4">
+                            <div className="space-y-0.5">
+                                <Label className="text-base font-semibold">
+                                    Amplify Bot+ unlocked
+                                </Label>
+                            </div>
+                            <Switch
+                                checked={data.hasAmpBotPlus}
+                                onCheckedChange={(v) =>
+                                    updateField("hasAmpBotPlus", v)
+                                }
+                            />
+                        </div>
+                        {data.hasAmpBotPlus ? (
+                            <div className="flex justify-between py-4">
+                                <Slider
+                                    value={[data.AmpBotPlusValue]}
+                                    max={12}
+                                    step={1}
+                                    min={3}
+                                    onValueChange={(v) =>
+                                        updateField("AmpBotPlusValue", v[0])
+                                    }
+                                    className="w-1/2"
+                                />
+                                <Label>x{data.AmpBotPlusValue}</Label>
+                            </div>
+                        ) : (
+                            <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
+                                Unlock Bot Bot Plus to configure
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div className="w-full text-center p-4 border-2 border-dashed rounded-lg text-muted-foreground text-sm">
@@ -408,7 +442,6 @@ export default function AdditinalDamageMenu({
                             />
                             <Label>x{data.botBotValue}</Label>
                         </div>
-
 
                         <div className="flex items-center gap-2 pt-4">
                             <div className="space-y-0.5">

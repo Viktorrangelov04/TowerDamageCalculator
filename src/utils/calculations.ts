@@ -352,22 +352,22 @@ export const calculateTotalDamageMulti = (
               inputs.UWDNBonus
         : 1;
 
-    const effectiveSH = inputs.SHProcc ? 2: 1;
+    const effectiveSH = inputs.SHProcc ? 2 : 1;
     const effectiveAmp = inputs.hasAmpBot
-        ? inputs.hasBotBot && inputs.hasBotBotPlus
-            ? inputs.ampBotValue * inputs.botBotValue * inputs.botBotPlusValue
-            : inputs.hasBotBot
+        ? inputs.hasBotBot
             ? inputs.ampBotValue * inputs.botBotValue
             : inputs.ampBotValue
         : 1;
 
+    const effectiveAmpPlus = inputs.hasAmpBotPlus
+        ? inputs.hasBotBotPlus
+            ? (1+ Math.floor((inputs.AmpBotPlusValue * inputs.botBotPlusValue) /3))
+            : (1+ Math.floor(inputs.AmpBotPlusValue / 3))
+        : 1;
+
     const effectiveFlame = inputs.hasFlameBot
-        ? inputs.hasBotBot && inputs.hasBotBotPlus
-            ? inputs.flameBotPlusValue *
-              inputs.botBotValue *
-              inputs.botBotPlusValue
-            : inputs.hasBotBot
-            ? inputs.flameBotPlusValue * inputs.botBotValue
+        ? inputs.hasBotBotPlus
+            ? inputs.flameBotPlusValue * inputs.botBotPlusValue
             : inputs.flameBotPlusValue
         : 1;
 
@@ -425,6 +425,7 @@ export const calculateTotalDamageMulti = (
         effectiveSL *
         effectiveSLPlus *
         effectiveAmp *
+        effectiveAmpPlus *
         effectiveFlame *
         effectiveSH *
         shockValue *

@@ -19,7 +19,7 @@ import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
 import DisclaimerBanner from "./components/DisclaimerBanner.tsx";
 
-const CURRENT_VERSION = 1.4;
+const CURRENT_VERSION = 1.5;
 
 const DEFAULT_BUILD = {
     version: CURRENT_VERSION,
@@ -136,6 +136,8 @@ const DEFAULT_BUILD = {
 
         hasAmpBot: false,
         ampBotValue: 1,
+        hasAmpBotPlus: false,
+        AmpBotPlusValue: 1,
 
         hasFlameBot: false,
         SHProcc: false,
