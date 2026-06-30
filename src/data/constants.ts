@@ -74,11 +74,11 @@ export const RANGE_MASTERY_STATS = [
     1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3,
 ];
 
-export const CC_RELICS_MAX = 11;
-export const CF_RELICS_MAX = 103;
+export const CC_RELICS_MAX = 12;
+export const CF_RELICS_MAX = 112;
 export const SCC_RELICS_MAX = 6;
 export const SCM_RELICS_MAX = 5;
 
-export const DMG_RELICS_MAX = 104;
-export const DPM_RELICS_MAX = 71;
-export const UW_RELICS_MAX = 40;
+export const DMG_RELICS_MAX = 124;
+export const DPM_RELICS_MAX = 81;
+export const UW_RELICS_MAX = 45;

@@ -78,7 +78,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
 
                 <Slider
                     value={[data.workshopEnhancementValue || 1]}
-                    max={5}
+                    max={7}
                     step={0.01}
                     min={1}
                     onValueChange={(v) =>

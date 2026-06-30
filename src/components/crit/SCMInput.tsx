@@ -66,7 +66,7 @@ export default function SCMInput({
                 <div className="flex justify-between py-2">
                     <Slider
                         value={[data.workshopEnhancementValue || 1]}
-                        max={5}
+                        max={7}
                         step={0.01}
                         min={1}
                         onValueChange={(v) => onUpdateField("workshopEnhancementValue", v[0])}
