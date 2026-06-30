@@ -260,7 +260,7 @@ export default function UWMenu({
                 <div className="flex justify-between">
                     <Slider
                         value={[data.UWDNBonus]}
-                        max={13.4}
+                        max={14.66}
                         step={0.01}
                         min={1}
                         onValueChange={(val) =>
