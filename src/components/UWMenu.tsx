@@ -179,7 +179,7 @@ export default function UWMenu({
             </Label>
             <Slider
                 value={[data.mainstatEfficiency]}
-                max={100}
+                max={130}
                 min={0}
                 onValueChange={(val) =>
                     updateField("mainstatEfficiency", val[0])
