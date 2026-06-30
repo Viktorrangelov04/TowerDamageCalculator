@@ -185,6 +185,8 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
         1 +
         (currentRarityAssistArray[inputs.coreLvlAssist] - 1) *
             (inputs.mainstatEfficiency / 100);
+
+
     const total =
         (baseUWDamage + substatValue + assistSubstatValue) *
         moduleMain *
@@ -194,6 +196,7 @@ export const calculateTotalUWDamage = (inputs: UWDamageInputs): number => {
         superTowerBonus *
         hasPerk *
         inputs.UWDNBonus;
+        
     return total;
 };
 
@@ -232,6 +235,7 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
     }
     const PFValue = 1 + Math.log10(cashValue) * PF_STATS[inputs.PFValue];
 
+    console.log("Pf bonus = " + PFValue)
     const effectiveZerk =
         inputs.hasBerserker && inputs.hasBerserkerMastery
             ? 500
