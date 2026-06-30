@@ -218,7 +218,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                             <Label>Cannon Assist Main Stat Efficiency ({data.mainstatEfficiency}%)</Label>
                             <Slider
                                 value={[data.mainstatEfficiency]}
-                                max={100}
+                                max={130}
                                 onValueChange={(val) => updateField("mainstatEfficiency", val[0])}
                                 className="w-1/2"
                             />

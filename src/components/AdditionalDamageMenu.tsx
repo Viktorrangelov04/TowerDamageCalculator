@@ -168,7 +168,7 @@ export default function AdditinalDamageMenu({
                         <div className="flex justify-between py-6">
                             <Slider
                                 value={[data.SLValue || 1]}
-                                max={43}
+                                max={50}
                                 step={1.4}
                                 min={8}
                                 onValueChange={(v) =>
@@ -251,7 +251,7 @@ export default function AdditinalDamageMenu({
                     <div className="flex justify-between py-5">
                         <Slider
                             value={[data.SLPlusValue || 0.01]}
-                            max={0.15}
+                            max={0.20}
                             step={0.01}
                             min={0.01}
                             onValueChange={(v) =>
