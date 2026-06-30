@@ -331,7 +331,7 @@ export default function BaseDamageMenu({ data, setBuild }: BaseDamageProps) {
                 <div className="flex justify-between">
                     <Slider
                         value={[data.damageDNBonus]}
-                        max={13.4}
+                        max={14.66}
                         step={0.01}
                         min={1}
                         onValueChange={(val) =>
