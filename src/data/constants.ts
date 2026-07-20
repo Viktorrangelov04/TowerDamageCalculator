@@ -37,7 +37,7 @@ export const DC_STATS = [1, 5, 10, 15, 20];
 export const PF_STATS = [0, 0.125, 0.25, 0.5, 1];
 
 export const UW_CRIT_STATS = [0, 1, 1.33, 1.66, 2, 2.33, 2.66, 3]
-export const UW_CRIT_MASTERY_STATS = [0.3, 0.7, 1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3 ]
+export const UW_CRIT_MASTERY_STATS = [0.33, 0.67, 1, 1.33, 1.67, 2, 2.33, 2.67, 3, 3.33 ]
 
 export const SUBSTAT_RARITIES = [
     "None",

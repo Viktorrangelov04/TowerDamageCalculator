@@ -15,7 +15,7 @@ const DisclaimerBanner = () => {
               <div className="text-sm text-amber-800">
                 <span className="font-bold">App still in development. If you find any issues message @vics80_ in Discord.</span> 
                 There are no upgrade costs just damage comparison from different upgrades. For upgrade costs you can check out 
-                <a href="https://thetower.tools/" className="text-blue-400 hover:underline"> thetower.tools</a>
+                <a href="https://mytower.app" className="text-blue-400 hover:underline"> MyTower.app</a>
                 
               </div>
             </div>
