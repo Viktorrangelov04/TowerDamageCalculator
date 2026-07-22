@@ -18,6 +18,7 @@ import { formatCompactNumber } from "./utils/numberFormatter.ts";
 import { Button } from "./components/ui/button.tsx";
 import TotalDamageCard from "./components/TotalDamageCard.tsx";
 import DisclaimerBanner from "./components/DisclaimerBanner.tsx";
+import BulletMenu from "./components/BulletMenu.tsx";
 
 const CURRENT_VERSION = 1.5;
 
@@ -77,6 +78,23 @@ const DEFAULT_BUILD = {
         UWDNBonus: 1,
 
         relicValue: 0,
+        vaultValue: 0,
+    },
+    as: {
+        labValue: 1,
+        workshopEnhancementValue: 1,
+        cardValue: 0,
+        hasMastery: false,
+        masteryValue: 0,
+        substatValue: 0,
+        assistSubstatValue: 0,
+        relicValue: 0,
+        vaultValue: 0,
+        hasRB: false,
+    },
+    bsc:{
+        substatValue: 0,
+        assistSubstatValue: 0,
         vaultValue: 0,
     },
     dmg: {
@@ -147,7 +165,6 @@ const DEFAULT_BUILD = {
         hasBotBotPlus: false,
         botBotValue: 1.05,
         botBotPlusValue: 1.25,
-
     },
 };
 
@@ -222,11 +239,11 @@ function App() {
         localStorage.removeItem("player_build_comparison");
     };
 
-    const handleReturn = () =>{
-        if(comparisonBuild != null){
-            setBuild({...comparisonBuild})
+    const handleReturn = () => {
+        if (comparisonBuild != null) {
+            setBuild({ ...comparisonBuild });
         }
-    }
+    };
     /////////////////////////////////////////////////////////////
     const totalCC = calculateTotalCrit({
         ...build.cc,
@@ -288,8 +305,6 @@ function App() {
         (1 + (totalCC / 100) * (totalSCC / 100) * totalSCM);
 
     const finalDamage = critMulti * totalUWDamage * totalDamage;
-
-   
 
     //////////////////////////////////////////////////////////////
 
@@ -378,7 +393,7 @@ function App() {
         <div className="max-w-6xl mx-auto p-8">
             <Header />
             <DisclaimerBanner />
-            <div className="w-4/5 mx-auto my-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="w-4/5 mx-auto my-8 grid grid-cols-1 md:grid-cols-5 gap-6">
                 <OverviewCard
                     name="Damage"
                     value={formatCompactNumber(totalDamage)}
@@ -400,6 +415,13 @@ function App() {
                     active={activeTab === "uw"}
                     prefix="x"
                 />
+                <OverviewCard
+                    name="Bullets/s"
+                    value="skill issued"
+                    onClick={() => setActiveTab("bullet")}
+                    active={activeTab === "bullet"}
+                    prefix=""
+                />
                 <TotalDamageCard
                     name="Final damage"
                     value={finalDamage}
@@ -414,12 +436,15 @@ function App() {
                 </Button>
                 {comparisonBuild && (
                     <div>
-                    <Button className="mx-3" onClick={handleClearComparison}>
-                        Close Comparison
-                    </Button>
-                    <Button className="mx-3" onClick={handleReturn}>
-                        Undo Changes
-                    </Button>
+                        <Button
+                            className="mx-3"
+                            onClick={handleClearComparison}
+                        >
+                            Close Comparison
+                        </Button>
+                        <Button className="mx-3" onClick={handleReturn}>
+                            Undo Changes
+                        </Button>
                     </div>
                 )}
             </div>
@@ -454,6 +479,9 @@ function App() {
                         coreSubstatEfficiency={build.coreSubstatEfficiency}
                         setCoreSubstatEfficiency={setCoreSubstatEfficiency}
                     />
+                )}
+                {activeTab === "bullet" && (
+                    <BulletMenu build={build} setBuild={setBuild} />
                 )}
             </div>
         </div>

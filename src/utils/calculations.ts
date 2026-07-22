@@ -1,4 +1,6 @@
 import type {
+    ASBuild,
+    BSCBuild,
     CCBuild,
     CFBuild,
     DMGBuild,
@@ -33,11 +35,17 @@ import {
     UW_CRIT_STATS,
     UW_CRIT_MASTERY_STATS,
     SL_SUBS,
+    AS_MASTERY,
+    AS_CARD,
+    ATTACK_SPEED_SUBS,
+    BSC_SUBS,
+    BSC_VAULT,
 } from "@/data/constants";
 
 // import * as Stats from "@/data/moduleMainStats";
 import { RARITY_DATA_MAP } from "@/components/UWMenu";
 import { CANNON_RARITY_DATA_MAP } from "@/components/BaseDamageMenu";
+import { Vault } from "lucide-react";
 
 export interface CritInputs extends CCBuild {
     hasMastery: boolean;
@@ -151,6 +159,37 @@ export const calculateTotalSuperCritMulti = (
     return total;
 };
 
+export interface ASInputs extends ASBuild {
+    hasAssist: boolean;
+    efficiency: number;
+}
+
+export const CalculateTotalAS = (inputs: ASInputs) :number =>{
+    const relicValue = 1+inputs.relicValue/100
+    const vaultValue = 1+inputs.vaultValue/100
+
+    const effectiveAssist = inputs.hasAssist ? ATTACK_SPEED_SUBS[inputs.assistSubstatValue] * (inputs.efficiency/100) : 0;
+
+    const effectiveMastery = inputs.hasMastery ? AS_MASTERY[inputs.masteryValue] : 1;
+
+    const total = (5.95 * inputs.labValue * AS_CARD[inputs.cardValue] + ATTACK_SPEED_SUBS[inputs.substatValue] + effectiveAssist) * inputs.workshopEnhancementValue * relicValue * vaultValue * effectiveMastery;
+    return  total;
+}
+
+export interface BSCInputs extends BSCBuild {
+    hasAssist: boolean;
+    efficiency: number;
+}
+
+export const CalculateTotalBSC = (inputs: BSCInputs) :number =>{
+    const substatValue = BSC_SUBS[inputs.substatValue]
+    const assistSubstatValue = inputs.hasAssist ? BSC_SUBS[inputs.assistSubstatValue] * (inputs.efficiency / 100) : 0
+    const vaultValue = 1+BSC_VAULT[inputs.vaultValue]/100
+
+    const totalBSC = (68 + substatValue + assistSubstatValue)* vaultValue;
+    return totalBSC;
+}
+
 export interface UWDamageInputs extends UWBuild {
     coreSubstatEfficiency: number;
 }
@@ -235,7 +274,6 @@ export const calculateBaseDamage = (inputs: DMGBuild): number => {
     }
     const PFValue = 1 + Math.log10(cashValue) * PF_STATS[inputs.PFValue];
 
-    console.log("Pf bonus = " + PFValue)
     const effectiveZerk =
         inputs.hasBerserker && inputs.hasBerserkerMastery
             ? 500

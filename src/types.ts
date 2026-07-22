@@ -32,6 +32,26 @@ export interface SCMBuild {
     vaultValue: number;
 }
 
+export interface ASBuild {
+    labValue: number;
+    workshopEnhancementValue: number;
+    cardValue: number;
+    hasMastery: boolean;
+    masteryValue: number;
+    substatValue: number;
+    assistSubstatValue: number;
+    relicValue: number;
+    vaultValue: number;
+    hasRB: boolean;
+
+}
+
+export interface BSCBuild {
+    substatValue: number;
+    assistSubstatValue: number;
+    vaultValue: number;
+}
+
 export interface UWBuild {
     CLLvl: number;
     substatValue: number;
@@ -137,4 +157,6 @@ export interface PlayerBuild {
     scm: SCMBuild;
     uw: UWBuild;
     dmg: DMGBuild;
+    as: ASBuild;
+    bsc: BSCBuild;
 }
