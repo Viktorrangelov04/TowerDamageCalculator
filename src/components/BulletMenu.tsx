@@ -2,8 +2,11 @@ import type { PlayerBuild } from "@/types";
 import { useState } from "react";
 import OverviewCard from "./OverviewCard";
 import ASInput from "./bullets/ASInput";
-import { CalculateTotalAS, CalculateTotalBSC } from "@/utils/calculations";
+import { CalculateTotalAS, CalculateTotalBSC, CalculateTotalBST, CalculateTotalMSC, CalculateTotalMST } from "@/utils/calculations";
 import BSCInput from "./bullets/BSCInput";
+import MSCInput from "./bullets/MSCInput";
+import MSTInput from "./bullets/MSTInput";
+import BSTInput from "./bullets/BSTInput";
 
 interface BulletMenuProps {
     build: any;
@@ -34,13 +37,16 @@ export default function RangeMenu({ build, setBuild }: BulletMenuProps) {
 
     const totals = {
         as: CalculateTotalAS({...build.as, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency}),
-        bsc: CalculateTotalBSC({...build.bsc, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency})
+        bsc: CalculateTotalBSC({...build.bsc, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency}),
+        msc: CalculateTotalMSC({...build.msc, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency}),
+        mst: CalculateTotalMST({...build.mst, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency}),
+        bst: CalculateTotalBST({...build.bst, hasAssist: build.hasAssist, efficiency: build.assistSubstatEfficiency}),
     }
 
     return (
         <div>
             <h1>Bullet Configuration</h1>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
                 <OverviewCard
                     name="Attack Speed"
                     value={totals.as.toFixed(2)}
@@ -57,16 +63,23 @@ export default function RangeMenu({ build, setBuild }: BulletMenuProps) {
 
                 <OverviewCard
                     name="Multishot Chance"
-                    value={"49.5%"}
+                    value={`${totals.msc.toFixed(2)}%`}
                     active={selectedSubStat === "MSC"}
                     onClick={() => setSelectedSubStat("MSC")}
                 />
 
                 <OverviewCard
                     name="Multishot Targets"
-                    value={"13"}
+                    value={totals.mst.toFixed()}
                     active={selectedSubStat === "MST"}
                     onClick={() => setSelectedSubStat("MST")}
+                />
+
+                <OverviewCard
+                    name="Bounce Shot Targets"
+                    value={totals.bst.toFixed()}
+                    active={selectedSubStat === "BST"}
+                    onClick={() => setSelectedSubStat("BST")}
                 />
             </div>
 
@@ -86,6 +99,39 @@ export default function RangeMenu({ build, setBuild }: BulletMenuProps) {
                     <BSCInput
                         data={build.bsc}
                         onUpdateField={(f: string, v: any) => updateField("bsc", f, v)}
+                        hasAssist={build.hasAssist}
+                        setHasAssist={setHasAssist}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
+                        setAssistSubstatEfficiency={setAssistSubstatEfficiency}
+                    />
+                )}
+
+                {selectedSubStat === "MSC" && (
+                    <MSCInput
+                        data={build.msc}
+                        onUpdateField={(f: string, v: any) => updateField("msc", f, v)}
+                        hasAssist={build.hasAssist}
+                        setHasAssist={setHasAssist}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
+                        setAssistSubstatEfficiency={setAssistSubstatEfficiency}
+                    />
+                )}
+
+                {selectedSubStat === "MST" && (
+                    <MSTInput
+                        data={build.mst}
+                        onUpdateField={(f: string, v: any) => updateField("mst", f, v)}
+                        hasAssist={build.hasAssist}
+                        setHasAssist={setHasAssist}
+                        assistSubstatEfficiency={build.assistSubstatEfficiency}
+                        setAssistSubstatEfficiency={setAssistSubstatEfficiency}
+                    />
+                )}
+
+                {selectedSubStat === "BST" && (
+                    <BSTInput
+                        data={build.bst}
+                        onUpdateField={(f: string, v: any) => updateField("bst", f, v)}
                         hasAssist={build.hasAssist}
                         setHasAssist={setHasAssist}
                         assistSubstatEfficiency={build.assistSubstatEfficiency}

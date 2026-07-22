@@ -97,6 +97,20 @@ const DEFAULT_BUILD = {
         assistSubstatValue: 0,
         vaultValue: 0,
     },
+    msc:{
+        substatValue: 0,
+        assistSubstatValue: 0,
+        vaultValue: 0,
+    },
+    mst:{
+        substatValue: 0,
+        assistSubstatValue: 0,
+    },
+    bst:{
+        substatValue: 0,
+        assistSubstatValue: 0,
+        perkValue: 0,
+    },
     dmg: {
         labValue: 1,
         workshopEnhancementValue: 1,

@@ -33,7 +33,7 @@ export default function ASInput({
 }: ASInputProps) {
     return (
         <div className="space-y-10">
-            <h1>asd</h1>
+            <h1>Attack Speed Sources</h1>
 
             <section className="py-4">
                 <div className="flex justify-between">
@@ -161,6 +161,17 @@ export default function ASInput({
                     </div>
                 )}
             </section>
+
+             <div className="flex justify-between">
+                    <div className="flex gap-2 items-center">
+                        <p>Restorative Bonus Activation</p>
+                        <Switch
+                            checked={data.hasRB}
+                            onCheckedChange={(v) => onUpdateField("hasRB", v)}
+                        />
+                    </div>
+                    {data.hasRB && <span>x1.5</span>}
+                </div>
 
             {/* Relics */}
             <section className="space-y-2">

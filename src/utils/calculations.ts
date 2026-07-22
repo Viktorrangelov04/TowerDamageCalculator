@@ -1,9 +1,12 @@
 import type {
     ASBuild,
     BSCBuild,
+    BSTBuild,
     CCBuild,
     CFBuild,
     DMGBuild,
+    MSCBuild,
+    MSTBuild,
     SCCBuild,
     SCMBuild,
     UWBuild,
@@ -40,12 +43,14 @@ import {
     ATTACK_SPEED_SUBS,
     BSC_SUBS,
     BSC_VAULT,
+    MSC_SUBS,
+    MSC_VAULT,
+    MST_SUBS,
+    BST_SUBS,
+    BST_PERKS,
 } from "@/data/constants";
-
-// import * as Stats from "@/data/moduleMainStats";
 import { RARITY_DATA_MAP } from "@/components/UWMenu";
 import { CANNON_RARITY_DATA_MAP } from "@/components/BaseDamageMenu";
-import { Vault } from "lucide-react";
 
 export interface CritInputs extends CCBuild {
     hasMastery: boolean;
@@ -171,8 +176,9 @@ export const CalculateTotalAS = (inputs: ASInputs) :number =>{
     const effectiveAssist = inputs.hasAssist ? ATTACK_SPEED_SUBS[inputs.assistSubstatValue] * (inputs.efficiency/100) : 0;
 
     const effectiveMastery = inputs.hasMastery ? AS_MASTERY[inputs.masteryValue] : 1;
+    const effectiveRB = inputs.hasRB ? 1.5 : 1;
 
-    const total = (5.95 * inputs.labValue * AS_CARD[inputs.cardValue] + ATTACK_SPEED_SUBS[inputs.substatValue] + effectiveAssist) * inputs.workshopEnhancementValue * relicValue * vaultValue * effectiveMastery;
+    const total = (5.95 * inputs.labValue * AS_CARD[inputs.cardValue] + ATTACK_SPEED_SUBS[inputs.substatValue] + effectiveAssist) * inputs.workshopEnhancementValue * relicValue * vaultValue * effectiveMastery * effectiveRB;
     return  total;
 }
 
@@ -189,6 +195,48 @@ export const CalculateTotalBSC = (inputs: BSCInputs) :number =>{
     const totalBSC = (68 + substatValue + assistSubstatValue)* vaultValue;
     return totalBSC;
 }
+
+export interface MSCInputs extends MSCBuild {
+    hasAssist: boolean;
+    efficiency: number;
+}
+
+export const CalculateTotalMSC = (inputs: MSCInputs) :number =>{
+    const substatValue = MSC_SUBS[inputs.substatValue]
+    const assistSubstatValue = inputs.hasAssist ? MSC_SUBS[inputs.assistSubstatValue] * (inputs.efficiency / 100) : 0
+    const vaultValue = 1+MSC_VAULT[inputs.vaultValue]/100
+
+    const totalMSC = (49.5 + substatValue + assistSubstatValue)* vaultValue;
+    return totalMSC;
+}
+
+export interface MSTInputs extends MSTBuild {
+    hasAssist: boolean;
+    efficiency: number;
+}
+
+export const CalculateTotalMST = (inputs: MSTInputs) :number =>{
+    const substatValue = MST_SUBS[inputs.substatValue]
+    const assistSubstatValue = inputs.hasAssist ? Math.floor(MST_SUBS[inputs.assistSubstatValue] * (inputs.efficiency / 100)) : 0
+
+    const totalMSC = 9 + substatValue + assistSubstatValue;
+    return totalMSC;
+}
+
+export interface BSTInputs extends BSTBuild {
+    hasAssist: boolean;
+    efficiency: number;
+}
+
+export const CalculateTotalBST = (inputs: BSTInputs) :number =>{
+    const substatValue = BST_SUBS[inputs.substatValue]
+    const assistSubstatValue = inputs.hasAssist ? Math.floor(BST_SUBS[inputs.assistSubstatValue] * (inputs.efficiency / 100)) : 0
+    const perkValue = BST_PERKS[inputs.perkValue]
+
+    const totalMST = 8 + substatValue + assistSubstatValue + perkValue;
+    return totalMST;
+}
+
 
 export interface UWDamageInputs extends UWBuild {
     coreSubstatEfficiency: number;
@@ -475,7 +523,6 @@ export const calculateTotalDamageMulti = (
     return total;
 };
 
-// export interface DamageInputs extends DMGBuild {
 //     hasSL: boolean;
 //     hasAssist: boolean;
 //     assistSubstatEfficiency: number;

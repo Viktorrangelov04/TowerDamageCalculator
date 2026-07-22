@@ -28,8 +28,17 @@ export const ATTACK_SPEED_SUBS = [0, 0.3, 0.5, 0.7, 1, 3, 5]
 export const BSC_SUBS = [0, 0, 2, 3, 5, 9, 12]
 export const BSC_VAULT = [0, 4, 8, 12]
 
+export const MSC_SUBS = [0, 0, 3, 5, 7, 10, 13]
+export const MSC_VAULT = [0, 4, 8, 12]
+
+export const MST_SUBS = [0, 0, 0, 1, 2, 3, 4]
+
+export const BST_SUBS = [0, 0, 0, 1, 2, 3, 4]
+export const BST_PERKS = [0, 2, 4, 6]
+
 export const CL_SUBS = [0, 8, 15, 25, 50, 100, 250];
-export const SL_SUBS = [0, 1.2, 2.5, 3.5, 10, 15, 20]
+export const SL_SUBS = [0, 1.2, 2.5, 3.5, 10, 15, 20];
+
 
 export const DAMAGE_CARD_STATS = [1, 1.5, 2, 2.4, 2.8, 3.2, 3.6, 4];
 export const DAMAGE_MASTERY_STATS = [

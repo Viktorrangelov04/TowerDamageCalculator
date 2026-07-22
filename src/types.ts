@@ -52,6 +52,23 @@ export interface BSCBuild {
     vaultValue: number;
 }
 
+export interface MSCBuild {
+    substatValue: number;
+    assistSubstatValue: number;
+    vaultValue: number;
+}
+
+export interface MSTBuild {
+    substatValue: number;
+    assistSubstatValue: number;
+}
+
+export interface BSTBuild {
+    substatValue: number;
+    assistSubstatValue: number;
+    perkValue: number;
+}
+
 export interface UWBuild {
     CLLvl: number;
     substatValue: number;
@@ -159,4 +176,7 @@ export interface PlayerBuild {
     dmg: DMGBuild;
     as: ASBuild;
     bsc: BSCBuild;
+    msc: MSCBuild;
+    mst: MSTBuild;
+    bst: BSTBuild;
 }

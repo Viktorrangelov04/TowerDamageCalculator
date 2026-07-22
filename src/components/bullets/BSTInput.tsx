@@ -1,44 +1,43 @@
-import { BSC_SUBS, BSC_VAULT, SUBSTAT_RARITIES } from "@/data/constants";
-import type { BSCBuild } from "@/types";
+import { BST_PERKS, BST_SUBS, SUBSTAT_RARITIES } from "@/data/constants";
+import type { BSTBuild} from "@/types";
 import SubstatPicker from "../SubstatPicker";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import { Slider } from "../ui/slider";
 import LevelPicker from "../LevelPicker";
 
-interface BSCInputProps {
-    data: BSCBuild;
+interface BSTInputProps {
+    data: BSTBuild;
     hasAssist: boolean;
     assistSubstatEfficiency: number;
 
-    onUpdateField: (field: keyof BSCBuild, value: any) => void;
+    onUpdateField: (field: keyof BSTBuild, value: any) => void;
     setHasAssist: (val: boolean) => void;
     setAssistSubstatEfficiency: (val: number) => void;
 }
 
-export default function BSCInput({
+export default function BSTInput({
     data,
     hasAssist,
     assistSubstatEfficiency,
     onUpdateField,
     setHasAssist,
     setAssistSubstatEfficiency,
-}: BSCInputProps) {
+}: BSTInputProps) {
     return (
         <div>
-            <h1>Bounce Shot Chance sources</h1>
-
+            <h1>Bounce Shot Target Sources</h1>
             <section className="py-4">
                 <div className="flex justify-between">
                     <h3>Workshop</h3>
-                    <span className="text-sm font-bold text-primary">68%</span>
+                    <span className="text-sm font-bold text-primary">8</span>
                 </div>
             </section>
 
             <section className="space-y-4">
                 <SubstatPicker
                     label="Main sub"
-                    levels={BSC_SUBS}
+                    levels={BST_SUBS}
                     currentLevel={data.substatValue}
                     efficiency={100}
                     onChange={(val) => onUpdateField("substatValue", val)}
@@ -71,13 +70,14 @@ export default function BSCInput({
                         />
                         <SubstatPicker
                             label="Assist sub"
-                            levels={BSC_SUBS}
+                            levels={BST_SUBS}
                             currentLevel={data.assistSubstatValue}
                             efficiency={assistSubstatEfficiency}
                             onChange={(val) =>
                                 onUpdateField("assistSubstatValue", val)
                             }
                             rarities={SUBSTAT_RARITIES}
+                            unit=""
                         />
                     </div>
                 )}
@@ -85,10 +85,10 @@ export default function BSCInput({
 
             <section>
                 <LevelPicker
-                    label="Vault"
-                    levels={BSC_VAULT}
-                    currentLevel={data.vaultValue}
-                    onChange={(val) => onUpdateField("vaultValue", val)}
+                    label="Bounce Shot Target Perk count"
+                    levels={BST_PERKS}
+                    currentLevel={data.perkValue}
+                    onChange={(val) => onUpdateField("perkValue", val)}
                 />
             </section>
         </div>
